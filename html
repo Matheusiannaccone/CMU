@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de Média - Facens</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="images/logo.PNG" alt="Logo CMU" width="200">
+      <h1>Calculadora de Média Universitária - Facens</h1>
+    </header>
+
+    <div class="ad-banner-top">Espaço para anúncio topo</div>
+
+    <div class="content-wrapper">
+      <main class="main-content">
+        <form id="formNotas" action="#" method="post">
+
+          <div id="materiasContainer">
+            <div class="materia visible" id="materia1">
+              <h2>Matéria 1</h2>
+              <input type="text" name="materia1_nome" placeholder="Nome da matéria" required>
+
+              <div class="notas">
+                <input type="number" name="materia1_nota1" placeholder="AC1" min="0" max="10" oninput="calcularMedia(this)" required>
+                <input type="number" name="materia1_nota2" placeholder="AC2" min="0" max="10" oninput="calcularMedia(this)" required>
+                <input type="number" name="materia1_nota3" placeholder="AF" min="0" max="10" oninput="calcularMedia(this)" required>
+                <input type="number" name="materia1_nota4" placeholder="AG" min="0" max="10" oninput="calcularMedia(this)" required>
+                <input type="number" name="materia1_nota5" placeholder="AS" min="0" max="10" oninput="calcularMedia(this)">
+                <input type="text" name="materia1_media" class="media" placeholder="Média" readonly>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" onclick="adicionarMateria()">Adicionar matéria</button>
+          <button type="button" onclick="removerMateria()">Remover matéria</button>
+          <!-- <button type="submit">Salvar notas</button> -->
+
+          <p id="msg"></p>
+        </form>
+
+        <h2>Média Geral</h2>
+        <p id="mediaGeral" style="font-size: 22px;">-</p>
+      </main>
+
+      <aside class="ad-banner-side">Espaço para anúncio lateral</aside>
+    </div>
+
+    <footer>
+      &copy; 2025 Calculadora de Média - Todos os direitos reservados
+    </footer>
+  </div>
+
+  <div id="popupAd">
+    <span class="fechar" onclick="fecharPopup()">×</span>
+    Espaço para anúncio no mobile
+  </div>
+
+</body>
+</html>
