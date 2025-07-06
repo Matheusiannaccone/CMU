@@ -1,0 +1,230 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --cor-primaria: #4B0082;
+  --cor-primaria-clara: #6a0dad;
+  --cor-fundo: #f4f0f8;
+  --cor-texto: #2d003d;
+  --cor-borda: #a674c2;
+  --cor-input: #e8dff1;
+}
+
+body {
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(75, 0, 130, 0.1);
+  padding: 20px 40px 40px 40px;
+  position: relative;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-weight: 700;
+  color: var(--cor-primaria);
+  font-size: 2.4rem;
+  letter-spacing: 1.2px;
+}
+
+.ad-banner-top,
+.ad-banner-side {
+  background-color: var(--cor-input);
+  border: 2px dashed var(--cor-borda);
+  color: var(--cor-primaria);
+  font-style: italic;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad-banner-top {
+  width: 100%;
+  height: 90px;
+  margin-bottom: 25px;
+}
+
+.ad-banner-side {
+  width: 200px;
+  height: 600px;
+  border-radius: 8px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.main-content {
+  flex: 1;
+}
+
+form {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 6px;
+  border: 1px solid var(--cor-borda);
+}
+
+.materia {
+  border-bottom: 1px solid var(--cor-borda);
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+
+.materia:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.materia h2 {
+  font-size: 1.3rem;
+  color: var(--cor-primaria-clara);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.notas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.notas input {
+  width: 60px;
+  padding: 6px 8px;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+  background-color: var(--cor-input);
+  color: var(--cor-texto);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--cor-primaria-clara);
+}
+
+.media {
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: var(--cor-primaria-clara);
+}
+
+img {
+  float: left;
+  margin-right: 10px;
+}
+
+/* Esconde o banner lateral no mobile */
+@media (max-width: 768px) {
+  .ad-banner-side {
+    display: none;
+  }
+
+  #popupAd {
+    display: block;
+  }
+}
+
+/* Pop-up flutuante */
+#popupAd {
+  display: none; /* visível só no mobile */
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: #f0e6f6;
+  color: #4B0082;
+  border: 2px solid #a674c2;
+  padding: 15px;
+  border-radius: 10px;
+  font-style: italic;
+  font-size: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Botão de fechar pop-up */
+#popupAd .fechar {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
+  color: #4B0082;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .ad-banner-side {
+    display: none;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  .notas {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .notas input {
+    width: 48%;
+    min-width: 100px;
+  }
+}
