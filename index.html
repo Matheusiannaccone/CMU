@@ -3,94 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora de Média - Facens</title>
+  <title>Calculadoras Universitárias</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5609209374063879"
      crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="images/logo.png" alt="Logo CMU" width="200">
-      <h1>Calculadora de Média Universitária - Facens</h1>
-    </header>
-
-    <div class="ad-banner-top"> 
-      <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-5609209374063879"
-        data-ad-slot="1413603069"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div class="barra-login">
+        <button onclick="abrirLogin()">Fazer login</button>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
     </div>
 
-    <div class="content-wrapper">
-      <main class="main-content">
-        <form id="formNotas" action="#" method="post">
+    <div class="espaco"></div>
 
-          <div id="materiasContainer">
-            <div class="materia visible" id="materia1">
-              <h2>Matéria 1</h2>
-              <input type="text" name="materia1_nome" placeholder="Nome da matéria" required>
+    <div class="container">
+        <header>
+            <img src="images/logo.png" alt="Logo CMU" width="200" loading="lazy">
+            <h1>Calculadora de Média Universitária</h1>
+        </header>
 
-              <div class="notas">
-                <input type="number" name="materia1_nota1" placeholder="AC1" min="0" max="10" oninput="calcularMedia(this)" required>
-                <input type="number" name="materia1_nota2" placeholder="AC2" min="0" max="10" oninput="calcularMedia(this)" required>
-                <input type="number" name="materia1_nota3" placeholder="AF" min="0" max="10" oninput="calcularMedia(this)" required>
-                <input type="number" name="materia1_nota4" placeholder="AG" min="0" max="10" oninput="calcularMedia(this)" required>
-                <input type="number" name="materia1_nota5" placeholder="AS" min="0" max="10" oninput="calcularMedia(this)">
-                <input type="text" name="materia1_media" class="media" placeholder="Média" readonly>
-              </div>
+        <div class="ad-banner-top">Espaço para anúncio topo
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5609209374063879"
+                data-ad-slot="1413603069"
+                data-ad-format="auto"
+                data-full-width-responsive="true">
+            </ins>
+        </div>
+
+        <div class="content-wrapper">
+            <main class="main-content" style="text-align: center;">
+                <h1>Escolha sua universidade</h1><br>
+                <button class="btn-uni" onclick="irPara('facens')">Facens</button><br>
+                <button class="btn-uni" onclick="irPara('usp')">USP</button><br>
+                <button class="btn-uni" onclick="irPara('unicamp')">Unicamp</button><br>
+                <button class="btn-uni" onclick="irPara('ufscar')">UFSCar</button><br>
+            </main>
+
+            <aside class="ad-banner-side">Espaço para anúncio lateral
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-5609209374063879"
+                    data-ad-slot="1413603069"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                </ins>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="ad-banner-top">Espaço para anúncio no rodapé
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-5609209374063879"
+                    data-ad-slot="1413603069"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true">
+                </ins>
             </div>
-          </div>
-
-          <button type="button" onclick="adicionarMateria()">Adicionar matéria</button>
-          <button type="button" onclick="removerMateria()">Remover matéria</button>
-          <!-- <button type="submit">Salvar notas</button> -->
-
-          <p id="msg"></p>
-        </form>
-
-        <h2>Média Geral</h2>
-        <p id="mediaGeral" style="font-size: 22px;">-</p>
-      </main>
-
-      <aside class="ad-banner-side">
-        <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-5609209374063879"
-        data-ad-slot="1413603069"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-      </aside>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      
+      © 2025 Calculadora de Média - Todos os direitos reservados
+    </footer>
     </div>
 
-    <footer>
-      <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-5609209374063879"
-        data-ad-slot="1413603069"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-      
-      &copy; 2025 Calculadora de Média - Todos os direitos reservados
-    </footer>
-  </div>
+    <div id="popupAd">
+        <span class="fechar" id="fecharPopupBtn">×</span>
+        Espaço para anúncio no mobile
+    </div>
 
-  <div id="popupAd">
-    <span class="fechar" onclick="fecharPopup()">×</span>
-    Espaço para anúncio no mobile
-  </div>
-
+  <script> 
+    /* 
+    Desenvolvido por Matheus e Cesar; 2 Semestre Facens; Engenharia Da Computação   
+    */
+  </script>
 </body>
 </html>
