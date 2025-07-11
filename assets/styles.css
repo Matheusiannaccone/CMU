@@ -113,18 +113,6 @@ body.dark-mode .theme-toggle .moon-icon {
     display: inline;
 }
 
-.ad-banner-top,
-.ad-banner-side {
-    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
-    border: 2px dashed var(--cor-borda);
-    color: var(--cor-primaria);
-    font-style: italic;
-    font-size: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-}
 
 body.dark-mode .ad-banner-top,
 body.dark-mode .ad-banner-side {
@@ -335,7 +323,7 @@ body.dark-mode .btn-uni {
 .btn-uni:hover {
     background: var(--cor-primaria-clara);
 }
-
+    
 body.dark-mode .btn-uni:hover {
     background: var(--cor-primaria);
 }
