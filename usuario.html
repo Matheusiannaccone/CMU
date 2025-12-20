@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Usuário - Calculadora de Média</title>
+  <link rel="stylesheet" href="styles/styles.css"/> 
+  <link rel="stylesheet" href="styles/usuario.css"/>
+</head>
+<body>
+
+<div class="barra-login">
+  <span id="usuarioNome">Carregando...</span>
+  <button id="logoutBtn">Logout</button>
+  <a href="index.html"><button id="loginBtn">Inicio</button></a>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span class="sun-icon">☀️</span>
+    <span class="moon-icon">🌙</span>
+  </button>
+</div>
+
+<div class="espaco"></div>
+
+<div class="container">
+  <header>
+    <img src="images/logo.png" alt="Logo CMU" width="200">
+    <h1>Perfil do Usuário</h1>
+  </header>
+
+  <div class="content-wrapper">
+    <main class="main-content">
+      <p>Bem-vindo(a), <span id="usuarioNomeInfo"></span>!</p>
+      <p>Aqui você pode visualizar e editar as informações do seu perfil.   .
+      <form id="userForm">
+        <ul class="user-info">
+            <li>
+            <label for="nomeUsuario">Nome:</label>
+            <input type="text" id="nomeUsuario" required>
+            </li>
+            <li>
+            <label for="sobrenomeUsuario">Sobrenome:</label>
+            <input type="text" id="sobrenomeUsuario" required>
+            </li>
+            <li>
+            <label for="emailUsuario">Email:</label>
+            <input type="email" id="emailUsuario" required>
+            </li>
+            <li>
+            <label for="cursoUsuario">Curso:</label>
+            <input type="text" id="cursoUsuario">
+            </li>
+            <li>
+            <label for="tipoUsuario">Tipo:</label>
+            <input type="text" id="tipoUsuario" readonly>
+            </li>
+        </ul>
+        <button type="submit">Salvar alterações</button>
+      </form>
+    </main>
+  </div>
+
+  <footer>
+    &copy; 2025 Calculadora de Média - Todos os direitos reservados
+  </footer>
+</div>
+
+<script type="module" src="js/usuario.js"></script>
+<script type="module" src="js/theme.js"></script>
+</body>
+</html>

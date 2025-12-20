@@ -1,0 +1,115 @@
+/* Container principal */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.1);
+    padding: 20px 40px 40px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .container {
+    background: #3c0061;
+}
+
+/* Header */
+header h1 {
+    font-weight: 700;
+    color: var(--cor-primaria);
+    font-size: 2.4rem;
+    letter-spacing: 1.2px;
+    text-align: center;
+}
+
+body.dark-mode header h1 {
+    color: var(--cor-texto-escuro);
+}
+
+/* Lista de informações do usuário */
+.user-info {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.user-info label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode .user-info label {
+    color: var(--cor-texto-escuro);
+}
+
+.user-info input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--cor-borda);
+    margin-bottom: 20px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    color: var(--cor-texto);
+    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+body.dark-mode .user-info input {
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    border: 1px solid var(--cor-borda-escura);
+    color: var(--cor-texto-escuro);
+}
+
+/* Botão salvar */
+.user-info button,
+#userForm button {
+    background: var(--cor-primaria);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .user-info button,
+body.dark-mode #userForm button {
+    background: var(--cor-primaria-clara);
+}
+
+.user-info button:hover,
+#userForm button:hover {
+    background: var(--cor-primaria-clara);
+}
+
+body.dark-mode .user-info button:hover,
+body.dark-mode #userForm button:hover {
+    background: var(--cor-primaria);
+}
+
+/* Informações do header */
+#usuarioNome,
+#usuarioNomeInfo {
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode #usuarioNome,
+body.dark-mode #usuarioNomeInfo {
+    color: var(--cor-texto-escuro);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 20px 30px;
+    }
+
+    .user-info input {
+        font-size: 0.95rem;
+        padding: 8px;
+    }
+}
