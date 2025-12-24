@@ -113,27 +113,6 @@ body.dark-mode .theme-toggle .moon-icon {
     display: inline;
 }
 
-
-body.dark-mode .ad-banner-top,
-body.dark-mode .ad-banner-side {
-    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
-    border: 2px dashed var(--cor-borda-escura);
-    color: var(--cor-texto-escuro);
-}
-
-.ad-banner-top {
-    width: 100%;
-    height: 90px;
-    margin-bottom: 25px;
-}
-
-.ad-banner-side {
-    width: 200px;
-    height: 600px;
-    position: sticky;
-    top: 20px;
-}
-
 .content-wrapper {
     display: flex;
     gap: 25px;
@@ -391,42 +370,6 @@ img {
     margin-right: 10px;
 }
 
-#popupAd {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #f0e6f6, var(--cor-input));
-    border: 2px solid var(--cor-borda);
-    padding: 15px;
-    color: var(--cor-primaria);
-    border-radius: 10px;
-    font-style: italic;
-    font-size: 1rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-body.dark-mode #popupAd {
-    background: linear-gradient(135deg, #3c0061, var(--cor-input-escuro));
-    border: 2px solid var(--cor-borda-escura);
-    color: var(--cor-texto-escuro);
-}
-
-#popupAd .fechar {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    font-size: 20px;
-    color: var(--cor-primaria);
-    cursor: pointer;
-}
-
-body.dark-mode #popupAd .fechar {
-    color: var(--cor-texto-escuro);
-}
-
 .feedback {
     color: var(--cor-primaria);
     font-size: 0.9rem;
@@ -444,14 +387,6 @@ body.dark-mode .feedback {
 }
 
 @media (max-width: 768px) {
-    .ad-banner-side {
-        display: none;
-    }
-
-    #popupAd {
-        display: block;
-    }
-
     .content-wrapper {
         flex-direction: column;
     }

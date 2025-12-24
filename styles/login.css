@@ -1,6 +1,4 @@
-/* ================================
-   ESTILO BASE DO SITE
-================================ */
+/* ESTILO BASE DO SITE */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -27,28 +25,30 @@ body {
     background: var(--cor-fundo);
     color: var(--cor-texto);
     padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: background .3s, color .3s;
 }
+
 
 body.dark-mode {
     background: var(--cor-fundo-escuro);
     color: var(--cor-texto-escuro);
 }
 
-/* ================================
-   CONTAINER
-================================ */
+/* CONTAINER */
 .auth-container {
+    width: 100%;
     max-width: 380px;
-    margin: 60px auto;
     background: #fff;
     border-radius: 12px;
     padding: 35px 28px;
     box-shadow: 0 4px 12px rgba(75, 0, 130, 0.15);
     border: 1px solid var(--cor-borda);
-    transition: background .3s, border .3s;
-    animation: fadeIn 0.4s ease;
 }
+
 
 @keyframes fadeIn {
     from {
@@ -77,9 +77,7 @@ body.dark-mode .auth-container h2 {
     color: var(--cor-texto-escuro);
 }
 
-/* ================================
-   INPUTS
-================================ */
+/* INPUTS */
 .auth-container input {
     width: 100%;
     padding: 12px;
@@ -87,7 +85,7 @@ body.dark-mode .auth-container h2 {
     border: 1px solid var(--cor-borda);
     background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
     color: var(--cor-texto);
-    font-size: 1rem;
+    font-size: 16px;
     margin-bottom: 15px;
     transition: box-shadow .2s, transform .2s;
 }
@@ -104,9 +102,7 @@ body.dark-mode .auth-container input {
     color: var(--cor-texto-escuro);
 }
 
-/* ================================
-   BOTÕES
-================================ */
+/* BOTÕES */
 .auth-container button {
     width: 100%;
     padding: 13px;
@@ -133,9 +129,7 @@ body.dark-mode .auth-container button:hover {
     background: var(--cor-primaria);
 }
 
-/* ================================
-   LINKS
-================================ */
+/* LINKS */
 .auth-container .link {
     margin-top: 15px;
     text-align: center;
@@ -156,9 +150,7 @@ body.dark-mode .auth-container .link a {
     text-decoration: underline;
 }
 
-/* ================================
-   RESPONSIVIDADE
-================================ */
+/* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .auth-container {
         margin-top: 30px;

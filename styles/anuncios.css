@@ -1,0 +1,74 @@
+/* ANÚNCIOS – CSS EXCLUSIVO */
+
+/* Containers genéricos */
+.ad-banner-top,
+.ad-banner-footer,
+.ad-banner-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* BANNERS TOPO / RODAPÉ */
+.ad-banner-top,
+.ad-banner-footer {
+  width: 100%;
+  min-height: 90px;
+  margin: 24px 0;
+}
+
+/* Garante que iframes não ultrapassem */
+.ad-banner-top iframe,
+.ad-banner-footer iframe {
+  max-width: 100%;
+  border: none;
+}
+
+/* BANNER LATERAL (DESKTOP) */
+.ad-banner-side {
+  width: 200px;
+  min-height: 600px;
+  position: sticky;
+  top: 20px;
+  flex-shrink: 0;
+}
+
+/* LAYOUT PRINCIPAL + LATERAL */
+.content-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  /* Remove anúncio lateral */
+  .ad-banner-side {
+    display: none !important;
+  }
+
+  /* Ajusta banner mobile */
+  .ad-banner-top,
+  .ad-banner-footer {
+    min-height: 50px;
+    margin: 16px 0;
+  }
+
+  .ad-banner-top iframe,
+  .ad-banner-footer iframe {
+    width: 320px !important;
+    height: 50px !important;
+  }
+}
+
+/* PREMIUM */
+body.no-ads .ad-banner-top,
+body.no-ads .ad-banner-footer,
+body.no-ads .ad-banner-side {
+  display: none !important;
+}

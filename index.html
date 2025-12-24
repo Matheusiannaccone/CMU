@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calculadora de Média - Facens</title>
   <link rel="stylesheet" href="styles/styles.css"/>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5609209374063879" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -22,18 +21,7 @@
 
   <div class="container">
 
-      <div class="ad-banner-top">
-      <ins class="adsbygoogle"
-        style="display:block; background-color:rgb(200, 200, 200)"
-        data-ad-client="ca-pub-5609209374063879"
-        data-ad-slot="1413603069"
-        data-ad-format="auto"
-        data-full-width-responsive="true">
-      </ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
+    <div class="ad-banner-top" id="adTop"></div>
 
     <header>
       <img src="images/logo.png" alt="Logo CMU" width="200">
@@ -109,21 +97,14 @@
           </div>
         </div>
       </main>
+
+      <!-- Anúncio lateral -->
+      <aside class="ad-banner-side" id="adSide"></aside>
+
     </div>
 
     <footer>
-     <div class="ad-banner-top">
-        <ins class="adsbygoogle"
-          style="display:block; background-color: rgb(200, 200, 200)"
-          data-ad-client="ca-pub-5609209374063879"
-          data-ad-slot="2004097176"
-          data-ad-format="auto"
-          data-full-width-responsive="true">
-        </ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
+      <div class="ad-banner-footer" id="adFooter"></div>
 
       <!-- Link para a página Sobre -->
       <p class="sobre-link">
@@ -137,6 +118,7 @@
 <script type="module" src="js/index.js"></script>
 <script type="module" src="firestore/salvarNotas.js"></script>
 <script type="module" src="firestore/mediaGlobal.js"></script>
+<script type="module" src="js/anuncios.js"></script>
 
 
 </body>
