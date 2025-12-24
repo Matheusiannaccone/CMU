@@ -34,24 +34,33 @@
       <form id="userForm">
         <ul class="user-info">
             <li>
-            <label for="nomeUsuario">Nome:</label>
-            <input type="text" id="nomeUsuario" required>
+              <label for="nomeUsuario">Nome:</label>
+              <input type="text" id="nomeUsuario" required>
             </li>
             <li>
-            <label for="sobrenomeUsuario">Sobrenome:</label>
-            <input type="text" id="sobrenomeUsuario" required>
+              <label for="sobrenomeUsuario">Sobrenome:</label>
+              <input type="text" id="sobrenomeUsuario" required>
             </li>
             <li>
-            <label for="emailUsuario">Email:</label>
-            <input type="email" id="emailUsuario" required>
+              <label for="emailUsuario">Email:</label>
+              <input type="email" id="emailUsuario" required>
             </li>
             <li>
-            <label for="cursoUsuario">Curso:</label>
-            <input type="text" id="cursoUsuario">
+              <label for="cursoUsuario">Curso:</label>
+              <input type="text" id="cursoUsuario">
             </li>
             <li>
-            <label for="tipoUsuario">Tipo:</label>
-            <input type="text" id="tipoUsuario" readonly>
+              <label for="tipoUsuario">Tipo:</label>
+              <input type="text" id="tipoUsuario" readonly>
+            </li>
+            <li>
+              <label>Vencimento do Premium:</label>
+              <span id="premiumVencimento">-</span>
+            </li>
+            <li>
+              <button type="button" id="virarPremiumBtn" style="margin-top: 10px;">
+                ⭐ Virar Premium
+              </button>
             </li>
         </ul>
         <button type="submit">Salvar alterações</button>

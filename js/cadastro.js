@@ -1,8 +1,8 @@
+// js/cadastro.js
 import { auth, db } from "../firebase/config.js";
 import { 
   createUserWithEmailAndPassword 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-
 import {
   doc,
   setDoc
@@ -20,6 +20,12 @@ registerBtn.addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const senha = document.getElementById("senha").value.trim();
 
+  if (!nome || !sobrenome || !nasc || !curso || !email || !senha) {
+    msg.textContent = "Preencha todos os campos.";
+    msg.style.color = "red";
+    return;
+  }
+  
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
@@ -29,7 +35,7 @@ registerBtn.addEventListener("click", async () => {
       nascimento: nasc,
       curso,
       email,
-      tipo: "padrao",
+      tipoUsuario: "padrao",
     });
 
     msg.textContent = "Cadastro realizado com sucesso!";

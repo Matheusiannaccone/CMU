@@ -1,4 +1,5 @@
 // firestore/salvarNotas.js
+import { verificaPremium, isPremium } from "../js/verificaPremium.js";
 import { auth, db } from "../firebase/config.js";
 import {
   collection,
@@ -13,13 +14,21 @@ const mediaGeralEl = document.getElementById("mediaGeral");
 const salvarBtn = document.getElementById("salvarNotasBtn");
 
 // ---------------- EVENTO ----------------
-salvarBtn.addEventListener("click", salvarNotas);
+if (salvarBtn) {
+  salvarBtn.addEventListener("click", salvarNotas);
+}
 
 // ---------------- FUNÇÃO PRINCIPAL ----------------
 async function salvarNotas() {
   const user = auth.currentUser;
   if (!user) {
-    alert("Usuário não autenticado.");
+    alert("Você precisa estar logado para salvar.");
+    return;
+  }
+
+  const plano = await verificaPremium();
+  if (!isPremium(plano)) {
+    alert("🔒 Apenas usuários Premium podem salvar dados.");
     return;
   }
 
@@ -45,11 +54,6 @@ async function salvarNotas() {
       )?.value;
       return v === "" ? null : Number(v);
     };
-
-    const media =
-      materia.querySelector(
-        `input[name="materia${index}_media"]`
-      )?.value || null;
 
     const materiaRef = doc(
       db,

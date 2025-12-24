@@ -1,4 +1,6 @@
+// firestore/carregarSemestres.js
 // ---------------- FIRESTORE (CDN) ----------------
+import { verificaPremium, isPremium } from "../js/verificaPremium.js";
 import { auth, db } from "../firebase/config.js";
 import {
   collection,
@@ -9,6 +11,7 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+
 // ---------------- ELEMENTOS ----------------
 const semestreSelect = document.getElementById("semestreSelect");
 const materiasContainer = document.getElementById("materiasContainer");
@@ -17,6 +20,9 @@ const materiasContainer = document.getElementById("materiasContainer");
 export async function getSemesters() {
   const user = auth.currentUser;
   if (!user) return [];
+
+  const plano = await verificaPremium();
+  if (!isPremium(plano)) return [];
 
   const semestresRef = collection(db, "usuarios", user.uid, "semestres");
   const q = query(semestresRef, orderBy("nome"));
@@ -33,6 +39,11 @@ export async function getSemesters() {
 export async function addSemester(nome) {
   const user = auth.currentUser;
   if (!user) throw new Error("Usuário não autenticado");
+
+  const plano = await verificaPremium();
+  if (!isPremium(plano)) {
+    throw new Error("Apenas usuários Premium podem criar semestres.");
+  }
 
   const ref = collection(db, "usuarios", user.uid, "semestres");
 
@@ -56,6 +67,12 @@ semestreSelect?.addEventListener("change", async () => {
 async function carregarMaterias(semestreId) {
   const user = auth.currentUser;
   if (!user) return;
+
+  const plano = await verificaPremium();
+  if (!isPremium(plano)) {
+    materiasContainer.innerHTML = "";
+    return;
+  }
 
   try {
     const materiasRef = collection(

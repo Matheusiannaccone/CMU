@@ -30,9 +30,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // 🔹 Conecta aos emuladores se estiver em localhost
-if (location.hostname === "localhost") {
-  connectAuthEmulator(auth, "http://localhost:9099");
-  connectFirestoreEmulator(db, "localhost", 8080);
+const isLocalhost =
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1";
+
+if (isLocalhost) {
+  connectFirestoreEmulator(db, "127.0.0.1", 8080);
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
 }
 
 // 🔹 Exporta tudo para ser usado em outros arquivos

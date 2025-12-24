@@ -1,4 +1,6 @@
+// js/index.js
 // ---------------- FIREBASE (CDN) ----------------
+import { verificaPremium } from "./verificaPremium.js";
 import { auth } from "../firebase/config.js";
 import {
   onAuthStateChanged,
@@ -10,6 +12,7 @@ let currentUser = null;
 let msgTimeout = null;
 
 // ---------------- ELEMENTOS ----------------
+const virarPremiumBtn = document.getElementById("virarPremiumBtn");
 const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn")
 const mediaGeralEl = document.getElementById("mediaGeral");
@@ -20,20 +23,51 @@ const msgEl = document.getElementById("msg");
 const semestreSelect = document.getElementById("semestreSelect");
 
 
-adicionarMateriaBtn.addEventListener("click", adicionarMateria);
-removerMateriaBtn.addEventListener("click", removerMateria);
+if (adicionarMateriaBtn) {
+  adicionarMateriaBtn.addEventListener("click", adicionarMateria);
+}
+if (removerMateriaBtn) {
+  removerMateriaBtn.addEventListener("click", removerMateria);
+}
+
 
 // ---------------- AUTH STATE ----------------
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    setupLoggedUI(user);
-    carregarSemestres();
-  } else {
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    // 🔴 NÃO LOGADO
     currentUser = null;
     setupGuestUI();
+    atualizarUIPremium("padrao");
+    virarPremiumBtn.style.display = "block";
+    return;
+  }
+
+  // 🟢 LOGADO
+  currentUser = user;
+  setupLoggedUI(user);
+
+  const plano = await verificaPremium(); 
+  // "padrao" | "genius" | "genius_plus"
+
+  atualizarUIPremium(plano);
+
+  if (plano === "padrao") {
+    virarPremiumBtn.style.display = "block";
+  } else {
+    virarPremiumBtn.style.display = "none";
+    carregarSemestres(); // ✅ só premium carrega
+  }
+
+  if (plano === "genius_plus") {
+    // acesso antecipado
   }
 });
+
+if (virarPremiumBtn) {
+  virarPremiumBtn.addEventListener("click", () => {
+    window.location.href = "premium.html";
+  });
+}
 
 
 // ---------------- UI STATES ----------------
@@ -63,10 +97,41 @@ function setupGuestUI() {
   signupBtn.parentElement.setAttribute("href", "cadastro.html");
 }
 
+function atualizarUIPremium(plano) {
+  if (!semestreSelect) return;
+
+  semestreSelect.innerHTML = "";
+
+  if (plano === "genius" || plano === "genius_plus") {
+    semestreSelect.disabled = false;
+
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent = "Selecione o semestre";
+    semestreSelect.appendChild(opt);
+
+    const add = document.createElement("option");
+    add.value = "add";
+    add.textContent = "➕ Adicionar semestre";
+    semestreSelect.appendChild(add);
+
+  } else {
+    semestreSelect.disabled = true;
+
+    const opt = document.createElement("option");
+    opt.value = "";
+    opt.textContent =
+      "🔒 Apenas usuários Premium podem criar e acessar semestres";
+    semestreSelect.appendChild(opt);
+  }
+}
+
 
 // ================= CÁLCULO COM PESOS + AS =================
 
-materiasContainer.addEventListener("input", calcularTudo);
+if (materiasContainer) {
+  materiasContainer.addEventListener("input", calcularTudo);
+}
 
 function calcularTudo() {
   const materias = document.querySelectorAll(".materia");
@@ -249,40 +314,41 @@ async function carregarSemestres(selectedId = null) {
   }
 }
 
-semestreSelect.addEventListener("change", async () => {
-  if (semestreSelect.value !== "add") return;
+if(semestreSelect){
+  semestreSelect.addEventListener("change", async () => {
+    if (semestreSelect.value !== "add") return;
 
-  // 🔁 reset imediato para permitir novo clique
-  semestreSelect.value = "";
+    // 🔁 reset imediato para permitir novo clique
+    semestreSelect.value = "";
 
-  if (!auth.currentUser) {
-    mostrarMensagem("Você precisa estar logado.", true);
-    return;
-  }
+    if (!auth.currentUser) {
+      mostrarMensagem("Você precisa estar logado.", true);
+      return;
+    }
 
-  const entrada = prompt(
-    'Digite o semestre no formato aaaa/s (ex: 2025/1):'
-  );
-
-  if (!entrada) return;
-
-  const semestre = entrada.trim();
-  const regex = /^\d{4}\/[12]$/;
-
-  if (!regex.test(semestre)) {
-    mostrarMensagem(
-      'Formato inválido. Use "aaaa/1" ou "aaaa/2".',
-      true
+    const entrada = prompt(
+      'Digite o semestre no formato aaaa/s (ex: 2025/1):'
     );
-    return;
-  }
 
-  try {
-    const id = await addSemester(semestre);
-    await carregarSemestres(id);
-    mostrarMensagem("Semestre adicionado com sucesso.");
-  } catch (err) {
-    console.error(err);
-    mostrarMensagem("Erro ao adicionar semestre.", true);
-  }
-});
+    if (!entrada) return;
+
+    const semestre = entrada.trim();
+    const regex = /^\d{4}\/[12]$/;
+
+    if (!regex.test(semestre)) {
+      mostrarMensagem(
+        'Formato inválido. Use "aaaa/1" ou "aaaa/2".',
+        true
+      );
+      return;
+    }
+
+    try {
+      const id = await addSemester(semestre);
+      await carregarSemestres(id);
+      mostrarMensagem("Semestre adicionado com sucesso.");
+    } catch (err) {
+      mostrarMensagem(err.message || "Erro ao adicionar semestre.", true);
+    }
+  });
+}
