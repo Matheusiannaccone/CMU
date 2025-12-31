@@ -72,7 +72,20 @@
   margin-bottom: 10px;
 }
 
-.btn-plano {
+.opcoes {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+.botoes {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.botoes .btn-plano {
   padding: 12px;
   border: none;
   border-radius: 8px;
@@ -82,12 +95,30 @@
   color: #fff;
 }
 
-.btn-plano.secundario {
+.botoes .btn-plano.gratuito {
   background: #999;
 }
 
-.opcoes {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
+
+.botoes .mensal-equivalente {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+}
+
+.botoes .btn-plano.secundario {
+  background-color: transparent;
+  border: 2px solid #6c63ff;
+  color: #6c63ff;
+}
+
+.botoes .btn-plano.secundario:hover {
+  background-color: #6c63ff;
+  color: #fff;
+}
+
+.botoes .btn-plano.desativado {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

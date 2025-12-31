@@ -11,6 +11,11 @@ import {
   connectFirestoreEmulator 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+import {
+  getFunctions,
+  connectFunctionsEmulator
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+
 // 🔹 Configuração do Firebase
  const firebaseConfig = {
   apiKey: "AIzaSyA3TGpzwNjAz7f3NhBOll8e5gxzPbaM1FM",
@@ -28,16 +33,19 @@ const app = initializeApp(firebaseConfig);
 // 🔹 Inicializa os serviços
 const auth = getAuth(app);
 const db = getFirestore(app);
+const functions = getFunctions(app, "us-central1");
 
 // 🔹 Conecta aos emuladores se estiver em localhost
 const isLocalhost =
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1";
 
+
 if (isLocalhost) {
-  connectFirestoreEmulator(db, "127.0.0.1", 8080);
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectFirestoreEmulator(db, "127.0.0.1", 8080);
+  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
 }
 
 // 🔹 Exporta tudo para ser usado em outros arquivos
-export { app, auth, db };
+export { app, auth, db, functions };

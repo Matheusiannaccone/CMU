@@ -31,24 +31,28 @@
           <li>✔ Calcular médias das matérias</li>
           <li>✔ Simular notas</li>
           <li>✔ Acesso sem cadastro</li>
+          <li>✖ Sem anúncios</li>
           <li>✖ Salvar semestres</li>
           <li>✖ Histórico acadêmico</li>
           <li>✖ Média global</li>
         </ul>
 
-        <button class="btn-plano secundario" disabled>
-          Plano Atual
-        </button>
+        <div class="botoes">
+          <button class="btn-plano gratuito" disabled>
+            Plano Atual
+          </button>
+        </div>
       </div>
 
       <!-- GENIUS -->
       <div class="plano destaque">
         <span class="badge">Mais popular</span>
         <h2>Genius</h2>
-        <p class="preco">R$ 4,90 <span>/ mês</span></p>
+        <p class="preco">R$ 5,90 <span>/ mês</span></p>
 
         <ul class="beneficios">
           <li>✔ Todas as funções do plano gratuito</li>
+          <li>✔ Sem anúncios</li>
           <li>✔ Criar e salvar semestres</li>
           <li>✔ Salvar matérias e notas</li>
           <li>✔ Média geral por semestre</li>
@@ -56,19 +60,27 @@
           <li>✔ Histórico acadêmico completo</li>
         </ul>
 
-        <button class="btn-plano">
-          Tornar-se Genius
-        </button>
+        <div class="botoes">
+          <button class="btn-plano" id="btn-genius-mensal">
+            Tornar-se Genius
+          </button>
 
-        <p class="opcoes">
-          ou R$ 19,90 / semestre (economize)
-        </p>
+          <p>ou</p>
+
+          <button class="btn-plano secundario" id="btn-genius-semestral">
+            Genius Semestral R$ 24,90
+          </button>
+          
+          <p class="mensal-equivalente">
+            Equivalente a <strong>R$ 0,13 / dia</strong>
+          </p>
+        </div>
       </div>
 
       <!-- GENIUS+ -->
       <div class="plano">
         <h2>Genius+</h2>
-        <p class="preco">R$ 9,90 <span>/ mês</span></p>
+        <p class="preco">R$ 10,90 <span>/ mês</span></p>
 
         <ul class="beneficios">
           <li>✔ Tudo do plano Genius</li>
@@ -76,18 +88,28 @@
           <li>🧪 Testar recursos experimentais</li>
           <li>⭐ Prioridade em novidades</li>
         </ul>
+        
+        <div class="botoes">
+          <button class="btn-plano" id="btn-geniusplus-mensal">
+            Tornar-se Genius+
+          </button>
 
-        <button class="btn-plano">
-          Tornar-se Genius+
-        </button>
+          <p>ou</p>
 
-        <p class="opcoes">
-          ou R$ 49,90 / semestre (economize)
-        </p>
+          <button class="btn-plano secundario" id="btn-geniusplus-semestral">
+            Genius+ Semestral R$ 54,90
+          </button>
+          
+          <p class="mensal-equivalente">
+            Equivalente a <strong>R$ 0,30 / dia</strong>
+          </p>
+        </div>
       </div>
 
     </div>
   </div>
+  <script type="module" src="js/premium.js"></script>
+
 
 </body>
 </html>

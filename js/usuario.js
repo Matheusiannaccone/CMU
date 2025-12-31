@@ -2,6 +2,10 @@
 import { auth, db } from "../firebase/config.js";
 import { updateEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+
+const functions = getFunctions();
+const createPortal = httpsCallable(functions, "createStripeCustomerPortal");
 
 // Elementos
 const virarPremiumBtn = document.getElementById("virarPremiumBtn");
@@ -68,10 +72,19 @@ async function carregarDadosUsuario(user) {
 
   // 🔹 CONTROLE PREMIUM
   if (tipo === "genius" || tipo === "genius_plus") {
-    virarPremiumBtn.style.display = "none";
-    vencimentoEl.textContent = formatarData(data.premiumVencimento);
+    virarPremiumBtn.style.display = "inline-block";
+    virarPremiumBtn.textContent = "Gerenciar assinatura";
+    virarPremiumBtn.dataset.action = "manage";
+
+    vencimentoEl.textContent = 
+      data.premiumVencimento
+        ? formatarData(data.premiumVencimento)
+        : "Ativo";
   } else {
     virarPremiumBtn.style.display = "inline-block";
+    virarPremiumBtn.textContent = "Virar Premium";
+    virarPremiumBtn.dataset.action = "premium";
+
     vencimentoEl.textContent = "Plano gratuito";
   }
 }
@@ -125,6 +138,23 @@ userForm.addEventListener("submit", async (e) => {
   }
 });
 
-virarPremiumBtn.addEventListener("click", () => {
-  window.location.href = "premium.html";
+virarPremiumBtn.addEventListener("click", async () => {
+  const action = virarPremiumBtn.dataset.action;
+  if (action === "premium") {
+    window.location.href = "premium.html";
+  } else if (action === "manage") {
+    try{
+      virarPremiumBtn.disabled = true;
+      virarPremiumBtn.textContent = "Abrindo gerenciador...";
+
+      const result = await createPortal();
+      window.location.href = result.data.url;
+    } catch (err) {
+      console.error("Erro ao abrir portal:", err);
+      alert("Não foi possível abrir o gerenciador de assinatura.");
+    } finally {
+      virarPremiumBtn.disabled = false;
+      virarPremiumBtn.textContent = "Gerenciar assinatura";
+    }
+  }
 });
