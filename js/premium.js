@@ -4,10 +4,10 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const PLANS = {
-  "btn-genius-mensal": "price_1SiK971RWBYBUgXZEatnH8eh",
-  "btn-genius-semestral": "price_1SiKoC1RWBYBUgXZaw1nvT39",
-  "btn-geniusplus-mensal": "price_1SiKoz1RWBYBUgXZHyu5cZiB",
-  "btn-geniusplus-semestral": "price_1SiKpL1RWBYBUgXZvNhTQ7zv",
+  "btn-genius-mensal": "price_1SkZQb02lWLdmet21MpNcJaQ",
+  "btn-genius-semestral": "price_1SkZRK02lWLdmet2uTlpWEOc",
+  "btn-geniusplus-mensal": "price_1SkZSv02lWLdmet2A7ll5FSP",
+  "btn-geniusplus-semestral": "price_1SkZSv02lWLdmet2Ienf8R3j",
 };
 
 function desativarBotoes() {
