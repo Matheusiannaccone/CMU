@@ -1,15 +1,13 @@
 // js/cadastro.js
-import { auth, db } from "../firebase/config.js";
-import { 
-  createUserWithEmailAndPassword 
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import {
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { auth, db, functions } from "../firebase/config.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const registerBtn = document.getElementById("registerBtn");
 const msg = document.getElementById("cadastroMessage");
+
+const SITE_KEY = "6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8";
 
 registerBtn.addEventListener("click", async () => {
 
@@ -25,8 +23,18 @@ registerBtn.addEventListener("click", async () => {
     msg.style.color = "red";
     return;
   }
-  
+
+  registerBtn.disable = true;
+
   try {
+    const token = await grecaptcha.execute(SITE_KEY, { 
+      action: 'signup'
+    }); 
+
+    const verifyRecaptcha = httpsCallable(functions, 'verifyRecaptcha');
+
+    await verifyRecaptcha({ token, action: 'signup' });
+  
     const cred = await createUserWithEmailAndPassword(auth, email, senha);
 
     await setDoc(doc(db, "usuarios", cred.user.uid), {
@@ -36,6 +44,7 @@ registerBtn.addEventListener("click", async () => {
       curso,
       email,
       tipoUsuario: "padrao",
+      criado: new Date()
     });
 
     msg.textContent = "Cadastro realizado com sucesso!";
@@ -48,5 +57,7 @@ registerBtn.addEventListener("click", async () => {
   } catch (error) {
     msg.textContent = error.message;
     msg.style.color = "red";
+  } finally {
+    registerBtn.disable = false;
   }
 });

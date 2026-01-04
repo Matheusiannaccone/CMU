@@ -16,6 +16,11 @@ import {
   connectFunctionsEmulator
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
+import {
+  initializeAppCheck,
+  ReCaptchaV3Provider
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
+
 // 🔹 Configuração do Firebase
  const firebaseConfig = {
   apiKey: "AIzaSyA3TGpzwNjAz7f3NhBOll8e5gxzPbaM1FM",
@@ -34,6 +39,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const functions = getFunctions(app, "us-central1");
+const appCheck = initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8'),
+  isTokenAutoRefreshEnabled: true
+});
 
 // 🔹 Conecta aos emuladores se estiver em localhost
 const isLocalhost =
