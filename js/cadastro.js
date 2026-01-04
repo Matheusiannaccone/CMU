@@ -44,14 +44,14 @@ registerBtn.addEventListener("click", async () => {
       curso,
       email,
       tipoUsuario: "padrao",
-      criado: new Date()
+      criadoEm: new Date()
     });
 
     msg.textContent = "Cadastro realizado com sucesso!";
     msg.style.color = "green";
 
     setTimeout(() => {
-      window.location.href = "login.html";
+      window.location.href = "index.html";
     }, 1500);
 
   } catch (error) {

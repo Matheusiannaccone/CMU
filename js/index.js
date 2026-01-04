@@ -2,10 +2,7 @@
 // ---------------- FIREBASE (CDN) ----------------
 import { verificaPremium } from "./verificaPremium.js";
 import { auth } from "../firebase/config.js";
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getSemesters, addSemester } from "../firestore/carregarSemestres.js";
 
 let currentUser = null;
@@ -226,7 +223,7 @@ function getNota(container, name) {
 function adicionarMateria() {
   const materias = materiasContainer.querySelectorAll(".materia");
   
-    if (materias.length >= 8) {
+    if (Number(materias.length) >= 8) {
     mostrarMensagem("Limite máximo de 8 matérias atingido.", true);
     return;
     }

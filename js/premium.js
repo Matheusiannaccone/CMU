@@ -1,7 +1,6 @@
+// js/premium.js
 import { auth, functions } from "../firebase/config.js";
-import {
-  httpsCallable
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const PLANS = {
   "btn-genius-mensal": "price_1SkZQb02lWLdmet21MpNcJaQ",
@@ -48,7 +47,8 @@ async function subscribe(priceId) {
 
   } catch (error) {
     console.error("Erro Stripe:", error);
-    alert(error.message || "Erro ao iniciar pagamento");
+    alert("Não foi possível iniciar o pagamento. Tente novamente.");
+    console.error("Erro Stripe:", error);
 
     reativarBotoes();
   }
