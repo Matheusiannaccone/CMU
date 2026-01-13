@@ -38,7 +38,7 @@ const app = initializeApp(firebaseConfig);
 // 🔹 Inicializa os serviços
 const auth = getAuth(app);
 const db = getFirestore(app);
-const functions = getFunctions(app, "us-central1");
+const functions = getFunctions(app, "southamerica-east1");
 const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider('6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8'),
   isTokenAutoRefreshEnabled: true
