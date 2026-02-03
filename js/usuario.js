@@ -1,11 +1,12 @@
 // js/usuario.js
-import { auth, db } from "../firebase/config.js";
+import { auth, db, functions } from "../firebase/config.js";
 import { updateEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
-const functions = getFunctions();
+// Cloud Functions
 const createPortal = httpsCallable(functions, "createStripeCustomerPortal");
+const gerarCupom = httpsCallable(functions, "generateReferralCoupon");
 
 // Elementos
 const virarPremiumBtn = document.getElementById("virarPremiumBtn");
@@ -19,6 +20,13 @@ const cursoUsuario = document.getElementById("cursoUsuario");
 const tipoUsuario = document.getElementById("tipoUsuario");
 const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
+
+// Cupom de indicação
+const gerarCupomBtn = document.getElementById("gerarCupomBtn");
+const cupomGeradoDiv = document.getElementById("cupomGerado");
+const codigoCupomEl = document.getElementById("codigoCupom");
+const copiarCupomBtn = document.getElementById("copiarCupomBtn");
+
 
 // Função para formatar data
 function formatarData(data) {
@@ -47,6 +55,7 @@ async function carregarDadosUsuario(user) {
 
   const data = userSnap.data();
 
+  // Preenche os campos
   usuarioNomeSpan.textContent = data.nome ?? "";
   usuarioNomeInfo.textContent = data.nome ?? "";
   nomeUsuario.value = data.nome ?? "";
@@ -56,19 +65,11 @@ async function carregarDadosUsuario(user) {
 
   // 🔹 PADRONIZADO
   const tipo =
-  data.tipoUsuario ??
-  data.tipo ??
-  "padrao";
+    data.tipoUsuario ??
+    data.tipo ??
+    "padrao";
 
   tipoUsuario.value = tipo;
-  if (!data.tipoUsuario && data.tipo) {
-    await setDoc(
-      doc(db, "usuarios", user.uid),
-      { tipoUsuario: data.tipo },
-      { merge: true }
-    );
-  }
-
 
   // 🔹 CONTROLE PREMIUM
   if (tipo === "genius" || tipo === "genius_plus") {
@@ -86,6 +87,27 @@ async function carregarDadosUsuario(user) {
     virarPremiumBtn.dataset.action = "premium";
 
     vencimentoEl.textContent = "Plano gratuito";
+  }
+
+  let referralCode = null;
+
+  // 🔹 BUSCA CUPOM DE INDICAÇÃO
+  const cupomQuery = query(
+    collection(db, "cupons"),
+    where("ownerUid", "==", user.uid),
+  );
+
+  const cupomSnap = await getDocs(cupomQuery);
+
+  if (!cupomSnap.empty) {
+    referralCode = cupomSnap.docs[0].data().code;
+  }
+
+  // 🔹 CUPOM DE INDICAÇÃO
+  if (referralCode) {
+    codigoCupomEl.textContent =  referralCode;
+    cupomGeradoDiv.style.display = "block";
+    gerarCupomBtn.style.display = "none";
   }
 }
 
@@ -108,6 +130,7 @@ logoutBtn.addEventListener("click", () => {
 // Salvar alterações
 userForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const user = auth.currentUser;
   if (!user) return;
 
@@ -138,8 +161,10 @@ userForm.addEventListener("submit", async (e) => {
   }
 });
 
+// Botão virar premium / gerenciar assinatura
 virarPremiumBtn.addEventListener("click", async () => {
   const action = virarPremiumBtn.dataset.action;
+
   if (action === "premium") {
     window.location.href = "premium.html";
   } else if (action === "manage") {
@@ -158,3 +183,33 @@ virarPremiumBtn.addEventListener("click", async () => {
     }
   }
 });
+
+// Gerar cupom de indicação
+if (gerarCupomBtn) {
+  gerarCupomBtn.addEventListener("click", async () => {
+    gerarCupomBtn.disabled = true;
+    gerarCupomBtn.textContent = "Gerando...";
+
+    try {
+      const result = await gerarCupom();
+      const { code } = result.data;
+
+      codigoCupomEl.textContent = code;
+      cupomGeradoDiv.style.display = "block";
+      gerarCupomBtn.style.display = "none";
+    } catch (err) {
+      console.error(err);
+      alert("Não foi possível gerar o cupom.");
+    } finally {
+      gerarCupomBtn.disabled = false;
+      gerarCupomBtn.textContent = "Gerar cupom";
+    }
+  });
+}
+if (copiarCupomBtn) {
+  copiarCupomBtn.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(codigoCupomEl.textContent);
+    copiarCupomBtn.textContent = "Copiado!";
+    setTimeout(() => copiarCupomBtn.textContent = "Copiar", 1500);
+  });
+}
