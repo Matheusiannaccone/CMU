@@ -27,6 +27,26 @@ const cupomGeradoDiv = document.getElementById("cupomGerado");
 const codigoCupomEl = document.getElementById("codigoCupom");
 const copiarCupomBtn = document.getElementById("copiarCupomBtn");
 
+const CURSOS = {
+  eng_civil: "Engenharia Civil",
+  eng_computacao: "Engenharia da Computação",
+  eng_eletrica: "Engenharia Elétrica",
+  eng_mecanica: "Engenharia Mecânica",
+  eng_mecatronica: "Engenharia Mecatrônica",
+  eng_producao: "Engenharia de Produção",
+  eng_quimica: "Engenharia Química",
+  eng_agronomica: "Engenharia Agronômica",
+  arq_urbanismo: "Arquitetura e Urbanismo",
+  tec_jogos: "Tecnologia em Jogos Digitais",
+  tec_sistemas: "Análise e Desenvolvimento de Sistemas",
+  tec_gestao: "Gestão da Tecnologia da Informação",
+  medicina: "Medicina",
+  odonto: "Odontologia",
+  biomedicina: "Biomedicina",
+  psicologia: "Psicologia",
+  enfermagem: "Enfermagem",
+  med_veterinaria: "Medicina Veterinária"
+}
 
 // Função para formatar data
 function formatarData(data) {

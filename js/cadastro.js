@@ -9,8 +9,65 @@ const msg = document.getElementById("cadastroMessage");
 
 const SITE_KEY = "6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8";
 
-registerBtn.addEventListener("click", async () => {
+const areaSelect = document.getElementById("area");
+const cursoSelect = document.getElementById("curso");
+const nasc = document.getElementById("nascimento");
 
+const cursosPorArea = {
+  engenharias: [
+    { id: "eng_civil", nome: "Engenharia Civil" },
+    { id: "eng_computacao", nome: "Engenharia da Computação" },
+    { id: "eng_eletrica", nome: "Engenharia Elétrica" },
+    { id: "eng_mecanica", nome: "Engenharia Mecânica" },
+    { id: "eng_mecatronica", nome: "Engenharia Mecatrônica" },
+    { id: "eng_producao", nome: "Engenharia de Produção" },
+    { id: "eng_quimica", nome: "Engenharia Química" },
+    { id: "eng_agronomica", nome: "Engenharia Agronômica" }
+  ],
+  tecnologos: [
+    { id: "tec_jogos", nome: "Tecnologia em Jogos Digitais" },
+    { id: "tec_sistemas", nome: "Análise e Desenvolvimento de Sistemas" },
+    { id: "tec_gestao", nome: "Gestão da Tecnologia da Informação" }
+  ],
+  saude: [
+    { id: "medicina", nome: "Medicina" },
+    { id: "odonto", nome: "Odontologia" },
+    { id: "biomedicina", nome: "Biomedicina" },
+    { id: "psicologia", nome: "Psicologia" },
+    { id: "enfermagem", nome: "Enfermagem" },
+    { id: "med_veterinaria", nome: "Medicina Veterinária" }
+  ]
+};
+
+areaSelect.addEventListener("change", () => {
+  const area = areaSelect.value;
+  
+  cursoSelect.innerHTML = `<option value="">Selecione o curso</option>`;
+  cursoSelect.disabled = !area;
+  
+  if (!area) return;
+  
+  cursosPorArea[area].forEach(curso => {
+    const option = document.createElement("option");
+    option.value = curso.id;
+    option.textContent = curso.nome;
+    cursoSelect.appendChild(option);
+  });
+});
+
+function dataLimite(idade){
+  const hoje = new Date();
+  return new Date(hoje.getFullYear() - idade, hoje.getMonth(), hoje.getDate());
+}
+
+const dataMax = dataLimite(18);
+const DataMin = dataLimite(60);
+
+nasc.max = dataMax.toISOString().split("T")[0];
+nasc.min = DataMin.toISOString().split("T")[0];
+
+registerBtn.addEventListener("click", async () => {
+  
   const nome = document.getElementById("nome").value.trim();
   const sobrenome = document.getElementById("sobrenome").value.trim();
   const nasc = document.getElementById("nascimento").value;
@@ -24,7 +81,29 @@ registerBtn.addEventListener("click", async () => {
     return;
   }
 
-  registerBtn.disable = true;
+  function calcularIdade(dataNascimento) {
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade--;
+    }
+
+    return idade;
+  }
+
+  const idade = calcularIdade(nasc);
+
+  if (idade < 18 || idade > 60) {
+    msg.textContent = "Você deve ter entre 18 e 60 anos para se cadastrar.";
+    msg.style.color = "red";
+    return;
+  }
+
+  registerBtn.disabled = true;
 
   try {
     const token = await grecaptcha.execute(SITE_KEY, { 
@@ -42,7 +121,6 @@ registerBtn.addEventListener("click", async () => {
       sobrenome,
       nascimento: nasc,
       curso,
-      email,
       tipoUsuario: "padrao",
       criadoEm: new Date()
     });
@@ -58,6 +136,6 @@ registerBtn.addEventListener("click", async () => {
     msg.textContent = error.message;
     msg.style.color = "red";
   } finally {
-    registerBtn.disable = false;
+    registerBtn.disabled = false;
   }
 });

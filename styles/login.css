@@ -78,7 +78,8 @@ body.dark-mode .auth-container h2 {
 }
 
 /* INPUTS */
-.auth-container input {
+.auth-container input,
+.auth-container select {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
@@ -90,13 +91,15 @@ body.dark-mode .auth-container h2 {
     transition: box-shadow .2s, transform .2s;
 }
 
-.auth-container input:focus {
+.auth-container input:focus,
+.auth-container select:focus {
     outline: none;
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
 }
 
-body.dark-mode .auth-container input {
+body.dark-mode .auth-container input,
+body.dark-mode .auth-container select {
     background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
     border: 1px solid var(--cor-borda-escura);
     color: var(--cor-texto-escuro);
