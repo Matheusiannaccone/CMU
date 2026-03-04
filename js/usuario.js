@@ -1,6 +1,6 @@
 // js/usuario.js
 import { auth, db, functions } from "../firebase/config.js";
-import { updateEmail } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { updateEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { doc, getDoc, setDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
@@ -11,15 +11,28 @@ const gerarCupom = httpsCallable(functions, "generateReferralCoupon");
 // Elementos
 const virarPremiumBtn = document.getElementById("virarPremiumBtn");
 const vencimentoEl = document.getElementById("premiumVencimento");
+
 const usuarioNomeSpan = document.getElementById("usuarioNome");
 const usuarioNomeInfo = document.getElementById("usuarioNomeInfo");
 const nomeUsuario = document.getElementById("nomeUsuario");
 const sobrenomeUsuario = document.getElementById("sobrenomeUsuario");
+
 const emailUsuario = document.getElementById("emailUsuario");
 const cursoUsuario = document.getElementById("cursoUsuario");
 const tipoUsuario = document.getElementById("tipoUsuario");
 const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
+
+// Botões de segurança
+const alterarEmailBtn = document.getElementById("alterarEmailBtn");
+const alterarSenhaBtn = document.getElementById("alterarSenhaBtn");
+
+const reauthModal = document.getElementById("reauthModal");
+const senhaAtualInput = document.getElementById("senhaAtual");
+const confirmarReauthBtn = document.getElementById("confirmarReauthBtn");
+const cancelarReauthBtn = document.getElementById("cancelarReauthBtn");
+
+let acaoSeguranca = null; // "email" ou "senha"
 
 // Cupom de indicação
 const gerarCupomBtn = document.getElementById("gerarCupomBtn");
@@ -66,6 +79,25 @@ function formatarData(data) {
   return "-";
 }
 
+function abrilModalSeguranca(acao) {
+  acaoSeguranca = acao;
+  senhaAtualInput.value = "";
+  reauthModal.style.display = "block";
+}
+
+function fecharModalSeguranca() {
+  reauthModal.style.display = "none";
+  acaoSeguranca = null;
+}
+
+async function reautenticarUsuario(senha) {
+  const user = auth.currentUser;
+  if (!user) throw new Error("Usuário não autenticado");
+
+  const credential = EmailAuthProvider.credential(user.email, senha);
+  await reauthenticateWithCredential(user, credential);
+}
+
 // Função para carregar dados
 async function carregarDadosUsuario(user) {
   const userRef = doc(db, "usuarios", user.uid);
@@ -80,8 +112,9 @@ async function carregarDadosUsuario(user) {
   usuarioNomeInfo.textContent = data.nome ?? "";
   nomeUsuario.value = data.nome ?? "";
   sobrenomeUsuario.value = data.sobrenome ?? "";
-  emailUsuario.value = data.email ?? "";
-  cursoUsuario.value = data.curso ?? "";
+  cursoUsuario.value = data.curso
+    ? CURSOS[data.curso]?? "Curso não definido"
+    : "Curso não definido";
 
   // 🔹 PADRONIZADO
   const tipo =
@@ -180,6 +213,72 @@ userForm.addEventListener("submit", async (e) => {
     alert("Não foi possível atualizar os dados.");
   }
 });
+
+/*
+alterarEmailBtn.addEventListener("click", () => {
+  abrilModalSeguranca("email");
+});
+
+alterarSenhaBtn.addEventListener("click", () => {
+  abrilModalSeguranca("senha");
+});
+
+cancelarReauthBtn.addEventListener("click", () => {
+  fecharModalSeguranca();
+});
+
+
+confirmarReauthBtn.addEventListener("click", async () => {
+  const senha = senhaAtualInput.value;
+
+  if(!senha) {
+    alert("Por favor, insira sua senha atual.");
+    return;
+  }
+
+  try {
+    const user = auth.currentUser;
+
+    await reautenticarUsuario(senha);
+
+    if (acaoSeguranca === "email") {
+      const novoEmail = prompt("Digite seu novo email:");
+      if (!novoEmail) {
+        alert("Email não pode ser vazio.");
+        return;
+      }
+
+      await updateEmail(user, novoEmail);
+
+      emailUsuario.value = novoEmail;
+      alert("Email atualizado com sucesso!");
+    }
+
+    if (acaoSeguranca === "senha") {
+      const novaSenha = prompt("Digite sua nova senha:");
+      if (!novaSenha || novaSenha.length < 6) {
+        alert("Senha não pode ser vazia e deve ter pelo menos 6 caracteres.");
+        return;
+      }
+
+      await updatePassword(user, novaSenha);
+      alert("Senha atualizada com sucesso!");
+    }
+
+    fecharModalSeguranca();
+  } catch (err) {
+    console.error(err);
+
+    if (err.code === "auth/wrong-password") {
+      alert("Senha incorreta");
+    } else if (err.code === "auth/requires-recent-login") {
+      alert("Faça login novamente por segurança");
+    } else {
+      alert("Erro ao atualizar dados sensíveis");
+    }
+  }
+});
+*/
 
 // Botão virar premium / gerenciar assinatura
 virarPremiumBtn.addEventListener("click", async () => {

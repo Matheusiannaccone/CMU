@@ -26,6 +26,16 @@ body.dark-mode header h1 {
     color: var(--cor-texto-escuro);
 }
 
+h2 {
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--cor-primaria);
+    padding-bottom: 5px;
+}
+
+body.dark-mode h2 {
+    border-bottom: 2px solid var(--cor-texto-escuro);
+}
+
 /* Lista de informações do usuário */
 .user-info {
     list-style: none;
@@ -97,9 +107,65 @@ body.dark-mode #userForm button:hover {
     color: var(--cor-primaria);
 }
 
+.form-group {
+    margin-bottom: 18px;
+}
+
 body.dark-mode #usuarioNome,
 body.dark-mode #usuarioNomeInfo {
     color: var(--cor-texto-escuro);
+}
+
+.card {
+    background: #faf7ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.08);
+    margin-bottom: 25px;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .card {
+    background: #4a007a;
+}
+
+#virarPremiumBtn {
+    background: linear-gradient(135deg, #ffb700, #ff8800);
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#virarPremiumBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.4);
+}
+
+#userForm input,
+#userForm select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--cor-borda);
+    margin-bottom: 18px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    color: var(--cor-texto);
+    transition: 0.3s ease;
+}
+
+body.dark-mode #userForm input,
+body.dark-mode #userForm select {
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    border: 1px solid var(--cor-borda-escura);
+    color: var(--cor-texto-escuro);
+}
+
+.premium-info {
+    margin-bottom: 20px;
+    font-weight: 600;
 }
 
 /* Responsivo */

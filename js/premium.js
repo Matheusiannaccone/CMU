@@ -3,11 +3,12 @@ import { auth, functions } from "../firebase/config.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const PLANS = {
-  "btn-genius-mensal": "price_1SkZQb02lWLdmet21MpNcJaQ",
-  "btn-genius-semestral": "price_1SkZRK02lWLdmet2uTlpWEOc",
-  "btn-geniusplus-mensal": "price_1SkZSv02lWLdmet2A7ll5FSP",
-  "btn-geniusplus-semestral": "price_1SkZSv02lWLdmet2Ienf8R3j",
+  "btn-genius-mensal": { plan: "genius", interval: "mensal" },
+  "btn-genius-semestral": { plan: "genius", interval: "semestral" },
+  "btn-geniusplus-mensal": { plan: "plus", interval: "mensal" },
+  "btn-geniusplus-semestral": { plan: "plus", interval: "semestral" },
 };
+
 
 function desativarBotoes() {
   document.querySelectorAll(".btn-plano").forEach(btn => {
@@ -25,7 +26,7 @@ function reativarBotoes() {
   });
 }
 
-async function subscribe(priceId) {
+async function subscribe({ plan, interval }) {
   const user = auth.currentUser;
   if (!user) {
     alert("Você precisa estar logado");
@@ -40,7 +41,7 @@ async function subscribe(priceId) {
       "createStripeCheckoutSession"
     );
 
-    const result = await createCheckoutSession({ priceId });
+    const result = await createCheckoutSession({ plan, interval });
 
     // REDIRECIONAMENTO
     window.location.href = result.data.url;

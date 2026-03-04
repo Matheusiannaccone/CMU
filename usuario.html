@@ -31,42 +31,47 @@
     <main class="main-content">
       <p>Bem-vindo(a), <span id="usuarioNomeInfo"></span>!</p>
       <p>Aqui você pode visualizar e editar as informações do seu perfil.   .
-      <form id="userForm">
+      <form id="userForm" class="card">
+        <h2>Dados do perfil</h2>
         <ul class="user-info">
-            <li>
               <label for="nomeUsuario">Nome:</label>
               <input type="text" id="nomeUsuario" required>
-            </li>
-            <li>
+
               <label for="sobrenomeUsuario">Sobrenome:</label>
               <input type="text" id="sobrenomeUsuario" required>
-            </li>
-            <li>
-              <label for="emailUsuario">Email:</label>
-              <input type="email" id="emailUsuario" required>
-            </li>
-            <li>
+
               <label for="cursoUsuario">Curso:</label>
-              <input type="text" id="cursoUsuario">
-            </li>
-            <li>
+              <input type="text" id="cursoUsuario" readonly>
+
               <label for="tipoUsuario">Tipo:</label>
               <input type="text" id="tipoUsuario" readonly>
-            </li>
-            <li>
-              <label>Vencimento do Premium:</label>
-              <span id="premiumVencimento">-</span>
-            </li>
-            <li>
-              <button type="button" id="virarPremiumBtn" style="margin-top: 10px;">
-                ⭐ Virar Premium
-              </button>
-              <button type="submit">Salvar alterações</button>
-            </li>
-          </ul>
-          <div>Alterações podem levar alguns segundos</div>
+
+              <div class="premium-info">
+                <label>Vencimento do Premium:</label>
+                <span id="premiumVencimento">-</span>
+              </div>
+
+              <div>
+                <button type="submit">Salvar alterações</button>
+              </div>
+        </ul>
+        <div>Alterações podem levar alguns segundos</div>
       </form>
-      <section class="referral-section">
+      
+      <section class="virarPremium card">
+        <h2>Benefícios do Premium</h2>
+        <ul>
+          <li>Acesso a conteúdos exclusivos</li>
+          <li>Suporte prioritário</li>
+          <li>Descontos em parceiros</li>
+          <li>Personalização avançada</li>
+        </ul>
+        <button type="button" id="virarPremiumBtn" style="margin-top: 10px;">
+          ⭐ Virar Premium
+        </button>
+      </section> 
+      
+      <section class="referral-section card">
         <h2>Convide amigos e ganhe benefícios!</h2>
         <p>
           Gere um cupom exclusivo. Seus amigos ganham <strong>50% OFF</strong>
@@ -75,12 +80,19 @@
         </p>
         
         <button id="gerarCupomBtn">Gerar Cupom</button>
-  
+        
         <div id="cupomGerado" style="display:none; margin-top:10px;">
           <p>Seu cupom:</p>
           <strong id="codigoCupom"></strong>
           <button id="copiarCupomBtn">Copiar</button>
         </div>
+      </section>
+
+      <section class="seguranca card">
+        <h2>Segurança</h2>
+
+        <button id="alterarEmailBtn">Alterar Email</button>
+        <button id="alterarSenhaBtn">Alterar Senha</button>
       </section>
     </main>
 
@@ -89,6 +101,19 @@
   <footer>
     &copy; 2025 Calculadora de Média - Todos os direitos reservados
   </footer>
+</div>
+
+<div class="modal" id="reauthModal">
+  <div class="modal-content">
+    <h3>Confirme sua senha</h3>
+
+    <input type="password" id="senhaAtual" placeholder="Senha atual" autocomplete="current-password"/>
+
+    <div class="modal-actions">
+      <button id="cancelReauthBtn">Cancelar</button>
+      <button id="confirmReauthBtn">Confirmar</button>
+    </div>
+  </div>
 </div>
 
 <script type="module" src="js/usuario.js"></script>
