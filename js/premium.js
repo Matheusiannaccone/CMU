@@ -1,6 +1,13 @@
 // js/premium.js
 import { auth, functions } from "../firebase/config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+});
 
 const PLANS = {
   "btn-genius-mensal": { plan: "genius", interval: "mensal" },
@@ -27,8 +34,8 @@ function reativarBotoes() {
 }
 
 async function subscribe({ plan, interval }) {
-  const user = auth.currentUser;
-  if (!user) {
+  
+  if (!currentUser) {
     alert("Você precisa estar logado");
     return;
   }
