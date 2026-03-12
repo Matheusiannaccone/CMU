@@ -17,13 +17,13 @@ Ferramentas desse tipo ajudam estudantes a entender rapidamente quanto precisam 
 
 
 __Funcionalidades__
-✔ Inserção de notas das avaliações
-✔ Cálculo automático da média final
-✔ Simulação de nota necessária para aprovação
-✔ Interface simples e rápida
-✔ Funciona diretamente no navegador
-✔ Sem necessidade de login
-✔ Versão paga com integração a banco de dados
+✔ Inserção de notas das avaliações. 
+✔ Cálculo automático da média final. 
+✔ Simulação de nota necessária para aprovação. 
+✔ Interface simples e rápida. 
+✔ Funciona diretamente no navegador. 
+✔ Sem necessidade de login. 
+✔ Versão paga com integração a banco de dados. 
 
 Algumas funcionalidades estão disponíveis apenas na versão de produção.
 
@@ -38,45 +38,45 @@ Stripe — API de assinaturas
 Vercel — Deploy da aplicação
 
 __Estrutura do Projeto__
-CMU
-│
-├── firebase
-│   └── config.js
-├── firestore
-│   ├── carregarSemestres.js
-|   ├── mediaGlobal.js
-|   └── salvarNotas.js 
-|
-├── images
-│   ├── logo.png
+CMU 
+│ 
+├── firebase 
+│   └── config.js 
+├── firestore 
+│   ├── carregarSemestres.js 
+|   ├── mediaGlobal.js 
+|   └── salvarNotas.js  
+| 
+├── images 
+│   ├── logo.png 
 |   └── usuario.png 
-|
-├── js
-│   ├── anuncios.js
-|   ├── cadastro.js
-│   ├── index.js
-|   ├── login.js
-│   ├── premium.js
-|   ├── theme.js
-│   ├── usuario.js
-|   └── verificaPremium.js
-|
-├── styles
-│   ├── anuncio.css
-|   ├── login.css
-│   ├── premium.css
-|   ├── styles.css
-|   └── usuario.css
-|
-├── 404.hmtl
-├── cadastro.hmtl
-├── index.hmtl
-├── login.hmtl
-├── premium.hmtl
-├── sobre.hmtl
-├── usuario.hmtl
-|
-└── README.md
+| 
+├── js 
+│   ├── anuncios.js 
+|   ├── cadastro.js 
+│   ├── index.js 
+|   ├── login.js 
+│   ├── premium.js 
+|   ├── theme.js 
+│   ├── usuario.js 
+|   └── verificaPremium.js 
+| 
+├── styles 
+│   ├── anuncio.css 
+|   ├── login.css 
+│   ├── premium.css 
+|   ├── styles.css 
+|   └── usuario.css 
+| 
+├── 404.hmtl 
+├── cadastro.hmtl 
+├── index.hmtl 
+├── login.hmtl 
+├── premium.hmtl 
+├── sobre.hmtl 
+├── usuario.hmtl 
+| 
+└── README.md 
 
 
 __Descrição das Principais Partes__
