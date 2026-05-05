@@ -1,3 +1,80 @@
+.barra-login-premium{
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(75, 0, 130, 0.1);
+  padding: 10px 20px 20px 40px;
+  transition: background 0.3s ease;
+  position: relative;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+}
+
+.logo img {
+  height: 70px;
+}
+
+.titulo-central h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.titulo-central .subtitulo {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.barra-login-premium a button {
+  padding: 14px 20px;
+  cursor: pointer;
+}
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-info-flip {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  border: none;
+  cursor: pointer;
+
+  background: #f0f0f0;
+  color: var(--cor-primaria);
+
+  font-weight: bold;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.2s;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(108,99,255,0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(108,99,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(108,99,255,0); }
+}
+
+.btn-info-flip:hover {
+  background: #e0e0e0;
+}
+
 .premium-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -22,18 +99,71 @@
 }
 
 .plano {
-  border: 2px solid #ddd;
+  perspective: 1000px;
+  flex: 0 0 85%;
+  min-height: 650px;
+  display: flex;
+  position: relative;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border: none;
+  background: transparent;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 12px;
   padding: 25px;
-  background: var(--bg-card, #fff);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border: 2px solid #ddd;
+  background: #fff;
 }
 
-.plano.destaque {
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  z-index: 1;
+  transform: rotateY(180deg);
+  background: #f9f9f9;
+  text-align: center;
+  justify-content: center;
+  font-style: italic;
+  color: #444;
+  line-height: 1.6;
+}
+
+.plano.destaque .card-front,
+.plano.destaque .card-back {
   border-color: var(--cor-primaria);
-  box-shadow: 0 0 15px rgba(0,0,0,0.08);
+  /*box-shadow: 0 0 15px rgba(0,0,0,0.08);*/
+}
+
+.btn-flip {
+  background: none;
+  border: none;
+  color: var(--cor-primaria);
+  text-decoration: underline;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .plano h2 {
@@ -63,13 +193,21 @@
 }
 
 .badge {
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   background: var(--cor-primaria);
   color: #fff;
-  padding: 4px 10px;
+
+  padding: 6px 14px;
   border-radius: 20px;
+
   font-size: 0.8rem;
-  margin-bottom: 10px;
+  font-weight: 600;
+
+  z-index: 10;
 }
 
 .opcoes {
@@ -121,4 +259,87 @@
 .botoes .btn-plano.desativado {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .barra-login-premium {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .barra-login-premium a button {
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  
+  .logo {
+    order: 1;
+  }
+
+  .logo img {
+    height: 70px;
+  }
+
+  .titulo-central {
+    order: 2;
+    width: 100%;
+  }
+  
+  .acoes {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .titulo-central h1 {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  .titulo-central .subtitulo {
+    font-size: 0.85rem;
+  }
+  
+  .acoes button {
+    width: 80%;
+    max-width: 200px;
+  }
+
+  .planos {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 5px;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .plano {
+    flex: 0 0 90%;
+    scroll-snap-align: center;
+  }
+
+  /* opcional: esconder scrollbar */
+  .planos::-webkit-scrollbar {
+    display: none;
+  }
+
+  .planos {
+    scrollbar-width: none;
+  }
+
+  .plano {
+    transition: transform 0.2s ease;
+  }
+
+  .plano:active {
+    transform: scale(0.98);
+  }
 }

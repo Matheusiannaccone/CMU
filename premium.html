@@ -1,3 +1,4 @@
+<!-- premium.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,99 +11,161 @@
 
 <body>
 
-  <div class="barra-login">
-    <a href="index.html"><button>Voltar</button></a>
+  <div class="barra-login-premium">
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo da Calculadora de Média" />
+    </div>
+
+    <div class="titulo-central">
+      <h1>Escolha o plano ideal para você</h1>
+      <p class="subtitulo">
+        Evolua sua organização acadêmica e desbloqueie recursos avançados.
+      </p>
+    </div>
+
+    <div class="acoes">
+      <a href="index.html"><button>Voltar</button></a>
+    </div>
   </div>
 
   <div class="premium-container">
-    <h1>Escolha o plano ideal para você</h1>
-    <p class="subtitulo">
-      Evolua sua organização acadêmica e desbloqueie recursos avançados.
-    </p>
 
     <div class="planos">
 
       <!-- GRATUITO -->
-      <div class="plano">
-        <h2>Gratuito</h2>
-        <p class="preco">R$ 0 <span>/ sempre</span></p>
+      <div class="plano"  id="card-free">
+        <div class="card-inner">
+          <!-- FRENTE -->
+          <div class="card-front">
+            <button class="btn-info-flip" id="info-free">i</button>
 
-        <ul class="beneficios">
-          <li>✔ Calcular médias das matérias</li>
-          <li>✔ Simular notas</li>
-          <li>✔ Acesso sem cadastro</li>
-          <li>✖ Sem anúncios</li>
-          <li>✖ Salvar semestres</li>
-          <li>✖ Histórico acadêmico</li>
-          <li>✖ Média global</li>
-        </ul>
+            <h2>Gratuito</h2>
+            <p class="preco">R$ 0 <span>/ sempre</span></p>
 
-        <div class="botoes">
-          <button class="btn-plano gratuito" disabled>
-            Plano Atual
-          </button>
+            <ul class="beneficios">
+              <li>✔ Calcular médias das matérias</li>
+              <li>✔ Simular notas</li>
+              <li>✔ Acesso sem cadastro</li>
+              <li>✖ Sem anúncios</li>
+              <li>✖ Salvar semestres</li>
+              <li>✖ Histórico acadêmico</li>
+              <li>✖ Média global</li>
+            </ul>
+
+            <div class="botoes">
+              <button class="btn-plano gratuito" disabled>
+                Plano Atual
+              </button>
+            </div>
+          </div>
+
+          <!-- VERSO -->
+          <div class="card-back">
+            <button class="btn-info-flip" id="info-free-back">i</button>
+
+            <p>Permite calcular e simular médias diretamente no navegador, sem necessidade de cadastro ou pagamento. Ideal para uso rápido no dia a dia.</p>
+            <button class="btn-flip" id="flip-card-free-back">
+              Voltar
+            </button>
+          </div>
         </div>
+        
       </div>
 
       <!-- GENIUS -->
-      <div class="plano destaque">
-        <span class="badge">Mais popular</span>
-        <h2>Genius</h2>
-        <p class="preco">R$ 5,90 <span>/ mês</span></p>
+      <div class="plano destaque" id="card-genius">
+        <span class="badge">Mais Popular</span>
+        
+        <div class="card-inner">
+          <!-- FRENTE -->
+          <div class="card-front">
+            <button class="btn-info-flip" id="info-genius">i</button>
 
-        <ul class="beneficios">
-          <li>✔ Todas as funções do plano gratuito</li>
-          <li>✔ Sem anúncios</li>
-          <li>✔ Criar e salvar semestres</li>
-          <li>✔ Salvar matérias e notas</li>
-          <li>✔ Média geral por semestre</li>
-          <li>✔ Média global</li>
-          <li>✔ Histórico acadêmico completo</li>
-        </ul>
+            <h2>Genius</h2>
+            <p class="preco">R$ 5,90 <span>/ mês</span></p>
 
-        <div class="botoes">
-          <button class="btn-plano" id="btn-genius-mensal">
-            Tornar-se Genius
-          </button>
+            <ul class="beneficios">
+              <li>✔ Todas as funções do plano gratuito</li>
+              <li>✔ Sem anúncios</li>
+              <li>✔ Criar e salvar semestres</li>
+              <li>✔ Salvar matérias e notas</li>
+              <li>✔ Média geral por semestre</li>
+              <li>✔ Média global</li>
+              <li>✔ Histórico acadêmico completo</li>
+            </ul>
 
-          <p>ou</p>
+            <div class="botoes">
+              <button class="btn-plano" id="btn-genius-mensal">
+                Tornar-se Genius
+              </button>
 
-          <button class="btn-plano secundario" id="btn-genius-semestral">
-            Genius Semestral R$ 24,90
-          </button>
-          
-          <p class="mensal-equivalente">
-            Equivalente a <strong>R$ 0,13 / dia</strong>
-          </p>
+              <p>ou</p>
+
+              <button class="btn-plano secundario" id="btn-genius-semestral">
+                Genius Semestral R$ 24,90
+              </button>
+
+              <p class="mensal-equivalente">
+                Equivalente a <strong>R$ 0,13 / dia</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- VERSO -->
+          <div class="card-back">
+            <button class="btn-info-flip" id="info-genius-back">i</button>
+            
+            <p>Permite salvar disciplinas, notas e semestres automaticamente, garantindo acesso ao histórico acadêmico com segurança e sem anúncios.</p>
+            <button class="btn-flip" id="flip-card-genius-back">
+              Voltar
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- GENIUS+ -->
-      <div class="plano">
-        <h2>Genius+</h2>
-        <p class="preco">R$ 10,90 <span>/ mês</span></p>
+      <div class="plano" id="card-geniusplus">
+        <div class="card-inner">
+          <!-- FRENTE -->
+          <div class="card-front">
+            <button class="btn-info-flip" id="info-geniusplus">i</button>
 
-        <ul class="beneficios">
-          <li>✔ Tudo do plano Genius</li>
-          <li>🚀 Acesso antecipado a novas funções</li>
-          <li>🧪 Testar recursos experimentais</li>
-          <li>⭐ Prioridade em novidades</li>
-        </ul>
-        
-        <div class="botoes">
-          <button class="btn-plano" id="btn-geniusplus-mensal">
-            Tornar-se Genius+
-          </button>
+            <h2>Genius+</h2>
+            <p class="preco">R$ 10,90 <span>/ mês</span></p>
 
-          <p>ou</p>
+            <ul class="beneficios">
+              <li>✔ Tudo do plano Genius</li>
+              <li>🚀 Acesso antecipado a novas funções</li>
+              <li>🧪 Testar recursos experimentais</li>
+              <li>⭐ Prioridade em novidades</li>
+            </ul>
+            
+            <div class="botoes">
+              <button class="btn-plano" id="btn-geniusplus-mensal">
+                Tornar-se Genius+
+              </button>
 
-          <button class="btn-plano secundario" id="btn-geniusplus-semestral">
-            Genius+ Semestral R$ 54,90
-          </button>
-          
-          <p class="mensal-equivalente">
-            Equivalente a <strong>R$ 0,30 / dia</strong>
-          </p>
+              <p>ou</p>
+
+              <button class="btn-plano secundario" id="btn-geniusplus-semestral">
+                Genius+ Semestral R$ 54,90
+              </button>
+
+              <p class="mensal-equivalente">
+                Equivalente a <strong>R$ 0,30 / dia</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- VERSO -->
+          <div class="card-back">
+            <button class="btn-info-flip" id="info-geniusplus-back">i</button>
+
+            <p>Inclui todas as funções do Genius, além de acesso antecipado a novas ferramentas e melhorias antes do lançamento público.</p>
+            <button class="btn-flip" id="flip-card-geniusplus-back">
+              Voltar
+            </button>
+          </div>
         </div>
       </div>
 
