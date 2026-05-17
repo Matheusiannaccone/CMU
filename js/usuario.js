@@ -11,6 +11,7 @@ const gerarCupom = httpsCallable(functions, "generateReferralCoupon");
 // Elementos
 const virarPremiumBtn = document.getElementById("virarPremiumBtn");
 const vencimentoEl = document.getElementById("premiumVencimento");
+const mediaMinimaContainer = document.getElementById("mediaMinimaContainer");
 
 const usuarioNomeSpan = document.getElementById("usuarioNome");
 const usuarioNomeInfo = document.getElementById("usuarioNomeInfo");
@@ -20,6 +21,7 @@ const sobrenomeUsuario = document.getElementById("sobrenomeUsuario");
 const emailUsuario = document.getElementById("emailUsuario");
 const cursoUsuario = document.getElementById("cursoUsuario");
 const tipoUsuario = document.getElementById("tipoUsuario");
+const mediaMinima = document.getElementById("mediaMinima");
 const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
 
@@ -115,6 +117,7 @@ async function carregarDadosUsuario(user) {
   cursoUsuario.value = data.curso
     ? CURSOS[data.curso]?? "Curso não definido"
     : "Curso não definido";
+  mediaMinima.value = data.mediaMinima ?? "5";
 
   // 🔹 PADRONIZADO
   const tipo =
@@ -134,6 +137,12 @@ async function carregarDadosUsuario(user) {
       data.premiumVencimento
         ? formatarData(data.premiumVencimento)
         : "Ativo";
+
+        if (tipo === "genius_plus") {
+          mediaMinimaContainer.style.display = "block";
+        } else {
+          mediaMinimaContainer.style.display = "none";
+        }
   } else {
     virarPremiumBtn.style.display = "inline-block";
     virarPremiumBtn.textContent = "Virar Premium";
@@ -187,25 +196,42 @@ userForm.addEventListener("submit", async (e) => {
   const user = auth.currentUser;
   if (!user) return;
 
-  if (!nomeUsuario.value.trim() || !sobrenomeUsuario.value.trim() || !emailUsuario.value.trim() || !cursoUsuario.value.trim()) {
-    alert("Nome, sobrenome, email e curso são obrigatórios!");
+  const tipo = tipoUsuario.value;
+
+  if (!nomeUsuario.value.trim() || !sobrenomeUsuario.value.trim() || !cursoUsuario.value.trim()) {
+    alert("Nome, sobrenome e curso são obrigatórios!");
     return;
   }
 
-  try {
-    await updateEmail(user, emailUsuario.value);
+  if (tipo === "genius_plus") {
+    if (!mediaMinima.value.trim()) {
+      alert("Informe a média mínima");
+      return;
+    }
 
+    const novoValor = parseFloat(mediaMinima.value);
+    if (novoValor < 4.76) {
+      alert("A média mínima não pode ser menor que 4.76");
+      return;
+    }
+  }
+
+  try {
     const userRef = doc(db, "usuarios", user.uid);
 
-    await setDoc(userRef, {
-      nome: nomeUsuario.value,
-      sobrenome: sobrenomeUsuario.value,
-      email: emailUsuario.value,
-      curso: cursoUsuario.value,
-    }, { merge: true });
+    const payload = {
+      nome: nomeUsuario.value.trim(),
+      sobrenome: sobrenomeUsuario.value.trim()
+    };
 
-    usuarioNomeSpan.textContent = nomeUsuario.value;
-    usuarioNomeInfo.textContent = nomeUsuario.value;
+    if (tipoUsuario.value === "genius_plus") {
+      payload.mediaMinima = Number(parseFloat(mediaMinima.value).toFixed(2));
+    }
+
+    await setDoc(userRef, payload, { merge: true});
+
+    usuarioNomeSpan.textContent = payload.nome;
+    usuarioNomeInfo.textContent = payload.nome;
 
     alert("Informações atualizadas com sucesso!");
   } catch (err) {

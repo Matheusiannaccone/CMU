@@ -122,6 +122,7 @@ registerBtn.addEventListener("click", async () => {
       nascimento: nasc,
       curso,
       tipoUsuario: "padrao",
+      mediaMinima: "5",
       criadoEm: new Date()
     });
 

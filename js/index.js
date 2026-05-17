@@ -2,7 +2,7 @@
 // ---------------- FIREBASE (CDN) ----------------
 import { verificaPremium } from "./verificaPremium.js";
 import { auth } from "../firebase/config.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { getSemesters, addSemester } from "../firestore/carregarSemestres.js";
 
 let currentUser = null;
@@ -16,6 +16,7 @@ const mediaGeralEl = document.getElementById("mediaGeral");
 const materiasContainer = document.getElementById("materiasContainer");
 const adicionarMateriaBtn = document.getElementById("adicionarMateriaBtn");
 const removerMateriaBtn = document.getElementById("removerMateriaBtn");
+const calcularAFBtn = document.getElementById("calcularAFBtn");
 const msgEl = document.getElementById("msg");
 const semestreSelect = document.getElementById("semestreSelect");
 
@@ -26,7 +27,13 @@ if (adicionarMateriaBtn) {
 if (removerMateriaBtn) {
   removerMateriaBtn.addEventListener("click", removerMateria);
 }
-
+if (calcularAFBtn) {
+  calcularAFBtn.addEventListener("click", () => {
+    if (window.calcularAF) {
+      window.calcularAF();
+    }
+  });
+}
 
 // ---------------- AUTH STATE ----------------
 onAuthStateChanged(auth, async (user) => {
@@ -36,6 +43,7 @@ onAuthStateChanged(auth, async (user) => {
     setupGuestUI();
     atualizarUIPremium("padrao");
     virarPremiumBtn.style.display = "block";
+    calcularAFBtn.style.display = "none";
     return;
   }
 
@@ -57,6 +65,12 @@ onAuthStateChanged(auth, async (user) => {
 
   if (plano === "genius_plus") {
     // acesso antecipado
+    calcularAFBtn.style.display = "inline-block";
+    const moduloAF = await import("./calcularAF.js");
+    window.calcularAFNecessaria = moduloAF.calcularAFNecessaria;
+    window.calcularAF = moduloAF.calcularAF;
+  } else {
+    calcularAFBtn.style.display = "none";
   }
 });
 
@@ -246,6 +260,7 @@ function adicionarMateria() {
       <input type="number" name="materia${index}_nota4" placeholder="AG" min="0" step="0.01">
       <input type="number" name="materia${index}_nota5" placeholder="AS" min="0" step="0.01">
       <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
+      <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly>
     </div>
   `;
 

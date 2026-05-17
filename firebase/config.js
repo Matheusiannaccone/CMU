@@ -51,9 +51,11 @@ const isLocalhost =
 
 
 if (isLocalhost) {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectFirestoreEmulator(db, "127.0.0.1", 8080);
-  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+  const host = location.hostname;
+
+  connectAuthEmulator(auth, `http://${host}:9099`);
+  connectFirestoreEmulator(db, host, 8080);
+  connectFunctionsEmulator(functions, host, 5001);
 }
 
 // 🔹 Exporta tudo para ser usado em outros arquivos

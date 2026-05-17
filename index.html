@@ -75,6 +75,7 @@
                 <input type="number" name="materia1_nota4" placeholder="AG" min="0" step="0.01" required aria-label="Nota AG">
                 <input type="number" name="materia1_nota5" placeholder="AS" min="0" step="0.01" aria-label="Nota AS">
                 <input type="text" name="materia1_media" class="media" placeholder="Média" readonly aria-label="Média da matéria 1">
+                <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para média 5 da matéria 1">
               </div>
             </div>
           </div>
@@ -82,6 +83,7 @@
           <button type="button" id="adicionarMateriaBtn">Adicionar matéria</button>
           <button type="button" id="removerMateriaBtn">Remover matéria</button>
           <button type="button" id="salvarNotasBtn">Salvar notas</button>
+          <button type="button" id="calcularAFBtn">Calcular AF</button>
           <p id="msg" class="feedback"></p>
         </form>
 
@@ -118,7 +120,7 @@
 <script type="module" src="js/index.js"></script>
 <script type="module" src="firestore/salvarNotas.js"></script>
 <script type="module" src="firestore/mediaGlobal.js"></script>
-<script type="module" src="js/anuncios.js"></script>
+<!-- <script type="module" src="js/anuncios.js"></script> -->
 
 
 </body>
