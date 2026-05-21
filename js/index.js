@@ -7,6 +7,7 @@ import { getSemesters, addSemester } from "../firestore/carregarSemestres.js";
 
 let currentUser = null;
 let msgTimeout = null;
+let currentPlan = "padrao"; // Armazena o plano do usuário
 
 // ---------------- ELEMENTOS ----------------
 const virarPremiumBtn = document.getElementById("virarPremiumBtn");
@@ -51,7 +52,8 @@ onAuthStateChanged(auth, async (user) => {
   currentUser = user;
   setupLoggedUI(user);
 
-  const plano = await verificaPremium(); 
+  const plano = await verificaPremium();
+  currentPlan = plano; // Armazena o plano atual
   // "padrao" | "genius" | "genius_plus"
 
   atualizarUIPremium(plano);
@@ -64,7 +66,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   if (plano === "genius_plus") {
-    // acesso antecipado
     calcularAFBtn.style.display = "inline-block";
     const moduloAF = await import("./calcularAF.js");
     window.calcularAFNecessaria = moduloAF.calcularAFNecessaria;
@@ -135,6 +136,20 @@ function atualizarUIPremium(plano) {
       "🔒 Apenas usuários Premium podem criar e acessar semestres";
     semestreSelect.appendChild(opt);
   }
+
+  // Atualiza visibilidade do campo "AF Necessária"
+  atualizarVisibilidadeAF(plano);
+}
+
+function atualizarVisibilidadeAF(plano) {
+  const afFields = document.querySelectorAll(".afNecessaria");
+  afFields.forEach(field => {
+    if (plano === "genius_plus") {
+      field.style.display = "block";
+    } else {
+      field.style.display = "none";
+    }
+  });
 }
 
 
@@ -236,7 +251,7 @@ function getNota(container, name) {
 
 function adicionarMateria() {
   const materias = materiasContainer.querySelectorAll(".materia");
-  
+
     if (Number(materias.length) >= 8) {
     mostrarMensagem("Limite máximo de 8 matérias atingido.", true);
     return;
@@ -247,6 +262,11 @@ function adicionarMateria() {
   const div = document.createElement("div");
   div.className = "materia visible";
   div.id = `materia${index}`;
+
+  // Campo AF Necessária só aparece para genius_plus
+  const afNecessariaField = currentPlan === "genius_plus"
+    ? `<input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly>`
+    : '';
 
   div.innerHTML = `
     <h2>Matéria ${index}</h2>
@@ -260,7 +280,7 @@ function adicionarMateria() {
       <input type="number" name="materia${index}_nota4" placeholder="AG" min="0" step="0.01">
       <input type="number" name="materia${index}_nota5" placeholder="AS" min="0" step="0.01">
       <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
-      <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly>
+      ${afNecessariaField}
     </div>
   `;
 

@@ -1,0 +1,316 @@
+/* ========================================
+   ESTILOS ESPECÍFICOS - index.html
+   ======================================== */
+
+/* ========== LAYOUT PRINCIPAL ========== */
+.content-wrapper {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.main-content {
+    flex: 1;
+}
+
+/* ========== DESCRIÇÃO DO SITE ========== */
+.site-descricao {
+    max-width: 800px;
+    margin: 20px auto 30px;
+    padding: 0 15px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--cor-texto);
+}
+
+.site-descricao p {
+    margin-bottom: 10px;
+}
+
+body.dark-mode .site-descricao {
+    color: var(--cor-texto-escuro);
+}
+
+/* ========== FORMULÁRIO ========== */
+form {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 6px;
+    border: 1px solid var(--cor-borda);
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+body.dark-mode form {
+    background: #3c0061;
+    border: 1px solid var(--cor-borda-escura);
+}
+
+/* ========== SEÇÃO DE MATÉRIAS ========== */
+.materia {
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .materia {
+    border-bottom: 1px solid var(--cor-borda-escura);
+}
+
+.materia:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.materia h2 {
+    font-size: 1.3rem;
+    color: var(--cor-primaria-clara);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+body.dark-mode .materia h2 {
+    color: var(--cor-texto-escuro);
+}
+
+/* ========== CONTAINER NOME DA MATÉRIA ========== */
+.materia-nome-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .materia-nome-container {
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    border: 1px solid var(--cor-borda-escura);
+}
+
+.materia-nome-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+}
+
+body.dark-mode .materia-nome-container:hover {
+    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+}
+
+.materia-nome-container::before {
+    content: "📚";
+    font-size: 1.2rem;
+    margin-right: 8px;
+    color: var(--cor-icone);
+}
+
+body.dark-mode .materia-nome-container::before {
+    color: var(--cor-texto-escuro);
+}
+
+.materia-nome-container input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    color: var(--cor-texto);
+}
+
+body.dark-mode .materia-nome-container input {
+    color: var(--cor-texto-escuro);
+}
+
+.materia-nome-container input:focus {
+    outline: none;
+}
+
+/* ========== INPUTS DE NOTAS ========== */
+.notas {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.notas input {
+    width: 78px;
+    padding: 6px 8px;
+    font-size: 1rem;
+    text-align: center;
+    border: 1px solid var(--cor-borda);
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    color: var(--cor-texto);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .notas input {
+    border: 1px solid var(--cor-borda-escura);
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    color: var(--cor-texto-escuro);
+}
+
+.notas input:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+}
+
+body.dark-mode .notas input:hover {
+    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+}
+
+/* ========== CAMPOS DE RESULTADO ========== */
+.media {
+    font-weight: bold;
+    background: var(--cor-input);
+}
+
+body.dark-mode .media {
+    background: var(--cor-input-escuro);
+    color: var(--cor-texto-escuro);
+}
+
+.afNecessaria {
+    font-weight: bold;
+    background: var(--cor-input);
+    cursor: not-allowed;
+}
+
+body.dark-mode .afNecessaria {
+    background: var(--cor-input-escuro);
+    color: var(--cor-texto-escuro);
+}
+
+/* ========== CONTAINER DE MÉDIAS ========== */
+.medias-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.media-box {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .media-box {
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    color: var(--cor-texto-escuro);
+}
+
+.media-box h2 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode .media-box h2 {
+    color: var(--cor-texto-escuro);
+}
+
+.media-box p {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* ========== MENSAGENS DE FEEDBACK ========== */
+.feedback {
+    color: var(--cor-primaria);
+    font-size: 0.9rem;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.dark-mode .feedback {
+    color: var(--cor-texto-escuro);
+}
+
+.feedback.visible {
+    opacity: 1;
+}
+
+/* ========== ANÚNCIOS ========== */
+.ad-banner-top,
+.ad-banner-side,
+.ad-banner-footer {
+    min-height: 100px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+body.dark-mode .ad-banner-top,
+body.dark-mode .ad-banner-side,
+body.dark-mode .ad-banner-footer {
+    background: #4a007a;
+}
+
+.ad-banner-side {
+    min-width: 250px;
+    min-height: auto;
+}
+
+/* ========== BOTÃO VIRAR PREMIUM ========== */
+#virarPremiumBtn {
+    background: linear-gradient(135deg, #ffb700, #ff8800);
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#virarPremiumBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.4);
+}
+
+/* ========== RESPONSIVIDADE ========== */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    .notas {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .notas input {
+        width: 48%;
+        min-width: 100px;
+    }
+
+    .medias-container {
+        flex-direction: column;
+    }
+
+    .media-box {
+        min-width: 100%;
+    }
+
+    .ad-banner-side {
+        min-width: 100%;
+    }
+}

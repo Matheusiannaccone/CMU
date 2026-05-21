@@ -39,23 +39,24 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const functions = getFunctions(app, "southamerica-east1");
-const appCheck = initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8'),
-  isTokenAutoRefreshEnabled: true
-});
 
 // 🔹 Conecta aos emuladores se estiver em localhost
 const isLocalhost =
-  location.hostname === "localhost" ||
-  location.hostname === "127.0.0.1";
+location.hostname === "localhost" ||
+location.hostname === "127.0.0.1";
 
 
 if (isLocalhost) {
   const host = location.hostname;
-
+  
   connectAuthEmulator(auth, `http://${host}:9099`);
   connectFirestoreEmulator(db, host, 8080);
   connectFunctionsEmulator(functions, host, 5001);
+} else {
+  const appCheck = initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8'),
+    isTokenAutoRefreshEnabled: true
+  });
 }
 
 // 🔹 Exporta tudo para ser usado em outros arquivos

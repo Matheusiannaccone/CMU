@@ -120,11 +120,8 @@ async function carregarMaterias(semestreId) {
           <input type="number" name="materia${index}_nota3" placeholder="AF"  value="${m.af ?? ""}">
           <input type="number" name="materia${index}_nota4" placeholder="AG"  value="${m.ag ?? ""}">
           <input type="number" name="materia${index}_nota5" placeholder="AS"  value="${m.as ?? ""}">
-          <input type="text"
-            name="materia${index}_media"
-            class="media"
-            placeholder="Média"
-            readonly>
+          <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
+          <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para média 5 da matéria ${index}">
         </div>
       `;
 
@@ -165,11 +162,8 @@ function criarMateriaVazia() {
       <input type="number" name="materia1_nota3" placeholder="AF"  min="0" step="0.01">
       <input type="number" name="materia1_nota4" placeholder="AG"  min="0" step="0.01">
       <input type="number" name="materia1_nota5" placeholder="AS"  min="0" step="0.01">
-      <input type="text"
-        name="materia1_media"
-        class="media"
-        placeholder="Média"
-        readonly>
+      <input type="text" name="materia1_media" class="media" placeholder="Média" readonly>
+      <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para média 5 da matéria 1">
     </div>
   `;
 

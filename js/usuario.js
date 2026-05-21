@@ -18,7 +18,6 @@ const usuarioNomeInfo = document.getElementById("usuarioNomeInfo");
 const nomeUsuario = document.getElementById("nomeUsuario");
 const sobrenomeUsuario = document.getElementById("sobrenomeUsuario");
 
-const emailUsuario = document.getElementById("emailUsuario");
 const cursoUsuario = document.getElementById("cursoUsuario");
 const tipoUsuario = document.getElementById("tipoUsuario");
 const mediaMinima = document.getElementById("mediaMinima");
@@ -240,75 +239,100 @@ userForm.addEventListener("submit", async (e) => {
   }
 });
 
-/*
-alterarEmailBtn.addEventListener("click", () => {
-  abrilModalSeguranca("email");
-});
+if (alterarEmailBtn) {
+  alterarEmailBtn.addEventListener("click", () => {
+    abrilModalSeguranca("email");
+  });
+}
 
-alterarSenhaBtn.addEventListener("click", () => {
-  abrilModalSeguranca("senha");
-});
-
-cancelarReauthBtn.addEventListener("click", () => {
-  fecharModalSeguranca();
-});
+if (alterarSenhaBtn) {
+  alterarSenhaBtn.addEventListener("click", () => {
+    abrilModalSeguranca("senha");
+  });
+}
 
 
-confirmarReauthBtn.addEventListener("click", async () => {
-  const senha = senhaAtualInput.value;
-
-  if(!senha) {
-    alert("Por favor, insira sua senha atual.");
-    return;
-  }
-
-  try {
-    const user = auth.currentUser;
-
-    await reautenticarUsuario(senha);
-
-    if (acaoSeguranca === "email") {
-      const novoEmail = prompt("Digite seu novo email:");
-      if (!novoEmail) {
-        alert("Email não pode ser vazio.");
-        return;
-      }
-
-      await updateEmail(user, novoEmail);
-
-      emailUsuario.value = novoEmail;
-      alert("Email atualizado com sucesso!");
-    }
-
-    if (acaoSeguranca === "senha") {
-      const novaSenha = prompt("Digite sua nova senha:");
-      if (!novaSenha || novaSenha.length < 6) {
-        alert("Senha não pode ser vazia e deve ter pelo menos 6 caracteres.");
-        return;
-      }
-
-      await updatePassword(user, novaSenha);
-      alert("Senha atualizada com sucesso!");
-    }
-
+if (cancelarReauthBtn) {
+  cancelarReauthBtn.addEventListener("click", () => {
     fecharModalSeguranca();
-  } catch (err) {
-    console.error(err);
+  });
+}
 
-    if (err.code === "auth/wrong-password") {
-      alert("Senha incorreta");
-    } else if (err.code === "auth/requires-recent-login") {
-      alert("Faça login novamente por segurança");
-    } else {
-      alert("Erro ao atualizar dados sensíveis");
+if (confirmarReauthBtn) {
+  confirmarReauthBtn.addEventListener("click", async () => {
+    const senha = senhaAtualInput.value;
+
+    if(!senha) {
+      alert("Por favor, insira sua senha atual.");
+      return;
     }
-  }
-});
-*/
+
+    try {
+      const user = auth.currentUser;
+
+      if (!user) {
+        alert("Usuário não autenticado");
+        fecharModalSeguranca();
+        return;
+      }
+
+      await reautenticarUsuario(senha);
+
+      if (acaoSeguranca === "email") {
+        const novoEmail = prompt("Digite seu novo email:");
+        if (!novoEmail) {
+          fecharModalSeguranca();
+          return;
+        }
+
+        await updateEmail(user, novoEmail);
+
+        const syncEmail = httpsCallable(functions, "syncEmail");
+        await syncEmail({ email: novoEmail });
+
+        alert("Email atualizado com sucesso!");
+      }
+
+      if (acaoSeguranca === "senha") {
+        const novaSenha = prompt("Digite sua nova senha:");
+        if (!novaSenha) {
+          fecharModalSeguranca();
+          return;
+        }
+
+        if (novaSenha.length < 6) {
+          alert("Senha não pode ser vazia e deve ter pelo menos 6 caracteres.");
+          return;
+        }
+
+        await updatePassword(user, novaSenha);
+        alert("Senha atualizada com sucesso!");
+      }
+
+      fecharModalSeguranca();
+    } catch (err) {
+      console.error(err);
+
+      if (err.code === "auth/wrong-password") {
+        alert("Senha incorreta");
+      } else if (err.code === "auth/requires-recent-login") {
+        alert("Faça login novamente por segurança");
+      } else if (err.code === "auth/invalid-email") {
+        alert("Email inválido");
+      } else if (err.code === "auth/email-already-in-use") {
+        alert("Este email já está em uso");
+      } else {
+        console.error("ERRO:", err);
+        alert(`${err.code || ""} ${err.message || err}`);
+      }
+    }
+  });
+}
 
 // Botão virar premium / gerenciar assinatura
-virarPremiumBtn.addEventListener("click", async () => {
-  const action = virarPremiumBtn.dataset.action;
+if (virarPremiumBtn) {
+  virarPremiumBtn.addEventListener("click", async () => {
+    const action = virarPremiumBtn.dataset.action;
 
   if (action === "premium") {
     window.location.href = "premium.html";
@@ -328,6 +352,7 @@ virarPremiumBtn.addEventListener("click", async () => {
     }
   }
 });
+}
 
 // Gerar cupom de indicação
 if (gerarCupomBtn) {

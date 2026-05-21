@@ -1,19 +1,25 @@
-/* Container principal */
-.container {
+/* ========================================
+   ESTILOS ESPECÍFICOS - usuario.html
+   ======================================== */
+
+/* ========== BARRA DE CABEÇALHO ========== */
+.barra-login-usuario {
     max-width: 900px;
     margin: 0 auto;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(75, 0, 130, 0.1);
-    padding: 20px 40px 40px;
-    transition: background 0.3s ease, color 0.3s ease;
+    padding: 10px 20px 20px 40px;
+    transition: background 0.3s ease;
+    position: relative;
+    text-align: right;
 }
 
-body.dark-mode .container {
+body.dark-mode .barra-login-usuario {
     background: #3c0061;
 }
 
-/* Header */
+/* ========== HEADER ========== */
 header h1 {
     font-weight: 700;
     color: var(--cor-primaria);
@@ -26,6 +32,7 @@ body.dark-mode header h1 {
     color: var(--cor-texto-escuro);
 }
 
+/* ========== TÍTULOS H2 ========== */
 h2 {
     margin-bottom: 15px;
     border-bottom: 2px solid var(--cor-primaria);
@@ -36,7 +43,37 @@ body.dark-mode h2 {
     border-bottom: 2px solid var(--cor-texto-escuro);
 }
 
-/* Lista de informações do usuário */
+/* ========== INFORMAÇÕES DO USUÁRIO ========== */
+#usuarioNome,
+#usuarioNomeInfo {
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode #usuarioNome,
+body.dark-mode #usuarioNomeInfo {
+    color: var(--cor-texto-escuro);
+}
+
+/* ========== CARDS E FORMULÁRIOS ========== */
+.card {
+    background: #faf7ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.08);
+    margin-bottom: 25px;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .card {
+    background: #4a007a;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+/* ========== LISTA DE INFORMAÇÕES ========== */
 .user-info {
     list-style: none;
     padding: 0;
@@ -72,7 +109,7 @@ body.dark-mode .user-info input {
     color: var(--cor-texto-escuro);
 }
 
-/* Botão salvar */
+/* ========== BOTÕES ========== */
 .user-info button,
 #userForm button {
     background: var(--cor-primaria);
@@ -100,35 +137,7 @@ body.dark-mode #userForm button:hover {
     background: var(--cor-primaria);
 }
 
-/* Informações do header */
-#usuarioNome,
-#usuarioNomeInfo {
-    font-weight: 600;
-    color: var(--cor-primaria);
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-body.dark-mode #usuarioNome,
-body.dark-mode #usuarioNomeInfo {
-    color: var(--cor-texto-escuro);
-}
-
-.card {
-    background: #faf7ff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.08);
-    margin-bottom: 25px;
-    transition: background 0.3s ease;
-}
-
-body.dark-mode .card {
-    background: #4a007a;
-}
-
+/* ========== BOTÃO VIRAR PREMIUM ========== */
 #virarPremiumBtn {
     background: linear-gradient(135deg, #ffb700, #ff8800);
     color: #000;
@@ -143,6 +152,7 @@ body.dark-mode .card {
     box-shadow: 0 4px 12px rgba(255, 136, 0, 0.4);
 }
 
+/* ========== INPUTS DO FORMULÁRIO ========== */
 #userForm input,
 #userForm select {
     width: 100%;
@@ -163,12 +173,205 @@ body.dark-mode #userForm select {
     color: var(--cor-texto-escuro);
 }
 
+/* ========== SELECTOR DE SEMESTRE ========== */
+.semestre-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    padding: 10px 15px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 6px;
+}
+
+body.dark-mode .semestre-selector {
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    border: 1px solid var(--cor-borda-escura);
+}
+
+.semestre-selector label {
+    font-weight: bold;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode .semestre-selector label {
+    color: var(--cor-texto-escuro);
+}
+
+.semestre-selector select {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--cor-borda);
+    background: var(--cor-input);
+    color: var(--cor-texto);
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .semestre-selector select {
+    background: var(--cor-input-escuro);
+    border: 1px solid var(--cor-borda-escura);
+    color: var(--cor-texto-escuro);
+}
+
+/* ========== BOTÃO UNI (ESPECÍFICO) ========== */
+.btn-uni {
+    width: 200px;
+    background: var(--cor-primaria);
+    color: white;
+    font-size: large;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .btn-uni {
+    background: var(--cor-primaria-clara);
+}
+
+.btn-uni:hover {
+    background: var(--cor-primaria-clara);
+}
+
+body.dark-mode .btn-uni:hover {
+    background: var(--cor-primaria);
+}
+
+/* ========== INFORMAÇÃO PREMIUM ========== */
 .premium-info {
     margin-bottom: 20px;
     font-weight: 600;
 }
 
-/* Responsivo */
+/* ========== MODAL DE SEGURANÇA ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: #fff;
+    color: var(--cor-texto);
+    margin: 8% auto;
+    padding: 20px 25px;
+    border-radius: 8px;
+    width: 320px;
+    max-width: 90%;
+    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.2);
+    border: 1px solid var(--cor-borda);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    animation: slideDown 0.3s ease;
+    position: relative;
+}
+
+body.dark-mode .modal-content {
+    background: #3c0061;
+    color: var(--cor-texto-escuro);
+    border: 1px solid var(--cor-borda-escura);
+}
+
+.modal-content h3 {
+    font-size: 1.4rem;
+    color: var(--cor-primaria);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+body.dark-mode .modal-content h3 {
+    color: var(--cor-texto-escuro);
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--cor-borda);
+    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    color: var(--cor-texto);
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .modal-content input {
+    border: 1px solid var(--cor-borda-escura);
+    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    color: var(--cor-texto-escuro);
+}
+
+.modal-content input:focus {
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+}
+
+body.dark-mode .modal-content input:focus {
+    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-content button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    background: var(--cor-primaria);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+body.dark-mode .modal-content button {
+    background: var(--cor-primaria-clara);
+}
+
+.modal-content button:hover {
+    background: var(--cor-primaria-clara);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .modal-content button:hover {
+    background: var(--cor-primaria);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ========== RESPONSIVIDADE ========== */
 @media (max-width: 768px) {
     .container {
         padding: 15px 20px 30px;
@@ -177,5 +380,9 @@ body.dark-mode #userForm select {
     .user-info input {
         font-size: 0.95rem;
         padding: 8px;
+    }
+
+    .barra-login-usuario {
+        padding: 10px 15px;
     }
 }

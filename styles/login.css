@@ -1,26 +1,8 @@
-/* ESTILO BASE DO SITE */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+/* ========================================
+   ESTILOS ESPECÍFICOS - login.html e cadastro.html
+   ======================================== */
 
-:root {
-    --cor-primaria: #4B0082;
-    --cor-primaria-clara: #6a0dad;
-    --cor-fundo: #f4f0f8;
-    --cor-texto: #2d003d;
-    --cor-borda: #a674c2;
-    --cor-input: #e8dff1;
-
-    /* Tema Escuro */
-    --cor-fundo-escuro: #2d003d;
-    --cor-texto-escuro: #f4f0f8;
-    --cor-input-escuro: #4B0082;
-    --cor-borda-escura: #6a0dad;
-}
-
+/* ========== LAYOUT PÁGINA ========== */
 body {
     background: var(--cor-fundo);
     color: var(--cor-texto);
@@ -29,16 +11,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background .3s, color .3s;
+    transition: background 0.3s, color 0.3s;
 }
-
 
 body.dark-mode {
     background: var(--cor-fundo-escuro);
     color: var(--cor-texto-escuro);
 }
 
-/* CONTAINER */
+/* ========== CONTAINER DE AUTENTICAÇÃO ========== */
 .auth-container {
     width: 100%;
     max-width: 380px;
@@ -47,18 +28,7 @@ body.dark-mode {
     padding: 35px 28px;
     box-shadow: 0 4px 12px rgba(75, 0, 130, 0.15);
     border: 1px solid var(--cor-borda);
-}
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.dark-mode .auth-container {
@@ -66,6 +36,7 @@ body.dark-mode .auth-container {
     border: 1px solid var(--cor-borda-escura);
 }
 
+/* ========== TITLE ========== */
 .auth-container h2 {
     text-align: center;
     font-size: 1.8rem;
@@ -77,7 +48,7 @@ body.dark-mode .auth-container h2 {
     color: var(--cor-texto-escuro);
 }
 
-/* INPUTS */
+/* ========== INPUTS ========== */
 .auth-container input,
 .auth-container select {
     width: 100%;
@@ -88,14 +59,7 @@ body.dark-mode .auth-container h2 {
     color: var(--cor-texto);
     font-size: 16px;
     margin-bottom: 15px;
-    transition: box-shadow .2s, transform .2s;
-}
-
-.auth-container input:focus,
-.auth-container select:focus {
-    outline: none;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+    transition: box-shadow 0.2s, transform 0.2s, background 0.3s ease, border 0.3s ease;
 }
 
 body.dark-mode .auth-container input,
@@ -105,7 +69,19 @@ body.dark-mode .auth-container select {
     color: var(--cor-texto-escuro);
 }
 
-/* BOTÕES */
+.auth-container input:focus,
+.auth-container select:focus {
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+}
+
+body.dark-mode .auth-container input:focus,
+body.dark-mode .auth-container select:focus {
+    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+}
+
+/* ========== BOTÕES ========== */
 .auth-container button {
     width: 100%;
     padding: 13px;
@@ -116,7 +92,11 @@ body.dark-mode .auth-container select {
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background .3s, transform .2s;
+    transition: background 0.3s, transform 0.2s;
+}
+
+body.dark-mode .auth-container button {
+    background: var(--cor-primaria-clara);
 }
 
 .auth-container button:hover {
@@ -124,25 +104,27 @@ body.dark-mode .auth-container select {
     transform: translateY(-2px);
 }
 
-body.dark-mode .auth-container button {
-    background: var(--cor-primaria-clara);
-}
-
 body.dark-mode .auth-container button:hover {
     background: var(--cor-primaria);
 }
 
-/* LINKS */
+/* ========== LINKS ========== */
 .auth-container .link {
     margin-top: 15px;
     text-align: center;
-    font-size: .95rem;
+    font-size: 0.95rem;
+    color: var(--cor-texto);
+}
+
+body.dark-mode .auth-container .link {
+    color: var(--cor-texto-escuro);
 }
 
 .auth-container .link a {
     color: var(--cor-primaria);
     font-weight: bold;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 body.dark-mode .auth-container .link a {
@@ -151,9 +133,30 @@ body.dark-mode .auth-container .link a {
 
 .auth-container .link a:hover {
     text-decoration: underline;
+    color: var(--cor-primaria-clara);
 }
 
-/* RESPONSIVIDADE */
+body.dark-mode .auth-container .link a:hover {
+    color: var(--cor-primaria-clara);
+}
+
+/* ========== ANIMAÇÕES ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-container {
+    animation: fadeIn 0.3s ease;
+}
+
+/* ========== RESPONSIVIDADE ========== */
 @media (max-width: 768px) {
     .auth-container {
         margin-top: 30px;
@@ -166,5 +169,12 @@ body.dark-mode .auth-container .link a {
 
     .auth-container button {
         font-size: 1rem;
+        padding: 11px;
+    }
+
+    .auth-container input,
+    .auth-container select {
+        font-size: 14px;
+        padding: 10px;
     }
 }
