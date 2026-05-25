@@ -123,7 +123,6 @@ registerBtn.addEventListener("click", async () => {
       curso,
       tipoUsuario: "padrao",
       mediaMinima: "5",
-      criadoEm: new Date()
     });
 
     msg.textContent = "Cadastro realizado com sucesso!";

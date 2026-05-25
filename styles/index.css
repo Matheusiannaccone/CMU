@@ -33,7 +33,7 @@ body.dark-mode .site-descricao {
 
 /* ========== FORMULÁRIO ========== */
 form {
-    background: #fff;
+    background: var(--cor-surface);
     padding: 20px 25px;
     border-radius: 6px;
     border: 1px solid var(--cor-borda);
@@ -41,7 +41,7 @@ form {
 }
 
 body.dark-mode form {
-    background: #3c0061;
+    background: var(--cor-surface-dark);
     border: 1px solid var(--cor-borda-escura);
 }
 
@@ -78,7 +78,7 @@ body.dark-mode .materia h2 {
     position: relative;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    background: linear-gradient(135deg, var(--cor-input), var(--cor-fundo));
     border: 1px solid var(--cor-borda);
     border-radius: 6px;
     padding: 5px;
@@ -87,17 +87,17 @@ body.dark-mode .materia h2 {
 }
 
 body.dark-mode .materia-nome-container {
-    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    background: linear-gradient(135deg, var(--cor-input-escuro), var(--cor-surface-dark));
     border: 1px solid var(--cor-borda-escura);
 }
 
 .materia-nome-container:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode .materia-nome-container:hover {
-    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow-dark);
 }
 
 .materia-nome-container::before {
@@ -143,24 +143,24 @@ body.dark-mode .materia-nome-container input {
     text-align: center;
     border: 1px solid var(--cor-borda);
     border-radius: 4px;
-    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    background: linear-gradient(135deg, var(--cor-input), var(--cor-fundo));
     color: var(--cor-texto);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 body.dark-mode .notas input {
     border: 1px solid var(--cor-borda-escura);
-    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    background: linear-gradient(135deg, var(--cor-input-escuro), var(--cor-surface-dark));
     color: var(--cor-texto-escuro);
 }
 
 .notas input:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode .notas input:hover {
-    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow-dark);
 }
 
 /* ========== CAMPOS DE RESULTADO ========== */
@@ -196,7 +196,7 @@ body.dark-mode .afNecessaria {
 .media-box {
     flex: 1;
     min-width: 200px;
-    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    background: linear-gradient(135deg, var(--cor-input), var(--cor-fundo));
     padding: 15px 20px;
     border-radius: 8px;
     text-align: center;
@@ -204,7 +204,7 @@ body.dark-mode .afNecessaria {
 }
 
 body.dark-mode .media-box {
-    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    background: linear-gradient(135deg, var(--cor-input-escuro), var(--cor-surface-dark));
     color: var(--cor-texto-escuro);
 }
 
@@ -240,7 +240,7 @@ body.dark-mode .feedback {
     opacity: 1;
 }
 
-/* ========== ANÚNCIOS ========== */
+/* ========== ANÚNCIOS ========== 
 .ad-banner-top,
 .ad-banner-side,
 .ad-banner-footer {
@@ -261,11 +261,12 @@ body.dark-mode .ad-banner-footer {
     min-width: 250px;
     min-height: auto;
 }
+*/
 
 /* ========== BOTÃO VIRAR PREMIUM ========== */
 #virarPremiumBtn {
-    background: linear-gradient(135deg, #ffb700, #ff8800);
-    color: #000;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-clara));
+    color: #fff;
     font-weight: bold;
     border-radius: 8px;
     padding: 12px 18px;
@@ -274,7 +275,7 @@ body.dark-mode .ad-banner-footer {
 
 #virarPremiumBtn:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(255, 136, 0, 0.4);
+    box-shadow: 0 4px 12px var(--cor-shadow);
 }
 
 /* ========== RESPONSIVIDADE ========== */

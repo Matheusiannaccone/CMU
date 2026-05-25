@@ -23,16 +23,16 @@ body.dark-mode {
 .auth-container {
     width: 100%;
     max-width: 380px;
-    background: #fff;
+    background: var(--cor-surface);
     border-radius: 12px;
     padding: 35px 28px;
-    box-shadow: 0 4px 12px rgba(75, 0, 130, 0.15);
+    box-shadow: 0 4px 12px var(--cor-shadow);
     border: 1px solid var(--cor-borda);
     transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.dark-mode .auth-container {
-    background: #3c0061;
+    background: var(--cor-surface-dark);
     border: 1px solid var(--cor-borda-escura);
 }
 
@@ -55,7 +55,7 @@ body.dark-mode .auth-container h2 {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--cor-borda);
-    background: linear-gradient(135deg, var(--cor-input), #f0e6f6);
+    background: linear-gradient(135deg, var(--cor-input), var(--cor-fundo));
     color: var(--cor-texto);
     font-size: 16px;
     margin-bottom: 15px;
@@ -64,7 +64,7 @@ body.dark-mode .auth-container h2 {
 
 body.dark-mode .auth-container input,
 body.dark-mode .auth-container select {
-    background: linear-gradient(135deg, var(--cor-input-escuro), #3c0061);
+    background: linear-gradient(135deg, var(--cor-input-escuro), var(--cor-fundo-escuro));
     border: 1px solid var(--cor-borda-escura);
     color: var(--cor-texto-escuro);
 }
@@ -73,12 +73,12 @@ body.dark-mode .auth-container select {
 .auth-container select:focus {
     outline: none;
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode .auth-container input:focus,
 body.dark-mode .auth-container select:focus {
-    box-shadow: 0 2px 8px rgba(244, 240, 248, 0.2);
+    box-shadow: 0 2px 8px var(--cor-shadow-dark);
 }
 
 /* ========== BOTÕES ========== */

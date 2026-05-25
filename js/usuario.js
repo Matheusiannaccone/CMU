@@ -24,6 +24,44 @@ const mediaMinima = document.getElementById("mediaMinima");
 const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
 
+// Beta Features Elements
+const betaFeaturesSection = document.getElementById("betaFeaturesSection");
+
+// CALCULAR AF
+const betaCompactHeaderAF = document.getElementById("betaCompactHeaderAF");
+const betaExpandedContentAF = document.getElementById("betaExpandedContentAF");
+const expandBetaBtnAF = document.getElementById("expandBetaBtnAF");
+const compactRatingAF = document.getElementById("compactRatingAF");
+const infoBetaBtnAF = document.getElementById("infoBetaBtnAF");
+const infoBetaContentAF = document.getElementById("infoBetaContentAF");
+const afRatingStars = document.querySelectorAll("#afRatingStars .star");
+const toggleFeedbackAF = document.getElementById("toggleFeedbackAF");
+const betaFeedbackBoxAF = document.getElementById("betaFeedbackBoxAF");
+const afFeedbackTextarea = document.getElementById("afFeedback");
+const submitAfFeedbackBtn = document.getElementById("submitAfFeedback");
+
+// TEMAS
+const betaCompactHeaderTheme = document.getElementById("betaCompactHeaderTheme");
+const betaExpandedContentTheme = document.getElementById("betaExpandedContentTheme");
+const expandBetaBtnTheme = document.getElementById("expandBetaBtnTheme");
+const compactRatingTheme = document.getElementById("compactRatingTheme");
+const infoBetaBtnTheme = document.getElementById("infoBetaBtnTheme");
+const infoBetaContentTheme = document.getElementById("infoBetaContentTheme");
+const themeRatingStars = document.querySelectorAll("#themeRatingStars .star");
+const toggleFeedbackTheme = document.getElementById("toggleFeedbackTheme");
+const betaFeedbackBoxTheme = document.getElementById("betaFeedbackBoxTheme");
+const themeFeedbackTextarea = document.getElementById("themeFeedback");
+const submitThemeFeedbackBtn = document.getElementById("submitThemeFeedback");
+
+// Tema
+const themeCustomizerSection = document.getElementById("themeCustomizerSection");
+
+// Beta Features State
+let selectedRatingAF = 0;
+let selectedRatingTheme = 0;
+let previousBetaFeedbackAF = null;
+let previousBetaFeedbackTheme = null;
+
 // Botões de segurança
 const alterarEmailBtn = document.getElementById("alterarEmailBtn");
 const alterarSenhaBtn = document.getElementById("alterarSenhaBtn");
@@ -99,6 +137,101 @@ async function reautenticarUsuario(senha) {
   await reauthenticateWithCredential(user, credential);
 }
 
+// Função para carregar feedback anterior do usuário
+async function loadPreviousBetaFeedback(user) {
+  try {
+    // Carregar feedback do Calcular AF
+    const feedbackRefAF = collection(db, "betaFeedback");
+    const qAF = query(feedbackRefAF, where("userId", "==", user.uid), where("feature", "==", "calcularAF"));
+    const feedbackSnapAF = await getDocs(qAF);
+
+    if (!feedbackSnapAF.empty) {
+      previousBetaFeedbackAF = feedbackSnapAF.docs[0].data();
+      renderBetaCompactHeaderAF();
+    } else {
+      betaCompactHeaderAF.style.display = "none";
+      betaExpandedContentAF.style.display = "flex";
+    }
+
+    // Carregar feedback de Temas
+    const feedbackRefTheme = collection(db, "betaFeedback");
+    const qTheme = query(feedbackRefTheme, where("userId", "==", user.uid), where("feature", "==", "themes"));
+    const feedbackSnapTheme = await getDocs(qTheme);
+
+    if (!feedbackSnapTheme.empty) {
+      previousBetaFeedbackTheme = feedbackSnapTheme.docs[0].data();
+      renderBetaCompactHeaderTheme();
+    } else {
+      betaCompactHeaderTheme.style.display = "none";
+      betaExpandedContentTheme.style.display = "flex";
+    }
+  } catch (err) {
+    console.error("Erro ao carregar feedback anterior:", err);
+    betaExpandedContentAF.style.display = "flex";
+    betaExpandedContentTheme.style.display = "flex";
+  }
+}
+
+function renderBetaCompactHeaderAF() {
+  if (!previousBetaFeedbackAF) return;
+
+  const rating = previousBetaFeedbackAF.rating;
+  const stars = "⭐".repeat(Math.floor(rating)) + (rating % 1 !== 0 ? "✨" : "");
+
+  compactRatingAF.textContent = stars;
+  betaCompactHeaderAF.style.display = "flex";
+  betaExpandedContentAF.style.display = "none";
+}
+
+function renderBetaCompactHeaderTheme() {
+  if (!previousBetaFeedbackTheme) return;
+
+  const rating = previousBetaFeedbackTheme.rating;
+  const stars = "⭐".repeat(Math.floor(rating)) + (rating % 1 !== 0 ? "✨" : "");
+
+  compactRatingTheme.textContent = stars;
+  betaCompactHeaderTheme.style.display = "flex";
+  betaExpandedContentTheme.style.display = "none";
+}
+
+function expandBetaFeatureAF() {
+  betaCompactHeaderAF.style.display = "none";
+  betaExpandedContentAF.style.display = "flex";
+
+  if (previousBetaFeedbackAF) {
+    selectedRatingAF = previousBetaFeedbackAF.rating;
+    afFeedbackTextarea.value = previousBetaFeedbackAF.feedback || "";
+    updateStarDisplayAF();
+
+    const charCountEl = document.getElementById("charCountAF");
+    if (charCountEl) {
+      charCountEl.textContent = afFeedbackTextarea.value.length;
+    }
+
+    toggleFeedbackAF.checked = previousBetaFeedbackAF.feedback ? true : false;
+    betaFeedbackBoxAF.style.display = toggleFeedbackAF.checked ? "flex" : "none";
+  }
+}
+
+function expandBetaFeatureTheme() {
+  betaCompactHeaderTheme.style.display = "none";
+  betaExpandedContentTheme.style.display = "flex";
+
+  if (previousBetaFeedbackTheme) {
+    selectedRatingTheme = previousBetaFeedbackTheme.rating;
+    themeFeedbackTextarea.value = previousBetaFeedbackTheme.feedback || "";
+    updateStarDisplayTheme();
+
+    const charCountEl = document.getElementById("charCountTheme");
+    if (charCountEl) {
+      charCountEl.textContent = themeFeedbackTextarea.value.length;
+    }
+
+    toggleFeedbackTheme.checked = previousBetaFeedbackTheme.feedback ? true : false;
+    betaFeedbackBoxTheme.style.display = toggleFeedbackTheme.checked ? "flex" : "none";
+  }
+}
+
 // Função para carregar dados
 async function carregarDadosUsuario(user) {
   const userRef = doc(db, "usuarios", user.uid);
@@ -109,7 +242,6 @@ async function carregarDadosUsuario(user) {
   const data = userSnap.data();
 
   // Preenche os campos
-  usuarioNomeSpan.textContent = data.nome ?? "";
   usuarioNomeInfo.textContent = data.nome ?? "";
   nomeUsuario.value = data.nome ?? "";
   sobrenomeUsuario.value = data.sobrenome ?? "";
@@ -132,22 +264,28 @@ async function carregarDadosUsuario(user) {
     virarPremiumBtn.textContent = "Gerenciar assinatura";
     virarPremiumBtn.dataset.action = "manage";
 
-    vencimentoEl.textContent = 
+    vencimentoEl.textContent =
       data.premiumVencimento
         ? formatarData(data.premiumVencimento)
         : "Ativo";
 
-        if (tipo === "genius_plus") {
-          mediaMinimaContainer.style.display = "block";
-        } else {
-          mediaMinimaContainer.style.display = "none";
-        }
+    if (tipo === "genius_plus") {
+      betaFeaturesSection.style.display = "block";
+      await loadPreviousBetaFeedback(user);
+      mediaMinimaContainer.style.display = "block";
+      themeCustomizerSection.style.display = "block";
+    } else {
+      betaFeaturesSection.style.display = "none";
+      mediaMinimaContainer.style.display = "none";
+      themeCustomizerSection.style.display = "none";
+    }
   } else {
     virarPremiumBtn.style.display = "inline-block";
     virarPremiumBtn.textContent = "Virar Premium";
     virarPremiumBtn.dataset.action = "premium";
 
     vencimentoEl.textContent = "Plano gratuito";
+    betaFeaturesSection.style.display = "none";
   }
 
   let referralCode = null;
@@ -229,7 +367,6 @@ userForm.addEventListener("submit", async (e) => {
 
     await setDoc(userRef, payload, { merge: true});
 
-    usuarioNomeSpan.textContent = payload.nome;
     usuarioNomeInfo.textContent = payload.nome;
 
     alert("Informações atualizadas com sucesso!");
@@ -381,5 +518,248 @@ if (copiarCupomBtn) {
     await navigator.clipboard.writeText(codigoCupomEl.textContent);
     copiarCupomBtn.textContent = "Copiado!";
     setTimeout(() => copiarCupomBtn.textContent = "Copiar", 1500);
+  });
+}
+
+// ========== BETA FEATURES RATING ==========
+// Toggle info buttons
+if (infoBetaBtnAF) {
+  infoBetaBtnAF.addEventListener("click", () => {
+    if (infoBetaContentAF.style.display === "none") {
+      infoBetaContentAF.style.display = "block";
+    } else {
+      infoBetaContentAF.style.display = "none";
+    }
+  });
+}
+
+if (infoBetaBtnTheme) {
+  infoBetaBtnTheme.addEventListener("click", () => {
+    if (infoBetaContentTheme.style.display === "none") {
+      infoBetaContentTheme.style.display = "block";
+    } else {
+      infoBetaContentTheme.style.display = "none";
+    }
+  });
+}
+
+// Expand buttons
+if (expandBetaBtnAF) {
+  expandBetaBtnAF.addEventListener("click", expandBetaFeatureAF);
+}
+
+if (expandBetaBtnTheme) {
+  expandBetaBtnTheme.addEventListener("click", expandBetaFeatureTheme);
+}
+
+// Rating stars for AF
+afRatingStars.forEach((star) => {
+  star.addEventListener("click", () => {
+    selectedRatingAF = parseInt(star.dataset.value);
+    updateStarDisplayAF();
+  });
+
+  star.addEventListener("mouseover", () => {
+    const hoverValue = parseInt(star.dataset.value);
+    afRatingStars.forEach((s) => {
+      const starValue = parseInt(s.dataset.value);
+      s.style.opacity = starValue <= hoverValue ? "1" : "0.3";
+    });
+  });
+});
+
+document.getElementById("afRatingStars").addEventListener("mouseleave", updateStarDisplayAF);
+
+// Rating stars for Theme
+themeRatingStars.forEach((star) => {
+  star.addEventListener("click", () => {
+    selectedRatingTheme = parseInt(star.dataset.value);
+    updateStarDisplayTheme();
+  });
+
+  star.addEventListener("mouseover", () => {
+    const hoverValue = parseInt(star.dataset.value);
+    themeRatingStars.forEach((s) => {
+      const starValue = parseInt(s.dataset.value);
+      s.style.opacity = starValue <= hoverValue ? "1" : "0.3";
+    });
+  });
+});
+
+document.getElementById("themeRatingStars").addEventListener("mouseleave", updateStarDisplayTheme);
+
+function updateStarDisplayAF() {
+  afRatingStars.forEach((star) => {
+    const starValue = parseInt(star.dataset.value);
+    if (starValue <= selectedRatingAF) {
+      star.classList.add("active");
+    } else {
+      star.classList.remove("active");
+    }
+  });
+}
+
+function updateStarDisplayTheme() {
+  themeRatingStars.forEach((star) => {
+    const starValue = parseInt(star.dataset.value);
+    if (starValue <= selectedRatingTheme) {
+      star.classList.add("active");
+    } else {
+      star.classList.remove("active");
+    }
+  });
+}
+
+// Toggle feedback boxes
+if (toggleFeedbackAF) {
+  toggleFeedbackAF.addEventListener("change", () => {
+    betaFeedbackBoxAF.style.display = toggleFeedbackAF.checked ? "flex" : "none";
+  });
+}
+
+if (toggleFeedbackTheme) {
+  toggleFeedbackTheme.addEventListener("change", () => {
+    betaFeedbackBoxTheme.style.display = toggleFeedbackTheme.checked ? "flex" : "none";
+  });
+}
+
+// Character counters
+const charCountAFEl = document.getElementById("charCountAF");
+if (afFeedbackTextarea && charCountAFEl) {
+  afFeedbackTextarea.addEventListener("input", () => {
+    charCountAFEl.textContent = afFeedbackTextarea.value.length;
+  });
+}
+
+const charCountThemeEl = document.getElementById("charCountTheme");
+if (themeFeedbackTextarea && charCountThemeEl) {
+  themeFeedbackTextarea.addEventListener("input", () => {
+    charCountThemeEl.textContent = themeFeedbackTextarea.value.length;
+  });
+}
+
+if (submitAfFeedbackBtn) {
+  submitAfFeedbackBtn.addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Usuário não autenticado");
+      return;
+    }
+
+    if (selectedRatingAF === 0) {
+      alert("Por favor, selecione uma avaliação.");
+      return;
+    }
+
+    submitAfFeedbackBtn.disabled = true;
+    submitAfFeedbackBtn.textContent = "Enviando...";
+
+    try {
+      const feedbackRef = collection(db, "betaFeedback");
+      const feedbackDoc = {
+        userId: user.uid,
+        feature: "calcularAF",
+        rating: selectedRatingAF,
+        feedback: afFeedbackTextarea.value.trim(),
+        timestamp: new Date(),
+      };
+
+      const docRef = await getDocs(
+        query(feedbackRef, where("userId", "==", user.uid), where("feature", "==", "calcularAF"))
+      );
+
+      if (!docRef.empty) {
+        const existingDocId = docRef.docs[0].id;
+        const docToUpdate = doc(db, "betaFeedback", existingDocId);
+        await setDoc(docToUpdate, feedbackDoc, { merge: true });
+      } else {
+        const newDocRef = doc(collection(db, "betaFeedback"));
+        await setDoc(newDocRef, feedbackDoc);
+      }
+
+      alert("Obrigado pela avaliação!");
+
+      previousBetaFeedbackAF = {
+        rating: selectedRatingAF,
+        feedback: afFeedbackTextarea.value.trim()
+      };
+
+      selectedRatingAF = 0;
+      afFeedbackTextarea.value = "";
+      toggleFeedbackAF.checked = false;
+      betaFeedbackBoxAF.style.display = "none";
+      updateStarDisplayAF();
+
+      renderBetaCompactHeaderAF();
+    } catch (err) {
+      console.error("Erro ao enviar feedback:", err);
+      alert("Não foi possível enviar sua avaliação.");
+    } finally {
+      submitAfFeedbackBtn.disabled = false;
+      submitAfFeedbackBtn.textContent = "Enviar";
+    }
+  });
+}
+
+if (submitThemeFeedbackBtn) {
+  submitThemeFeedbackBtn.addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Usuário não autenticado");
+      return;
+    }
+
+    if (selectedRatingTheme === 0) {
+      alert("Por favor, selecione uma avaliação.");
+      return;
+    }
+
+    submitThemeFeedbackBtn.disabled = true;
+    submitThemeFeedbackBtn.textContent = "Enviando...";
+
+    try {
+      const feedbackRef = collection(db, "betaFeedback");
+      const feedbackDoc = {
+        userId: user.uid,
+        feature: "themes",
+        rating: selectedRatingTheme,
+        feedback: themeFeedbackTextarea.value.trim(),
+        timestamp: new Date(),
+      };
+
+      const docRef = await getDocs(
+        query(feedbackRef, where("userId", "==", user.uid), where("feature", "==", "themes"))
+      );
+
+      if (!docRef.empty) {
+        const existingDocId = docRef.docs[0].id;
+        const docToUpdate = doc(db, "betaFeedback", existingDocId);
+        await setDoc(docToUpdate, feedbackDoc, { merge: true });
+      } else {
+        const newDocRef = doc(collection(db, "betaFeedback"));
+        await setDoc(newDocRef, feedbackDoc);
+      }
+
+      alert("Obrigado pela avaliação!");
+
+      previousBetaFeedbackTheme = {
+        rating: selectedRatingTheme,
+        feedback: themeFeedbackTextarea.value.trim()
+      };
+
+      selectedRatingTheme = 0;
+      themeFeedbackTextarea.value = "";
+      toggleFeedbackTheme.checked = false;
+      betaFeedbackBoxTheme.style.display = "none";
+      updateStarDisplayTheme();
+
+      renderBetaCompactHeaderTheme();
+    } catch (err) {
+      console.error("Erro ao enviar feedback:", err);
+      alert("Não foi possível enviar sua avaliação.");
+    } finally {
+      submitThemeFeedbackBtn.disabled = false;
+      submitThemeFeedbackBtn.textContent = "Enviar";
+    }
   });
 }
