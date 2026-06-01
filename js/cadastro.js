@@ -128,8 +128,78 @@ registerBtn.addEventListener("click", async () => {
     msg.textContent = "Cadastro realizado com sucesso!";
     msg.style.color = "green";
 
+    // ✨ MOSTRAR BANNER DE CUPOM AO INVÉS DE REDIRECIONAR
     setTimeout(() => {
-      window.location.href = "index.html";
+      registerBtn.style.display = "none";
+      const form = document.querySelector(".auth-container");
+
+      // Criar banner de cupom
+      const cupomBanner = document.createElement("div");
+      cupomBanner.id = "bannerCupom";
+      cupomBanner.style.cssText = `
+        margin-top: 30px;
+        padding: 20px;
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      `;
+
+      cupomBanner.innerHTML = `
+        <h3 style="margin: 0 0 15px 0; font-size: 18px;">✨ Você possui um cupom?</h3>
+        <p style="margin: 0 0 20px 0; font-size: 14px;">Se alguém te indicou ou você recebeu um cupom especial, use agora para obter descontos!</p>
+        <div style="display: flex; gap: 10px;">
+          <button id="btnTemCupom" style="
+            flex: 1;
+            padding: 12px;
+            background: white;
+            color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+          ">Sim, tenho cupom</button>
+          <button id="btnSemCupom" style="
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+          ">Não, continuar</button>
+        </div>
+      `;
+
+      form.appendChild(cupomBanner);
+
+      // Event listeners
+      document.getElementById("btnTemCupom").addEventListener("click", () => {
+        window.location.href = "coupon.html";
+      });
+
+      document.getElementById("btnSemCupom").addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+
+      // Hover effects
+      document.getElementById("btnTemCupom").addEventListener("mouseover", (e) => {
+        e.target.style.transform = "scale(1.05)";
+      });
+      document.getElementById("btnTemCupom").addEventListener("mouseout", (e) => {
+        e.target.style.transform = "scale(1)";
+      });
+
+      document.getElementById("btnSemCupom").addEventListener("mouseover", (e) => {
+        e.target.style.background = "rgba(255,255,255,0.1)";
+      });
+      document.getElementById("btnSemCupom").addEventListener("mouseout", (e) => {
+        e.target.style.background = "transparent";
+      });
     }, 1500);
 
   } catch (error) {
