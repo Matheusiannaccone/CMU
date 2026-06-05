@@ -50,6 +50,32 @@ async function subscribe({ plan, interval }) {
 
     const result = await createCheckoutSession({ plan, interval });
 
+    if (result.data.couponWarning) {
+      const continuar = confirm(
+        result.data.message +
+        "\n\nClique em OK para continuar sem desconto." + 
+        "\nClique Cancelar para escolher outro plano."
+      );
+
+      if (!continuar) {
+        reativarBotoes();
+        return;
+      }
+
+      const createCheckoutSessionWithIgnore = httpsCallable(
+        functions,
+        "createStripeCheckoutSession"
+      );
+
+      const checkout = await createCheckoutSessionWithIgnore({ 
+        plan, 
+        interval, 
+        ignoreCouponValidation: true 
+      });
+
+      window.location.href = checkout.data.url;
+      return;
+    }
     // REDIRECIONAMENTO
     window.location.href = result.data.url;
 

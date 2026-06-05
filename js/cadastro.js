@@ -131,51 +131,80 @@ registerBtn.addEventListener("click", async () => {
     // ✨ MOSTRAR BANNER DE CUPOM AO INVÉS DE REDIRECIONAR
     setTimeout(() => {
       registerBtn.style.display = "none";
-      const form = document.querySelector(".auth-container");
-
-      // Criar banner de cupom
-      const cupomBanner = document.createElement("div");
-      cupomBanner.id = "bannerCupom";
-      cupomBanner.style.cssText = `
-        margin-top: 30px;
+      
+      // Criar overlay
+      const overlay = document.createElement("div");
+      overlay.id = "cupomOverlay";
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
         padding: 20px;
-        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-        color: white;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        box-sizing: border-box;
       `;
 
-      cupomBanner.innerHTML = `
-        <h3 style="margin: 0 0 15px 0; font-size: 18px;">✨ Você possui um cupom?</h3>
-        <p style="margin: 0 0 20px 0; font-size: 14px;">Se alguém te indicou ou você recebeu um cupom especial, use agora para obter descontos!</p>
-        <div style="display: flex; gap: 10px;">
+      // Criar modal
+      const cupomModal = document.createElement("div");
+      cupomModal.style.cssText = `
+        width: 100%;
+        max-width: 400px;
+        padding: 25px;
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        color: white;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: aparecer 0.3s ease;
+      `;
+
+      cupomModal.innerHTML = `
+        <h3 style="margin:0 0 15px 0;">✨ Você possui um cupom?</h3>
+
+        <p style="margin:0 0 20px 0;">
+          Se alguém te indicou ou você recebeu um cupom especial,
+          utilize agora para obter descontos.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
           <button id="btnTemCupom" style="
-            flex: 1;
-            padding: 12px;
-            background: white;
-            color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-          ">Sim, tenho cupom</button>
+            flex:1;
+            min-width:140px;
+            padding:12px;
+            background:white;
+            color:#4CAF50;
+            border:none;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+          ">
+            Sim, tenho cupom
+          </button>
+
           <button id="btnSemCupom" style="
-            flex: 1;
-            padding: 12px;
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-          ">Não, continuar</button>
+            flex:1;
+            min-width:140px;
+            padding:12px;
+            background:transparent;
+            color:white;
+            border:2px solid white;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+          ">
+            Não, continuar
+          </button>
         </div>
       `;
 
-      form.appendChild(cupomBanner);
+      overlay.appendChild(cupomModal);
+      document.body.appendChild(overlay);
 
       // Event listeners
       document.getElementById("btnTemCupom").addEventListener("click", () => {
