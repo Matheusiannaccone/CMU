@@ -1,221 +1,471 @@
-# __CMU — Calculadora de Médias Universitárias__
+# **CMU — Calculadora de Médias Universitárias**
 
 Aplicação web desenvolvida para ajudar estudantes universitários a calcular suas médias acadêmicas de forma rápida e automática.
-A ferramenta permite inserir notas de avaliações e descobrir imediatamente se o aluno está aprovado ou quanto precisa tirar para alcançar a média mínima.
+
+A ferramenta permite inserir notas de avaliações, calcular a média da disciplina e simular a nota necessária para alcançar a média mínima de aprovação.
 
 **Acesse o projeto:**
 https://calculadora-medias-universitarias.vercel.app/
 
 ---
 
-# _Sobre o Projeto_
+# *Sobre o Projeto*
+
 A **Calculadora de Médias Universitárias (CMU)** foi criada para simplificar o cálculo de notas durante a graduação.
 
 Muitos estudantes precisam calcular manualmente médias ponderadas entre avaliações como:
 
-- AC1
-- AC2
-- AF
-- AG
-- AS
+* AC1
+* AC2
+* AF
+* AG
+* AS
 
-O sistema permite inserir as notas e automaticamente calcular a média com base nos pesos definidos pelas universidades.
-Ferramentas desse tipo ajudam estudantes a entender rapidamente quanto precisam tirar para atingir a média necessária para aprovação.
+O sistema permite inserir as notas e calcular automaticamente a média com base nos pesos definidos pela aplicação.
 
----
+Além da calculadora principal, o projeto possui autenticação de usuários, integração com Firebase e recursos para armazenamento de informações acadêmicas.
 
-# _Funcionalidades_
-- Inserção de notas das avaliações.
-- Cálculo automático da média final.
-- Simulação de nota necessária para aprovação.
-- Interface simples e rápida.
-- Funciona diretamente no navegador.
-- Sem necessidade de login.
-- Versão paga com integração a banco de dados. 
-
-⚠ Algumas funcionalidades estão disponíveis apenas na versão de produção.
+O projeto está atualmente em processo de evolução para a **V3**, que reorganiza a experiência gratuita da plataforma e simplifica sua lógica de negócio.
 
 ---
 
-# _Tecnologias Utilizadas_
-O projeto foi desenvolvido utilizando tecnologias web fundamentais:
+# *Funcionalidades*
 
-- **HTML5** — Estrutura da aplicação
-- **CSS3** — Estilização da interface
-- **JavaScript** — Lógica de cálculo das médias
-- **Firebase** — Banco de dados e autenticação de usuário
-- **Stripe** — API de assinaturas
-- **Vercel** — Deploy da aplicação
+Entre as funcionalidades atualmente presentes no projeto estão:
+
+* Inserção de notas das avaliações.
+* Cálculo automático da média.
+* Cálculo da nota necessária na AF.
+* Simulação de desempenho acadêmico.
+* Cadastro de usuários.
+* Login com Firebase Authentication.
+* Armazenamento de dados acadêmicos no Firestore.
+* Área do usuário.
+* Suporte a tema claro e escuro.
+* Interface responsiva para diferentes dispositivos.
+* Integrações de backend por meio de Firebase Cloud Functions.
+
+Algumas funcionalidades da versão anterior relacionadas ao Premium, Stripe, cupons e assinaturas permanecem no código durante o processo de migração para a V3, podendo ser modificadas ou removidas conforme o roadmap do projeto.
 
 ---
 
-# _Estrutura do Projeto_
-```
-CMU
+# *Tecnologias Utilizadas*
+
+O projeto utiliza:
+
+* **HTML5** — estrutura das páginas.
+* **CSS3** — estilização e responsividade.
+* **JavaScript** — lógica da aplicação e interação com a interface.
+* **Firebase Authentication** — autenticação de usuários.
+* **Cloud Firestore** — armazenamento de dados.
+* **Firebase Cloud Functions** — execução de lógica no backend.
+* **Firebase Hosting / configuração Firebase** — infraestrutura e configuração da aplicação.
+* **Stripe** — integração de pagamentos presente na versão anterior do modelo Premium.
+* **Node.js** — ambiente utilizado pelas Cloud Functions.
+* **Vercel** — deploy utilizado pela versão pública atual.
+
+---
+
+# *Estrutura do Projeto*
+
+A estrutura do repositório foi reorganizada para separar claramente frontend, backend, documentação e configurações do Firebase.
+
+```text
+CMU/
 │
-├── firebase
-│   └── config.js
+├── Docs/
+│   ├── CMU_V3_Logica_de_Negocio_e_Versionamento.txt
+│   └── CMU_V3_Roadmap_de_Alteracoes.txt
 │
-├── firestore
-│   ├── carregarSemestres.js
-│   ├── mediaGlobal.js
-│   └── salvarNotas.js
-│
-├── images
-│   ├── logo.png
-│   └── usuario.png
-│
-├── js
-│   ├── anuncios.js
-│   ├── cadastro.js
+├── functions/
 │   ├── index.js
-│   ├── login.js
-│   ├── premium.js
-│   ├── theme.js
-│   ├── usuario.js
-│   └── verificaPremium.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── ...
 │
-├── styles
-│   ├── anuncio.css
-│   ├── login.css
-│   ├── premium.css
-│   ├── styles.css
-│   └── usuario.css
+├── public/
+│   │
+│   ├── firebase/
+│   │   └── config.js
+│   │
+│   ├── firestore/
+│   │   ├── carregarSemestres.js
+│   │   ├── mediaGlobal.js
+│   │   └── salvarNotas.js
+│   │
+│   ├── images/
+│   │   ├── logo.png
+│   │   └── usuario.png
+│   │
+│   ├── js/
+│   │   ├── anuncios.js
+│   │   ├── cadastro.js
+│   │   ├── calcularAF.js
+│   │   ├── coupon-validator.js
+│   │   ├── index.js
+│   │   ├── login.js
+│   │   ├── premium.js
+│   │   ├── theme.js
+│   │   ├── usuario.js
+│   │   └── verificaPremium.js
+│   │
+│   ├── styles/
+│   │   ├── anuncios.css
+│   │   ├── coupon.css
+│   │   ├── index.css
+│   │   ├── login.css
+│   │   ├── premium.css
+│   │   ├── styles.css
+│   │   └── usuario.css
+│   │
+│   ├── 404.html
+│   ├── cadastro.html
+│   ├── coupon.html
+│   ├── index.html
+│   ├── login.html
+│   ├── premium.html
+│   ├── sobre.html
+│   └── usuario.html
 │
-├── 404.html
-├── cadastro.html
-├── index.html
-├── login.html
-├── premium.html
-├── sobre.html
-├── usuario.html
-│
+├── .firebaserc
+├── .gitignore
+├── AGENTS.md
+├── firebase.json
+├── firestore.indexes.json
+├── firestore.rules
+├── package-lock.json
+├── package.json
 └── README.md
 ```
 
 ---
 
-# _Descrição das Principais Partes_
-## 📁 firebase
-Contém a configuração de conexão com o Firebase, responsável pela autenticação de usuários e armazenamento de dados.
+# *Descrição das Principais Partes*
 
-**config.js** 
-Configuração e inicialização do Firebase, incluindo autenticação e conexão com o Firestore.
+## 📁 `public`
 
+Contém o frontend da aplicação e representa a principal fonte dos arquivos servidos ao usuário.
 
-## 📁 firestore
-Scripts responsáveis pela interação com o banco de dados Firestore, incluindo leitura e gravação das informações do usuário.
+A configuração do Firebase Hosting utiliza essa pasta como diretório público da aplicação.
 
-**carregarSemestres.js** 
-Carrega do Firestore os semestres e matérias salvos pelo usuário.
+---
 
-**mediaGlobal.js**
-Calcula a média geral do usuário considerando todas as disciplinas registradas.
+## 📁 `public/firebase`
 
-**salvarNotas.js**
-Salva as notas inseridas pelo usuário organizadas na estrutura:
-usuário → semestre → matéria → nota.
+Contém a configuração utilizada pelo frontend para conexão com os serviços Firebase.
 
-## 📁 images
-Armazena os recursos visuais utilizados na interface da aplicação.
+### `config.js`
 
-**logo.png**
-Logotipo da aplicação exibido no site.
+Responsável pela inicialização do Firebase no navegador e disponibilização dos serviços utilizados pela aplicação, como autenticação e Firestore.
 
-**usuario.png**
-Imagem ou ícone padrão utilizado na área do usuário.
+---
 
-## 📁 js
-Contém os scripts principais da aplicação, responsáveis pela lógica de funcionamento da interface e das funcionalidades do sistema.
+## 📁 `public/firestore`
 
-**anuncios.js**
-Gerencia a exibição de anúncios na versão gratuita da plataforma.
+Contém scripts responsáveis pela interação entre o frontend e o Cloud Firestore.
 
-**cadastro.js**
-Controla o processo de cadastro de novos usuários utilizando Firebase Authentication.
+### `carregarSemestres.js`
 
-**index.js**
-Script principal da página inicial, responsável pelas funcionalidades da calculadora de médias.
+Responsável pelo carregamento dos semestres e informações acadêmicas armazenadas para o usuário.
 
-**login.js**
-Responsável pela autenticação e login dos usuários no sistema.
+### `mediaGlobal.js`
 
-**premium.js**
-Gerencia funcionalidades exclusivas para usuários Premium.
+Responsável pela lógica relacionada ao cálculo da média global considerando os dados acadêmicos armazenados.
 
-**theme.js**
-Controla o tema da interface, como modo claro e modo escuro.
+### `salvarNotas.js`
 
-**usuario.js**
-Gerencia as informações e interações da área do usuário.
+Responsável pelo armazenamento das notas e informações acadêmicas do usuário no Firestore.
 
-**verificaPremium.js**
-Verifica no banco de dados se o usuário possui acesso ao plano Premium.
+---
 
-## 📁 styles
-Arquivos responsáveis pela estilização visual da aplicação.
+## 📁 `public/images`
 
-**anuncio.css**
-Estilos utilizados nos componentes de anúncios.
+Contém recursos visuais utilizados pela interface.
 
-**login.css**
-Estilização das páginas de login e autenticação.
+### `logo.png`
 
-**premium.css**
-Estilos específicos para páginas e funcionalidades Premium.
+Logotipo utilizado pela aplicação.
 
-**styles.css**
-Arquivo de estilos globais da aplicação.
+### `usuario.png`
 
-**usuario.css**
-Estilos da área de perfil e painel do usuário.
+Imagem utilizada na área do usuário.
 
-## 📄 Páginas HTML
-Arquivos responsáveis pela estrutura das páginas do site.
+---
 
-**index.html**
-Página principal da calculadora de médias.
+## 📁 `public/js`
 
-**login.html**
-Página de login para acesso dos usuários.
+Contém os scripts responsáveis pela lógica do frontend.
 
-**cadastro.html**
+### `anuncios.js`
+
+Contém lógica relacionada à exibição de anúncios presente na implementação anterior do projeto.
+
+### `cadastro.js`
+
+Controla o processo de criação de contas e integração do cadastro com o Firebase Authentication.
+
+### `calcularAF.js`
+
+Responsável pela lógica utilizada para calcular a nota necessária na AF.
+
+### `coupon-validator.js`
+
+Contém a lógica de validação de cupons implementada na versão anterior do modelo comercial.
+
+### `index.js`
+
+Script principal da calculadora e das interações da página inicial.
+
+### `login.js`
+
+Controla o processo de autenticação dos usuários.
+
+### `premium.js`
+
+Contém lógica relacionada ao sistema Premium da versão anterior.
+
+### `theme.js`
+
+Controla as preferências de aparência da interface, incluindo modo claro e escuro.
+
+### `usuario.js`
+
+Gerencia interações e funcionalidades da área do usuário.
+
+### `verificaPremium.js`
+
+Contém verificações de acesso relacionadas à implementação Premium anterior.
+
+---
+
+## 📁 `public/styles`
+
+Contém os estilos da interface.
+
+### `anuncios.css`
+
+Estilos relacionados aos componentes de anúncios.
+
+### `coupon.css`
+
+Estilos utilizados pela interface de cupons.
+
+### `index.css`
+
+Estilos específicos da página principal.
+
+### `login.css`
+
+Estilos utilizados nas páginas de autenticação.
+
+### `premium.css`
+
+Estilos relacionados à interface Premium existente na versão anterior.
+
+### `styles.css`
+
+Contém estilos compartilhados e globais da aplicação.
+
+### `usuario.css`
+
+Estilos utilizados na área do usuário.
+
+---
+
+## 📁 `functions`
+
+Contém as **Firebase Cloud Functions** utilizadas pelo projeto.
+
+Essa camada concentra lógica executada no backend e integrações que não devem depender exclusivamente do navegador.
+
+Arquivos de ambiente e credenciais locais, como `.env`, não são versionados no repositório.
+
+---
+
+## 📁 `Docs`
+
+Contém a documentação técnica e de produto relacionada à evolução do CMU.
+
+Atualmente inclui os documentos que definem a estratégia da V3:
+
+### `CMU_V3_Logica_de_Negocio_e_Versionamento.txt`
+
+Define a nova lógica de negócio, a experiência gratuita, a futura estratégia Premium e o modelo de versionamento da V3.
+
+### `CMU_V3_Roadmap_de_Alteracoes.txt`
+
+Define a ordem de execução das versões e fases planejadas para evolução do projeto.
+
+---
+
+# *Arquivos de Configuração*
+
+## `.firebaserc`
+
+Define os projetos Firebase associados ao ambiente de desenvolvimento e deploy.
+
+---
+
+## `.gitignore`
+
+Define arquivos e diretórios que não devem ser adicionados ao Git, incluindo dependências, logs e arquivos de ambiente com informações sensíveis.
+
+---
+
+## `AGENTS.md`
+
+Contém instruções específicas para agentes de desenvolvimento assistido por IA que trabalham no repositório.
+
+O documento define o escopo atual da V3, arquivos relevantes, restrições e regras para alterações no código.
+
+---
+
+## `firebase.json`
+
+Contém as configurações utilizadas pelo Firebase CLI, incluindo configuração de Hosting, Functions e outros serviços utilizados pelo projeto.
+
+---
+
+## `firestore.rules`
+
+Contém as regras de segurança do Cloud Firestore.
+
+Essas regras controlam quais dados podem ser lidos ou modificados por cada usuário e fazem parte da camada de segurança da aplicação.
+
+---
+
+## `firestore.indexes.json`
+
+Contém a configuração dos índices utilizados pelo Firestore.
+
+---
+
+## `package.json`
+
+Define dependências, scripts e configurações Node.js utilizadas pelo projeto.
+
+---
+
+# *Páginas HTML*
+
+## `index.html`
+
+Página principal da aplicação e da calculadora de médias.
+
+## `login.html`
+
+Página utilizada para autenticação de usuários.
+
+## `cadastro.html`
+
 Página para criação de novas contas.
 
-**usuario.html**
-Área do usuário com acesso às suas informações e dados salvos.
+## `usuario.html`
 
-**premium.html**
-Página com informações e assinatura do plano Premium.
+Área destinada aos usuários autenticados e às informações acadêmicas armazenadas.
 
-**sobre.html**
+## `premium.html`
+
+Página relacionada ao modelo Premium da versão anterior, atualmente sujeita a revisão durante o desenvolvimento da V3.
+
+## `coupon.html`
+
+Página associada ao sistema de cupons implementado na versão anterior.
+
+## `sobre.html`
+
 Página institucional com informações sobre o projeto.
 
-**404.html**
-Página exibida quando uma rota não é encontrada.
+## `404.html`
+
+Página apresentada quando uma rota solicitada não é encontrada.
 
 ---
 
-# _Melhorias Futuras_
-Algumas melhorias planejadas para o projeto:
+# *Roadmap Atual*
 
-- Função para estipular a nota necessária para atingir a média;
-- Foto de perfil personalizada;
-- Sistema de suporte ao usuário;
-- Versão mobile mais otimizada;
-- Suporte para múltiplas universidades;
+O CMU está entrando em uma nova etapa de desenvolvimento com a **V3**.
+
+A estratégia definida para as próximas versões é:
+
+### **V3 — MVP Gratuito**
+
+Reformular a experiência gratuita do CMU, removendo a lógica comercial anterior e disponibilizando as principais funcionalidades acadêmicas.
+
+Entre os objetivos estão:
+
+* manter a calculadora gratuita;
+* disponibilizar o cálculo da AF;
+* permitir cadastro e login;
+* permitir que usuários cadastrados salvem até um semestre;
+* revisar e remover dependências desnecessárias do antigo sistema Premium.
+
+### **V3.1 — AdSense**
+
+Revisar o site para adequação às diretrizes do Google AdSense e implementar a monetização por anúncios.
+
+### **V3.1.X — Revisões do AdSense**
+
+Realizar as alterações necessárias até a aprovação do site pela plataforma.
+
+### **V3.2 — Premium Simplificado**
+
+Reintroduzir uma assinatura Premium somente após estabilização da experiência gratuita e aprovação do AdSense.
+
+A nova proposta deverá utilizar apenas um plano mensal e preservar a utilidade do produto gratuito.
+
+### **V3.3 — Premium Orientado por Dados**
+
+Evoluir o Premium utilizando dados reais de utilização e pesquisas com usuários cadastrados para identificar necessidades pelas quais exista disposição real para pagar.
 
 ---
-# _Licença_ 
+
+# *Desenvolvimento*
+
+O desenvolvimento da V3 segue alguns princípios:
+
+* preservar uma experiência gratuita realmente útil;
+* evitar complexidade técnica e comercial sem necessidade;
+* utilizar dados reais antes de expandir a oferta Premium;
+* manter regras de segurança também no backend e no Firestore;
+* documentar alterações relevantes de arquitetura e produto;
+* separar claramente funcionalidades atuais de funcionalidades planejadas.
+
+---
+
+# *Segurança*
+
+Informações sensíveis não devem ser armazenadas no repositório.
+
+Arquivos e credenciais privadas, como:
+
+```text
+.env
+functions/.env
+service account keys
+Stripe Secret Keys
+webhook secrets
+tokens privados
+```
+
+devem permanecer apenas nos ambientes apropriados.
+
+As configurações públicas utilizadas pelo SDK web do Firebase não devem ser consideradas a camada de segurança da aplicação. O controle de acesso deve ser implementado por autenticação, regras do Firestore e validações no backend quando necessário.
+
+---
+
+# *Licença*
+
 Copyright (c) 2026 Matheus Iannaccone
 
 All Rights Reserved.
 
 Este repositório é público apenas para fins de visualização.
-Nenhuma parte deste código pode ser copiada, modificada, distribuída
-ou utilizada sem autorização explícita do autor.
+
+Nenhuma parte deste código pode ser copiada, modificada, distribuída ou utilizada sem autorização explícita do autor.
 
 ---
 
-# _Autor_
-Matheus Iannaccone
+# *Autor*
+
+**Matheus Iannaccone**
