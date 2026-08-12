@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Usuário - Calculadora de Média</title>
+  <link rel="stylesheet" href="styles/styles.css"/> 
+  <link rel="stylesheet" href="styles/usuario.css"/>
+</head>
+<body>
+
+<div class="barra-superior">
+  <div class="barra-esquerda">
+    <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+  </div>
+
+  <div class="barra-centro">
+    <h1>Perfil de Usuário</h1>
+  </div>
+
+  <div class="barra-direita">
+    <button id="logoutBtn" type="button">Logout</button>
+
+    <button type="button" onclick="location.href='index.html'">
+      Início
+    </button>
+
+    <button type="button" class="theme-toggle" onclick="toggleTheme()">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </button>
+  </div>
+</div>
+
+<div class="espaco"></div>
+
+<div class="container">
+
+  <div class="content-wrapper">
+    <main class="main-content">
+      <p>Bem-vindo(a), <span id="usuarioNomeInfo"></span>!</p>
+      <p>Aqui você pode visualizar e editar as informações do seu perfil.</p>
+
+      <section id="betaFeaturesSection" class="beta-features-simple card" style="display:none;">
+        <!-- CALCULAR AF -->
+        <div class="beta-feature-item">
+          <div id="betaCompactHeaderAF" class="beta-compact-header" style="display:none;">
+            <div class="compact-info">
+              <span>🧪 Calcular AF</span>
+              <span class="rating-display" id="compactRatingAF"></span>
+            </div>
+            <button type="button" class="btn-expand" id="expandBetaBtnAF">Reavaliar</button>
+          </div>
+
+          <div id="betaExpandedContentAF" class="beta-expanded-content" style="display:none;">
+            <div class="beta-feature-header">
+              <h3>🧪 Calcular AF</h3>
+              <button type="button" class="btn-info-beta" id="infoBetaBtnAF" title="Informações sobre a função">?</button>
+            </div>
+
+            <div id="infoBetaContentAF" class="beta-info-popup" style="display:none;">
+              Calcule automaticamente sua avaliação final baseado em suas notas parciais.
+            </div>
+
+            <div class="beta-rating-container">
+              <label>Sua avaliação:</label>
+              <div class="rating-stars" id="afRatingStars">
+                <button type="button" class="star" data-value="1">⭐</button>
+                <button type="button" class="star" data-value="2">⭐</button>
+                <button type="button" class="star" data-value="3">⭐</button>
+                <button type="button" class="star" data-value="4">⭐</button>
+                <button type="button" class="star" data-value="5">⭐</button>
+              </div>
+            </div>
+
+            <div class="beta-feedback-toggle">
+              <input type="checkbox" id="toggleFeedbackAF" />
+              <label for="toggleFeedbackAF">Adicionar comentário</label>
+            </div>
+
+            <div id="betaFeedbackBoxAF" class="beta-feedback-box" style="display:none;">
+              <textarea id="afFeedback" placeholder="Deixe um comentário sobre sua experiência..." class="feedback-textarea" maxlength="500"></textarea>
+              <div class="feedback-counter">
+                <span id="charCountAF">0</span>/500
+              </div>
+              <button type="button" id="submitAfFeedback" class="btn-submit-feedback">Enviar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEMAS -->
+        <div class="beta-feature-item">
+          <div id="betaCompactHeaderTheme" class="beta-compact-header" style="display:none;">
+            <div class="compact-info">
+              <span>🎨 Personalização de Tema</span>
+              <span class="rating-display" id="compactRatingTheme"></span>
+            </div>
+            <button type="button" class="btn-expand" id="expandBetaBtnTheme">Reavaliar</button>
+          </div>
+
+          <div id="betaExpandedContentTheme" class="beta-expanded-content" style="display:none;">
+            <div class="beta-feature-header">
+              <h3>🎨 Personalização de Tema</h3>
+              <button type="button" class="btn-info-beta" id="infoBetaBtnTheme" title="Informações sobre a função">?</button>
+            </div>
+
+            <div id="infoBetaContentTheme" class="beta-info-popup" style="display:none;">
+              Customize a aparência da aplicação com diversos temas disponíveis.
+            </div>
+
+            <div class="beta-rating-container">
+              <label>Sua avaliação:</label>
+              <div class="rating-stars" id="themeRatingStars">
+                <button type="button" class="star" data-value="1">⭐</button>
+                <button type="button" class="star" data-value="2">⭐</button>
+                <button type="button" class="star" data-value="3">⭐</button>
+                <button type="button" class="star" data-value="4">⭐</button>
+                <button type="button" class="star" data-value="5">⭐</button>
+              </div>
+            </div>
+
+            <div class="beta-feedback-toggle">
+              <input type="checkbox" id="toggleFeedbackTheme" />
+              <label for="toggleFeedbackTheme">Adicionar comentário</label>
+            </div>
+
+            <div id="betaFeedbackBoxTheme" class="beta-feedback-box" style="display:none;">
+              <textarea id="themeFeedback" placeholder="Deixe um comentário sobre os temas..." class="feedback-textarea" maxlength="500"></textarea>
+              <div class="feedback-counter">
+                <span id="charCountTheme">0</span>/500
+              </div>
+              <button type="button" id="submitThemeFeedback" class="btn-submit-feedback">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="themeCustomizerSection" class="card" style="display:none;">
+        <h2>🎨 Personalização de Tema</h2>
+        <p>Exclusivo para usuários Genius+</p>
+
+        <div class="theme-options">
+
+            <button type="button" class="theme-option" onclick="setTheme('default')">
+                <span class="theme-icon">🟣</span>
+                <span class="theme-name">Clássico</span>
+            </button>
+            
+            <button type="button" class="theme-option premium-theme" onclick="setTheme('gold')">
+                <span class="theme-icon">⭐</span>
+                <span class="theme-name">Gold</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('blue-tech')">
+                <span class="theme-icon">🔵</span>
+                <span class="theme-name">Blue Tech</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('green')">
+                <span class="theme-icon">🟢</span>
+                <span class="theme-name">Study</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('rose')">
+                <span class="theme-icon">🌹</span>
+                <span class="theme-name">Rose</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('crimson')">
+                <span class="theme-icon">🟥</span>
+                <span class="theme-name">Crimson</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('midnight')">
+                <span class="theme-icon">🌌</span>
+                <span class="theme-name">Midnight</span>
+            </button>
+
+            <button type="button" class="theme-option" onclick="setTheme('cyber')">
+                <span class="theme-icon">🕶️</span>
+                <span class="theme-name">Cyber</span>
+            </button>
+        </div>
+    </section>
+
+      <form id="userForm" class="card">
+        <h2>Dados do perfil</h2>
+        <ul class="user-info">
+              <label for="nomeUsuario">Nome:</label>
+              <input type="text" id="nomeUsuario" required>
+
+              <label for="sobrenomeUsuario">Sobrenome:</label>
+              <input type="text" id="sobrenomeUsuario" required>
+
+              <label for="cursoUsuario">Curso:</label>
+              <input type="text" id="cursoUsuario" readonly>
+
+              <label for="tipoUsuario">Tipo:</label>
+              <input type="text" id="tipoUsuario" readonly>
+
+              <div id="mediaMinimaContainer" style="display:none;">
+                <label for="mediaMinima">Média Mínima:</label>
+                <input type="number" id="mediaMinima" min="4.76" max="10" step="any" required>
+              </div>
+
+              <div class="premium-info">
+                <label>Vencimento do Premium:</label>
+                <span id="premiumVencimento">-</span>
+              </div>
+
+              <div>
+                <button type="submit">Salvar alterações</button>
+              </div>
+        </ul>
+        <div>Alterações podem levar alguns segundos</div>
+      </form>
+      
+      <section class="virarPremium card">
+        <h2>Benefícios do Premium</h2>
+        <ul>
+          <li>Acesso a conteúdos exclusivos</li>
+          <li>Suporte prioritário</li>
+          <li>Descontos em parceiros</li>
+          <li>Personalização avançada</li>
+        </ul>
+        <button type="button" id="virarPremiumBtn" style="margin-top: 10px;">
+          ⭐ Virar Premium
+        </button>
+      </section> 
+      
+      <section class="referral-section card">
+        <h2>Convide amigos e ganhe benefícios!</h2>
+        <p>
+          Gere um cupom exclusivo. Seus amigos ganham <strong>50% OFF</strong>
+          na primeira assinatura e você ganha <strong>1 mês grátis de Genius+</strong>
+          quando atingir 5 assinaturas confirmadas. (Limite de 1 cupom por usuário)
+        </p>
+        
+        <button id="gerarCupomBtn">Gerar Cupom</button>
+        
+        <div id="cupomGerado" style="display:none; margin-top:10px;">
+          <p>Seu cupom:</p>
+          <strong id="codigoCupom"></strong>
+          <button id="copiarCupomBtn">Copiar</button>
+        </div>
+      </section>
+
+      <section class="seguranca card">
+        <h2>Segurança</h2>
+
+        <button id="alterarEmailBtn">Alterar Email</button>
+        <button id="alterarSenhaBtn">Alterar Senha</button>
+      </section>
+    </main>
+
+  </div>
+
+  <footer>
+    &copy; 2026 Calculadora de Média - Todos os direitos reservados
+  </footer>
+</div>
+
+<div class="modal" id="reauthModal">
+  <div class="modal-content">
+    <h3>Confirme sua senha</h3>
+
+    <input type="password" id="senhaAtual" placeholder="Senha atual" autocomplete="current-password"/>
+
+    <div class="modal-actions">
+      <button id="cancelarReauthBtn">Cancelar</button>
+      <button id="confirmarReauthBtn">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/usuario.js"></script>
+<script type="module" src="js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isPremium(userId) {
+      return get(/databases/$(database)/documents/usuarios/$(userId)).data.tipoUsuario in ['genius', 'genius_plus'];
+    }
+
+
+    // -------------------- USUÁRIOS --------------------
+    match /usuarios/{userId} {
+      
+      // ✅ Qualquer usuário autenticado pode ler/escrever seus próprios dados
+      allow read, write: if isOwner(userId);
+
+      // -------------------- SEMESTRES --------------------
+      match /semestres/{semestreId} {
+        allow read, write: if isOwner(userId) && isPremium(userId);
+
+        // -------------------- MATERIAS --------------------
+        match /materias/{materiaId} {
+          allow read, write: if isOwner(userId) && isPremium(userId);
+        }
+      }
+
+      // -------------------- MEDIAS --------------------
+      match /medias/{semestreId} {
+        allow read, write: if isOwner(userId) && isPremium(userId);
+      }
+    }
+
+    // -------------------- CUPONS --------------------
+    match /cupons/{cupomID} {
+      allow read, write: if isOwner(userId);
+    }
+  }
+}

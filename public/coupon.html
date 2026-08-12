@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Validar Cupom</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/coupon.css">
+
+</head>
+<body>
+    <div class="coupon-container">
+        <h2>✨ Validar Cupom</h2>
+        <p>Digite o código do seu cupom de indicação, promoção ou parceria</p>
+
+        <input
+            type="text"
+            id="couponInput"
+            placeholder="Ex: ABC123 ou FUNDADOR"
+            autocomplete="off"
+        >
+        <button id="validateBtn">Validar Cupom</button>
+
+        <div class="loading" id="loading">
+            <p>Validando cupom...</p>
+        </div>
+
+        <div id="messageArea"></div>
+
+        <a class="skip-link" href="index.html">← Continuar sem cupom</a>
+    </div>
+
+    <script type="module" src="js/coupon-validator.js"></script>
+</body>
+</html>

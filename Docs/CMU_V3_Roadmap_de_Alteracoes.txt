@@ -1,0 +1,237 @@
+CMU — ROADMAP DE ALTERAÇÕES DA V3
+
+OBJETIVO GERAL
+
+Refatorar o CMU em etapas controladas: primeiro consolidar uma experiência gratuita útil; depois adequar e monetizar o site com AdSense; somente então reintroduzir um Premium simples e evoluí-lo com base em dados e pesquisa com usuários reais.
+
+
+ORDEM DE PRIORIDADE
+
+Prioridade 1 — V3: limpar a visão Premium atual e publicar o MVP gratuito.
+Prioridade 2 — V3.1: reformular o site para o AdSense e adicionar sua integração.
+Prioridade 3 — V3.1.X: revisar o site até obter a aprovação do AdSense.
+Prioridade 4 — V3.2: revisar e reintroduzir o Premium simplificado.
+Prioridade 5 — analisar uso, usuários e assinaturas.
+Prioridade 6 — fazer pesquisa com os usuários cadastrados.
+Prioridade 7 — V3.3 e V3.3.X: direcionar e evoluir o Premium para o público com maior disposição para pagar.
+
+
+FASE 1 — V3: MVP GRATUITO
+
+Objetivo
+Remover a lógica e a comunicação Premium atuais e estabelecer a nova base gratuita do CMU.
+
+Alterações prioritárias
+
+- Mapear e remover telas, chamadas, selos, bloqueios, ofertas e textos relacionados aos planos Premium anteriores.
+- Desativar regras antigas de acesso pago que não façam parte do MVP.
+- Preservar as funções essenciais já disponíveis ao usuário gratuito.
+- Disponibilizar o cálculo da AF ao usuário gratuito.
+- Permitir que o usuário cadastrado salve até 1 semestre no Firestore.
+- Definir e aplicar o limite de 1 semestre de forma consistente na interface, na aplicação e nas regras de dados.
+- Garantir que cadastro, login, salvamento, consulta e edição do semestre funcionem corretamente.
+- Remover ambiguidades que levem o usuário a acreditar que precisa pagar para usar as funções essenciais.
+- Revisar textos, menus e fluxos para refletir a proposta gratuita da V3.
+
+Critérios de conclusão
+
+- Não há oferta, plano ou bloqueio Premium antigo visível ou ativo.
+- As funções gratuitas definidas para o MVP funcionam de ponta a ponta.
+- Um usuário cadastrado pode salvar 1 semestre, mas não ultrapassar esse limite.
+- O cálculo da AF está disponível e validado.
+- O site permanece funcional nos principais dispositivos e fluxos.
+
+Dependência para avançar
+MVP gratuito estável e sem resíduos relevantes da lógica Premium anterior.
+
+
+FASE 2 — V3.1: ADEQUAÇÃO E INTEGRAÇÃO DO ADSENSE
+
+Objetivo
+Reformular o site segundo as diretrizes aplicáveis do Google AdSense e preparar a monetização por anúncios sem comprometer a experiência do usuário.
+
+Alterações prioritárias
+
+- Revisar estrutura, navegação, conteúdo e experiência geral do site.
+- Garantir que páginas, informações institucionais, políticas e meios de contato necessários estejam completos e acessíveis.
+- Revisar privacidade, consentimento, cookies e tratamento de dados conforme as exigências aplicáveis.
+- Eliminar conteúdo insuficiente, páginas incompletas, navegação confusa e elementos que possam prejudicar a avaliação do site.
+- Definir posições de anúncios que não sejam enganosas nem prejudiquem o uso das calculadoras e demais funções.
+- Implementar a integração do AdSense e os controles necessários.
+- Testar desempenho, responsividade e estabilidade após a inclusão dos anúncios.
+- Realizar uma revisão final de conformidade antes de solicitar a aprovação.
+
+Critérios de conclusão
+
+- O site está coerente, navegável e completo para o usuário.
+- Os requisitos e políticas aplicáveis foram revisados.
+- A integração está tecnicamente pronta e não interfere nos fluxos essenciais.
+- O site está pronto para envio ou já foi enviado à análise do AdSense.
+
+Dependência para avançar
+V3 publicada e estável.
+
+
+FASE 3 — V3.1.X: REVISÕES ATÉ A APROVAÇÃO DO ADSENSE
+
+Objetivo
+Corrigir problemas apontados ou identificados após a solicitação e repetir o ciclo de revisão até obter aprovação.
+
+Ciclo de trabalho
+
+1. Registrar o resultado da análise e os motivos informados pelo Google.
+2. Relacionar cada motivo a páginas, conteúdos ou comportamentos concretos do site.
+3. Corrigir primeiro os itens que afetam elegibilidade e conformidade.
+4. Verificar se a correção não prejudicou funções essenciais.
+5. Documentar a alteração na versão V3.1.X correspondente.
+6. Solicitar nova análise quando o site estiver efetivamente corrigido.
+
+Critérios de conclusão
+
+- AdSense aprovado.
+- Anúncios operando somente em locais e formatos compatíveis com as políticas e com uma boa experiência de uso.
+- Pendências relevantes da revisão encerradas.
+
+Observação
+Não avançar para a implementação do novo Premium enquanto o processo do AdSense não estiver concluído. Planejamento e pesquisa preparatória podem ocorrer, mas não devem desviar o foco desta fase.
+
+
+FASE 4 — V3.2: PREMIUM SIMPLIFICADO
+
+Objetivo
+Revisar e reintroduzir o Premium apenas quando o AdSense estiver aprovado e já houver usuários cadastrados ativos.
+
+Pré-condições obrigatórias
+
+- AdSense aprovado.
+- V3 gratuita estável.
+- Existência de usuários cadastrados ativos e comportamento observável.
+- Revisão das funções Premium antigas e de sua relevância atual.
+
+Alterações prioritárias
+
+- Eliminar definitivamente a estrutura comercial de múltiplos planos e regras complexas.
+- Criar um único plano Premium mensal, simples e de baixo custo.
+- Definir uma proposta de valor clara, sem retirar a utilidade central do plano gratuito.
+- Permitir o salvamento de múltiplos semestres.
+- Disponibilizar histórico acadêmico e cálculo da média global.
+- Reintroduzir somente funções avançadas que tenham utilidade clara.
+- Implementar fluxos simples de apresentação da oferta, assinatura, confirmação, gestão e cancelamento.
+- Aplicar e testar regras de acesso e segurança em todas as camadas relevantes.
+- Instrumentar os eventos mínimos necessários para avaliar interesse, conversão e retenção.
+
+Critérios de conclusão
+
+- Existe apenas uma oferta mensal claramente explicada.
+- O limite gratuito e os benefícios Premium funcionam de forma consistente.
+- Assinatura, acesso e cancelamento foram testados de ponta a ponta.
+- A experiência gratuita continua útil.
+- Há medição mínima dos principais eventos do funil.
+
+
+FASE 5 — ANÁLISE SIMPLES DE USO E ASSINATURAS
+
+Objetivo
+Transformar o uso real do site em evidências para decisões sobre o Premium.
+
+Análises iniciais
+
+- Quantidade de usuários cadastrados e ativos.
+- Frequência e recorrência de uso.
+- Funções mais e menos utilizadas.
+- Quantidade e proporção de usuários que salvam um semestre.
+- Interesse demonstrado na oferta Premium.
+- Quantidade de assinantes e taxa de conversão, se o volume permitir.
+- Retenção e cancelamentos, quando já houver tempo e dados suficientes.
+- Diferenças de comportamento entre usuários gratuitos e assinantes.
+
+Entregável
+Uma análise simples, com período, definições das métricas, resultados, limitações e decisões ou hipóteses sugeridas. A ausência de assinantes também deve ser registrada como resultado, sem forçar conclusões com amostras pequenas.
+
+Critérios de conclusão
+
+- Os principais comportamentos estão descritos com dados verificáveis.
+- Há uma lista curta de hipóteses que podem ser confirmadas ou rejeitadas pela pesquisa.
+- As limitações dos dados estão explícitas.
+
+
+FASE 6 — PESQUISA COM USUÁRIOS CADASTRADOS
+
+Objetivo
+Identificar um ou mais públicos com disposição real para pagar e entender quais problemas, resultados ou funções poderiam justificar a assinatura.
+
+Público
+Somente usuários cadastrados. Usuários anônimos que utilizam o site sem cadastro não fazem parte desta pesquisa.
+
+Preparação
+
+- Segmentar, quando possível, usuários por frequência, funções utilizadas e estágio acadêmico.
+- Elaborar perguntas curtas, neutras e fáceis de responder.
+- Investigar comportamentos e problemas reais antes de apresentar soluções prontas.
+- Incluir a hipótese de intercâmbio sem pressupor que ela seja a resposta correta.
+- Evitar perguntas que apenas busquem confirmação da ideia existente.
+- Definir como e quando a pesquisa será enviada, respeitando consentimento e privacidade.
+
+Temas das perguntas
+
+- Objetivo principal ao usar o CMU.
+- Problemas acadêmicos que o usuário ainda resolve fora do site.
+- Frequência e importância desses problemas.
+- Situações em que histórico, média global ou planejamento de longo prazo têm valor.
+- Interesse concreto em intercâmbio e dificuldades relacionadas a esse processo.
+- Resultado que faria uma assinatura valer a pena.
+- Funções consideradas essenciais em uma oferta paga.
+- Motivos para não assinar.
+- Faixa de preço aceitável, tratada como sinal e não como promessa de compra.
+
+Critérios de conclusão
+
+- A pesquisa foi enviada aos usuários cadastrados elegíveis.
+- As respostas foram organizadas por padrões de necessidade e comportamento.
+- Foram identificados públicos potenciais, dores recorrentes e sinais de disposição para pagar.
+- A hipótese de intercâmbio foi confirmada, ajustada ou rejeitada com transparência.
+
+
+FASE 7 — V3.3 E V3.3.X: PREMIUM ORIENTADO AO PÚBLICO VALIDADO
+
+Objetivo
+Direcionar a proposta Premium ao público com maior potencial de assinatura e evoluir as funções para resolver as dores pelas quais esse público demonstra disposição para pagar.
+
+V3.3 — primeira entrega direcionada
+
+- Selecionar o público prioritário com base na combinação de dados de uso e pesquisa.
+- Definir claramente o problema pago, o resultado prometido e a proposta de valor.
+- Priorizar poucas funções de alto impacto.
+- Ajustar comunicação, entrada da oferta e experiência Premium para esse público.
+- Definir métricas e um período de avaliação antes do lançamento.
+
+V3.3.X — evolução incremental
+
+- Avaliar uso, conversão, retenção e feedback das funções lançadas.
+- Corrigir fricções e remover funções sem valor demonstrado.
+- Melhorar as funções que apresentem uso e impacto.
+- Testar alterações de posicionamento, oferta e preço com cautela e amostra adequada.
+- Registrar a hipótese e o resultado de cada alteração relevante.
+
+Critérios de conclusão de cada incremento
+
+- A mudança corresponde a uma dor observada ou hipótese explícita.
+- Há uma métrica definida para avaliar o resultado.
+- O efeito foi analisado antes de acumular novas mudanças.
+- A evolução não compromete a utilidade do produto gratuito.
+
+
+REGRAS DE EXECUÇÃO DO ROADMAP
+
+- Respeitar as dependências entre as fases; urgência comercial não substitui validação.
+- Corrigir falhas críticas de segurança, dados ou funcionamento em qualquer versão, independentemente da fase atual.
+- Não reconstruir toda a lógica Premium antes da aprovação do AdSense.
+- Não assumir que intercâmbio é o público vencedor antes da pesquisa e dos dados.
+- Manter decisões, métricas e alterações de escopo documentadas.
+- Evitar complexidade comercial e técnica sem evidência de benefício.
+- Preservar a experiência gratuita como porta de entrada e fonte de uso recorrente.
+
+
+SEQUÊNCIA RESUMIDA
+
+V3 gratuita → V3.1 adequada ao AdSense → V3.1.X até aprovação → base ativa de usuários → V3.2 Premium simples → análise de uso e assinaturas → pesquisa com cadastrados → V3.3 direcionada ao público validado → V3.3.X de aprendizado e evolução.

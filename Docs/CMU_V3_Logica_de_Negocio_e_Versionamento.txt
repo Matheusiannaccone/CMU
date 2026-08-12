@@ -1,0 +1,102 @@
+CMU — NOVA LÓGICA DE NEGÓCIO DA V3 E ESTRATÉGIA DE VERSIONAMENTO
+
+1. OBJETIVO DA V3
+
+A V3 deve tornar o CMU útil e atrativo para a maioria dos estudantes sem exigir pagamento para as funções essenciais. A monetização será sustentada por duas frentes complementares:
+
+- publicidade por meio do Google AdSense para o público gratuito;
+- uma única assinatura Premium mensal, simples e de baixo custo, destinada a usuários com necessidades de maior valor.
+
+A proposta não parte da premissa de que o Premium já encontrou seu público definitivo. O direcionamento inicial para estudantes interessados em intercâmbio é uma hipótese de negócio que deverá ser validada com dados de uso e pesquisa com usuários cadastrados.
+
+
+2. EXPERIÊNCIA GRATUITA — MVP DA V3
+
+O usuário gratuito continuará tendo acesso às funções essenciais já oferecidas pelo CMU. Além disso, deverá poder:
+
+- utilizar normalmente os cálculos acadêmicos disponíveis no MVP;
+- calcular a AF;
+- criar uma conta e entrar no sistema;
+- salvar até 1 semestre no Firestore;
+- consultar e editar os dados desse semestre dentro das regras do produto.
+
+O produto gratuito deve ser completo o bastante para resolver o problema principal do estudante e criar recorrência de uso. O limite de 1 semestre deve apresentar, de forma natural, o valor do histórico acadêmico sem inutilizar a experiência gratuita.
+
+O acesso gratuito não deve ser desenhado como uma demonstração artificialmente limitada. Funções essenciais não devem ser removidas apenas para forçar uma assinatura.
+
+
+3. EXPERIÊNCIA PREMIUM
+
+O Premium será reintroduzido somente depois que:
+
+- o site estiver adequado às diretrizes do Google AdSense;
+- o AdSense tiver sido aprovado;
+- a versão gratuita estiver estável;
+- houver usuários cadastrados e ativos suficientes para observar comportamento real.
+
+A oferta Premium deverá ter apenas um plano, com cobrança mensal e preço acessível. Ela deverá preservar as funções avançadas já existentes que continuarem relevantes, incluindo inicialmente:
+
+- salvamento de múltiplos semestres no Firestore;
+- histórico acadêmico de longo prazo;
+- cálculo da média global com base nos semestres salvos;
+- demais funções avançadas aprovadas após a revisão da lógica Premium.
+
+O foco futuro poderá ser estudantes interessados em intercâmbio, desde que dados e pesquisas indiquem disposição real para pagar. As funções Premium deverão estar ligadas a dores concretas desse público, e não apenas a uma segmentação presumida.
+
+
+4. PRINCÍPIOS DE MONETIZAÇÃO
+
+- Manter uma proposta gratuita realmente útil.
+- Evitar múltiplos planos, nomes de categorias, períodos de cobrança e regras de acesso desnecessárias.
+- Comunicar com clareza o que é gratuito e o que pertence ao Premium.
+- Não depender apenas do bloqueio de funções básicas para gerar conversão.
+- Usar o AdSense de acordo com todas as políticas aplicáveis, priorizando conteúdo, navegação, transparência e boa experiência do usuário.
+- Não prejudicar a usabilidade com excesso, posicionamento enganoso ou integração inadequada de anúncios.
+- Tratar intercâmbio como hipótese inicial de posicionamento Premium, sujeita a validação.
+- Decidir novas funções com base em comportamento observado, respostas dos usuários e potencial de receita.
+
+
+5. VALIDAÇÃO DO MODELO
+
+Após a entrada da V3 e do AdSense, o projeto deverá acompanhar, no mínimo:
+
+- usuários cadastrados e usuários ativos;
+- frequência e recorrência de uso;
+- uso das principais funções;
+- quantidade de usuários que salvam um semestre;
+- interesse e conversão para o Premium, quando ele estiver disponível;
+- existência e quantidade de assinantes;
+- cancelamentos e sinais de retenção, quando houver dados suficientes;
+- respostas dos usuários cadastrados sobre problemas, objetivos e disposição para pagar.
+
+A análise deve começar simples. O objetivo inicial é produzir evidência útil para decisões, e não construir uma infraestrutura analítica excessiva antes de haver volume de uso.
+
+
+6. ESTRATÉGIA DE VERSIONAMENTO SIMPLIFICADA
+
+O versionamento refletirá mudanças de produto compreensíveis, evitando granularidade desnecessária.
+
+V3
+MVP gratuito. Remove a visão Premium anterior e mantém somente a experiência gratuita definida para a nova fase, incluindo o cálculo da AF e o salvamento de até 1 semestre.
+
+V3.1
+Reformulação do site para cumprir as diretrizes do Google AdSense e inclusão da integração necessária para solicitar e operar a monetização por anúncios.
+
+V3.1.X
+Revisões incrementais necessárias para corrigir problemas, atender exigências e alcançar a aprovação do AdSense. O “X” representa correções sucessivas, como V3.1.1, V3.1.2 e V3.1.3.
+
+V3.2
+Reintrodução da lógica Premium de forma simplificada, somente após a aprovação do AdSense e a existência de usuários cadastrados ativos. Inclui um único plano mensal e as funções avançadas aprovadas na revisão.
+
+V3.3
+Primeira evolução do Premium orientada pelos dados de uso e pela pesquisa com usuários cadastrados. Deve priorizar o público que demonstrar maior disposição para pagar e as dores pelas quais esse público pagaria para resolver.
+
+V3.3.X
+Evoluções incrementais da proposta Premium validada: ajustes de posicionamento, experiência, funções e oferta a partir dos resultados observados.
+
+Correções pequenas e manutenção podem usar o último número da versão. Uma nova etapa principal só deve alterar o primeiro ou o segundo número quando houver mudança relevante de escopo ou proposta de produto.
+
+
+7. REGRA CENTRAL DE DECISÃO
+
+A ordem das etapas é parte da estratégia. O Premium não deve ser reconstruído antes da consolidação do MVP gratuito, da adequação e aprovação do AdSense e da obtenção de sinais reais de uso. A V3 deve primeiro construir utilidade, audiência e aprendizado; depois converter necessidades comprovadas em uma assinatura simples.

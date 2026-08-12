@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de Média - Facens</title>
+  <link rel="stylesheet" href="styles/styles.css"/>
+  <link rel="stylesheet" href="styles/index.css"/>
+</head>
+<body>
+
+  <div class="barra-superior">
+    <div class="barra-esquerda">
+      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+    </div>
+
+
+    <div class="barra-centro">
+      <h1>Facens</h1>
+    </div>
+    
+    <div class="barra-direita">
+      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
+      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="sun-icon">☀️</span>
+        <span class="moon-icon">🌙</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="espaco"></div>
+
+  <div class="container">
+
+    <div class="ad-banner-top" id="adTop"></div>
+
+    <header>
+      <h1>Calculadora de Média Universitária</h1>
+    </header>
+
+    <section class="site-descricao">
+    <p>
+      Este site foi criado para ajudar estudantes universitários a organizarem
+      suas matérias, lançarem notas e calcularem automaticamente suas médias
+      ao longo dos semestres.
+    </p>
+
+    <p>
+      Basta selecionar ou criar um semestre, adicionar suas matérias, inserir
+      as notas de avaliação e o sistema calcula as médias individuais e a média
+      geral do semestre de forma simples e rápida.
+    </p>
+
+    <p>
+      As informações são salvas de forma segura para que você possa acessar
+      seus dados sempre que quiser, facilitando o acompanhamento do seu
+      desempenho acadêmico.
+    </p>
+    </section>
+
+    <div class="content-wrapper">
+      <main class="main-content">
+        <form id="formNotas" action="#" method="post">
+          <input type="hidden" id="csrf_token" name="csrf_token" value="">
+
+          <select id="semestreSelect">
+            <option value="" disabled selected>Selecione o semestre</option>
+            <option value="add">➕ Adicionar semestre</option>
+          </select>
+
+          <button id="virarPremiumBtn" style="margin-top: 10px; display: none;">
+            ⭐ Virar Premium
+          </button>
+
+          <div id="materiasContainer"  maxlength="50">
+            <div class="materia visible" id="materia1">
+              <h2>Matéria 1</h2>
+              <div class="materia-nome-container"  maxlength="50">
+                <input type="text" maxlength="50" name="materia1_nome" placeholder="Nome da matéria" required aria-label="Nome da matéria 1">
+              </div>
+              <div class="notas">
+                <input type="number" name="materia1_nota1" placeholder="AC1" min="0" step="0.01" required aria-label="Nota AC1" >
+                <input type="number" name="materia1_nota2" placeholder="AC2" min="0" step="0.01" required aria-label="Nota AC2">
+                <input type="number" name="materia1_nota3" placeholder="AF" min="0" step="0.01" required aria-label="Nota AF">
+                <input type="number" name="materia1_nota4" placeholder="AG" min="0" step="0.01" required aria-label="Nota AG">
+                <input type="number" name="materia1_nota5" placeholder="AS" min="0" step="0.01" aria-label="Nota AS">
+                <input type="text" name="materia1_media" class="media" placeholder="Média" readonly aria-label="Média da matéria 1">
+                <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para média 5 da matéria 1" style="display:none;">
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="adicionarMateriaBtn">Adicionar matéria</button>
+          <button type="button" id="removerMateriaBtn">Remover matéria</button>
+          <button type="button" id="salvarNotasBtn">Salvar notas</button>
+          <button type="button" id="calcularAFBtn">Calcular AF</button>
+          <p id="msg" class="feedback"></p>
+        </form>
+
+        <div class="medias-container">
+          <div class="media-box">
+            <h2>Média Geral</h2>
+            <p id="mediaGeral">-</p>
+          </div>
+
+          <div class="media-box">
+            <h2>Média Global</h2>
+            <p id="mediaGlobal">-</p>
+          </div>
+        </div>
+      </main>
+
+      <!-- Anúncio lateral -->
+      <aside class="ad-banner-side" id="adSide"></aside>
+
+    </div>
+
+    <footer>
+      <div class="ad-banner-footer" id="adFooter"></div>
+
+      <!-- Link para a página Sobre -->
+      <p class="sobre-link">
+        <a href="sobre.html">Saiba mais sobre este site</a>
+      </p>
+      &copy; 2025 Calculadora de Média - Todos os direitos reservados
+    </footer>
+  </div>
+
+<script type="module" src="js/theme.js"></script>
+<script type="module" src="js/index.js"></script>
+<script type="module" src="firestore/salvarNotas.js"></script>
+<script type="module" src="firestore/mediaGlobal.js"></script>
+<!-- <script type="module" src="js/anuncios.js"></script> -->
+
+
+</body>
+</html>
