@@ -6,36 +6,52 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
-    function isPremium(userId) {
-      return get(/databases/$(database)/documents/usuarios/$(userId)).data.tipoUsuario in ['genius', 'genius_plus'];
+    function canUseMultipleSemesters() {
+      return request.auth != null && request.auth.token.multiSemester == true;
+    }
+
+    function isSingleSemester(userId, semestreId) {
+      return get(/databases/$(database)/documents/usuarios/$(userId)).data.semestreUnicoId == semestreId;
     }
 
 
     // -------------------- USUÁRIOS --------------------
     match /usuarios/{userId} {
       
-      // ✅ Qualquer usuário autenticado pode ler/escrever seus próprios dados
-      allow read, write: if isOwner(userId);
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+                    && !request.resource.data.keys().hasAny(['semestreUnicoId']);
+      allow update: if isOwner(userId)
+                    && !request.resource.data.diff(resource.data).affectedKeys()
+                      .hasAny(['semestreUnicoId']);
+      allow delete: if isOwner(userId);
 
       // -------------------- SEMESTRES --------------------
       match /semestres/{semestreId} {
-        allow read, write: if isOwner(userId) && isPremium(userId);
+        allow read: if isOwner(userId)
+                    && (canUseMultipleSemesters() || isSingleSemester(userId, semestreId));
+        allow create, update, delete: if isOwner(userId) && canUseMultipleSemesters();
 
         // -------------------- MATERIAS --------------------
         match /materias/{materiaId} {
-          allow read, write: if isOwner(userId) && isPremium(userId);
+          allow read, write: if isOwner(userId)
+                             && (canUseMultipleSemesters() || isSingleSemester(userId, semestreId));
         }
       }
 
       // -------------------- MEDIAS --------------------
       match /medias/{semestreId} {
-        allow read, write: if isOwner(userId) && isPremium(userId);
+        allow read: if isOwner(userId);
+        allow write: if isOwner(userId)
+                     && (canUseMultipleSemesters() || isSingleSemester(userId, semestreId));
       }
     }
 
     // -------------------- CUPONS --------------------
     match /cupons/{cupomID} {
-      allow read, write: if isOwner(userId);
+      // Não há acesso direto a cupons no frontend da V3.
+      // Cloud Functions com Admin SDK não dependem desta permissão.
+      allow read, write: if false;
     }
   }
 }

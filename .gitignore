@@ -70,3 +70,6 @@ node_modules/
 
 # inicialization files
 inicializações.txt
+
+# Editor directories and files
+enableMultisemester.js

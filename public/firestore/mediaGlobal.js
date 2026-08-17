@@ -1,5 +1,4 @@
 // firestore/mediaGlobal.js
-import { verificaPremium, isPremium } from "../js/verificaPremium.js";
 import { auth, db } from "../firebase/config.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
@@ -9,13 +8,6 @@ const mediaGlobalEl = document.getElementById("mediaGlobal");
 export async function calcularMediaGlobal() {
   const user = auth.currentUser;
   if (!user) return;
-
-  const plano = await verificaPremium();
-
-  if (!isPremium(plano)) {
-    mediaGlobalEl.textContent = "🔒 Premium";
-    return;
-  }
 
   try {
     const mediasRef = collection(db, "usuarios", user.uid, "medias");

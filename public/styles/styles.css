@@ -33,7 +33,6 @@
     --cor-hover-dark: rgba(244,240,248,.20);
 }
 
-/* exclusivo para genius_plus */
 [data-theme="gold"] {
     --cor-primaria: #b8860b;
     --cor-primaria-clara: #facc15;

@@ -1,16 +1,19 @@
 // js/index.js
 // ---------------- FIREBASE (CDN) ----------------
-import { verificaPremium } from "./verificaPremium.js";
 import { auth } from "../firebase/config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getSemesters, addSemester } from "../firestore/carregarSemestres.js";
+import {
+  getSemesters,
+  addSemester,
+  hasMultiSemesterAccess,
+  initializeSingleSemester
+} from "../firestore/carregarSemestres.js";
+import { calcularAF } from "./calcularAF.js";
+import { calcularMediaGlobal } from "../firestore/mediaGlobal.js";
 
-let currentUser = null;
 let msgTimeout = null;
-let currentPlan = "padrao"; // Armazena o plano do usuário
 
 // ---------------- ELEMENTOS ----------------
-const virarPremiumBtn = document.getElementById("virarPremiumBtn");
 const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn")
 const mediaGeralEl = document.getElementById("mediaGeral");
@@ -29,61 +32,44 @@ if (removerMateriaBtn) {
   removerMateriaBtn.addEventListener("click", removerMateria);
 }
 if (calcularAFBtn) {
-  calcularAFBtn.addEventListener("click", () => {
-    if (window.calcularAF) {
-      window.calcularAF();
-    }
-  });
+  calcularAFBtn.addEventListener("click", calcularAF);
 }
 
 // ---------------- AUTH STATE ----------------
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    // 🔴 NÃO LOGADO
-    currentUser = null;
     setupGuestUI();
-    atualizarUIPremium("padrao");
-    virarPremiumBtn.style.display = "block";
-    calcularAFBtn.style.display = "none";
+    hideSemesterUI();
     return;
   }
 
-  // 🟢 LOGADO
-  currentUser = user;
-  setupLoggedUI(user);
+  setupLoggedUI();
 
-  const plano = await verificaPremium();
-  currentPlan = plano; // Armazena o plano atual
-  // "padrao" | "genius" | "genius_plus"
+  try {
+    if (await hasMultiSemesterAccess(user, true)) {
+      showSemesterUI();
+      await carregarSemestres();
+    } else {
+      hideSemesterUI();
+      await initializeSingleSemester();
+    }
+  } catch (err) {
+    console.error("Erro ao configurar semestres:", err);
+    hideSemesterUI();
 
-  atualizarUIPremium(plano);
-
-  if (plano === "padrao") {
-    virarPremiumBtn.style.display = "block";
-  } else {
-    virarPremiumBtn.style.display = "none";
-    carregarSemestres(); // ✅ só premium carrega
-  }
-
-  if (plano === "genius_plus") {
-    calcularAFBtn.style.display = "inline-block";
-    const moduloAF = await import("./calcularAF.js");
-    window.calcularAFNecessaria = moduloAF.calcularAFNecessaria;
-    window.calcularAF = moduloAF.calcularAF;
-  } else {
-    calcularAFBtn.style.display = "none";
+    if (err.code === "functions/failed-precondition") {
+      mostrarMensagem(
+        "Esta conta possui mais de um semestre e requer revisão antes de continuar.",
+        true
+      );
+    } else {
+      mostrarMensagem("Não foi possível carregar os dados salvos.", true);
+    }
   }
 });
 
-if (virarPremiumBtn) {
-  virarPremiumBtn.addEventListener("click", () => {
-    window.location.href = "premium.html";
-  });
-}
-
-
 // ---------------- UI STATES ----------------
-function setupLoggedUI(user) {
+function setupLoggedUI() {
   // 🔄 LOGIN -> LOGOUT
   loginBtn.textContent = "Logout";
   loginBtn.parentElement.removeAttribute("href");
@@ -109,47 +95,18 @@ function setupGuestUI() {
   signupBtn.parentElement.setAttribute("href", "cadastro.html");
 }
 
-function atualizarUIPremium(plano) {
+function hideSemesterUI() {
   if (!semestreSelect) return;
 
-  semestreSelect.innerHTML = "";
-
-  if (plano === "genius" || plano === "genius_plus") {
-    semestreSelect.disabled = false;
-
-    const opt = document.createElement("option");
-    opt.value = "";
-    opt.textContent = "Selecione o semestre";
-    semestreSelect.appendChild(opt);
-
-    const add = document.createElement("option");
-    add.value = "add";
-    add.textContent = "➕ Adicionar semestre";
-    semestreSelect.appendChild(add);
-
-  } else {
-    semestreSelect.disabled = true;
-
-    const opt = document.createElement("option");
-    opt.value = "";
-    opt.textContent =
-      "🔒 Apenas usuários Premium podem criar e acessar semestres";
-    semestreSelect.appendChild(opt);
-  }
-
-  // Atualiza visibilidade do campo "AF Necessária"
-  atualizarVisibilidadeAF(plano);
+  semestreSelect.hidden = true;
+  semestreSelect.disabled = true;
 }
 
-function atualizarVisibilidadeAF(plano) {
-  const afFields = document.querySelectorAll(".afNecessaria");
-  afFields.forEach(field => {
-    if (plano === "genius_plus") {
-      field.style.display = "block";
-    } else {
-      field.style.display = "none";
-    }
-  });
+function showSemesterUI() {
+  if (!semestreSelect) return;
+
+  semestreSelect.hidden = false;
+  semestreSelect.disabled = false;
 }
 
 
@@ -263,11 +220,6 @@ function adicionarMateria() {
   div.className = "materia visible";
   div.id = `materia${index}`;
 
-  // Campo AF Necessária só aparece para genius_plus
-  const afNecessariaField = currentPlan === "genius_plus"
-    ? `<input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly>`
-    : '';
-
   div.innerHTML = `
     <h2>Matéria ${index}</h2>
     <div class="materia-nome-container">
@@ -280,7 +232,7 @@ function adicionarMateria() {
       <input type="number" name="materia${index}_nota4" placeholder="AG" min="0" step="0.01">
       <input type="number" name="materia${index}_nota5" placeholder="AS" min="0" step="0.01">
       <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
-      ${afNecessariaField}
+      <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para atingir a média mínima da matéria ${index}">
     </div>
   `;
 
@@ -355,6 +307,12 @@ if(semestreSelect){
 
     if (!auth.currentUser) {
       mostrarMensagem("Você precisa estar logado.", true);
+      return;
+    }
+
+    if (!await hasMultiSemesterAccess(auth.currentUser)) {
+      hideSemesterUI();
+      mostrarMensagem("Conta sem autorização para múltiplos semestres.", true);
       return;
     }
 

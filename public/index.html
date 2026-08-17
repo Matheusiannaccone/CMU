@@ -33,8 +33,6 @@
 
   <div class="container">
 
-    <div class="ad-banner-top" id="adTop"></div>
-
     <header>
       <h1>Calculadora de Média Universitária</h1>
     </header>
@@ -47,9 +45,9 @@
     </p>
 
     <p>
-      Basta selecionar ou criar um semestre, adicionar suas matérias, inserir
-      as notas de avaliação e o sistema calcula as médias individuais e a média
-      geral do semestre de forma simples e rápida.
+      Basta adicionar suas matérias e inserir as notas de avaliação. O sistema
+      calcula as médias individuais e a média geral do semestre de forma simples
+      e rápida.
     </p>
 
     <p>
@@ -64,14 +62,10 @@
         <form id="formNotas" action="#" method="post">
           <input type="hidden" id="csrf_token" name="csrf_token" value="">
 
-          <select id="semestreSelect">
+          <select id="semestreSelect" hidden disabled aria-label="Selecionar semestre">
             <option value="" disabled selected>Selecione o semestre</option>
             <option value="add">➕ Adicionar semestre</option>
           </select>
-
-          <button id="virarPremiumBtn" style="margin-top: 10px; display: none;">
-            ⭐ Virar Premium
-          </button>
 
           <div id="materiasContainer"  maxlength="50">
             <div class="materia visible" id="materia1">
@@ -86,7 +80,7 @@
                 <input type="number" name="materia1_nota4" placeholder="AG" min="0" step="0.01" required aria-label="Nota AG">
                 <input type="number" name="materia1_nota5" placeholder="AS" min="0" step="0.01" aria-label="Nota AS">
                 <input type="text" name="materia1_media" class="media" placeholder="Média" readonly aria-label="Média da matéria 1">
-                <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para média 5 da matéria 1" style="display:none;">
+                <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para atingir a média mínima da matéria 1">
               </div>
             </div>
           </div>
@@ -104,21 +98,15 @@
             <p id="mediaGeral">-</p>
           </div>
 
-          <div class="media-box">
+          <div id="media-global" class="media-box" hidden>
             <h2>Média Global</h2>
             <p id="mediaGlobal">-</p>
           </div>
         </div>
       </main>
-
-      <!-- Anúncio lateral -->
-      <aside class="ad-banner-side" id="adSide"></aside>
-
     </div>
 
     <footer>
-      <div class="ad-banner-footer" id="adFooter"></div>
-
       <!-- Link para a página Sobre -->
       <p class="sobre-link">
         <a href="sobre.html">Saiba mais sobre este site</a>
@@ -131,8 +119,6 @@
 <script type="module" src="js/index.js"></script>
 <script type="module" src="firestore/salvarNotas.js"></script>
 <script type="module" src="firestore/mediaGlobal.js"></script>
-<!-- <script type="module" src="js/anuncios.js"></script> -->
-
 
 </body>
 </html>

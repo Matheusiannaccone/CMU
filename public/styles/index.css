@@ -240,44 +240,6 @@ body.dark-mode .feedback {
     opacity: 1;
 }
 
-/* ========== ANÚNCIOS ========== 
-.ad-banner-top,
-.ad-banner-side,
-.ad-banner-footer {
-    min-height: 100px;
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-body.dark-mode .ad-banner-top,
-body.dark-mode .ad-banner-side,
-body.dark-mode .ad-banner-footer {
-    background: #4a007a;
-}
-
-.ad-banner-side {
-    min-width: 250px;
-    min-height: auto;
-}
-*/
-
-/* ========== BOTÃO VIRAR PREMIUM ========== */
-#virarPremiumBtn {
-    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-primaria-clara));
-    color: #fff;
-    font-weight: bold;
-    border-radius: 8px;
-    padding: 12px 18px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#virarPremiumBtn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px var(--cor-shadow);
-}
-
 /* ========== RESPONSIVIDADE ========== */
 @media (max-width: 768px) {
     .content-wrapper {
@@ -311,7 +273,4 @@ body.dark-mode .ad-banner-footer {
         min-width: 100%;
     }
 
-    .ad-banner-side {
-        min-width: 100%;
-    }
 }

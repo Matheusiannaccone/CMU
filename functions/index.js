@@ -50,6 +50,77 @@ const baseURL = isEmulator
   ? "http://localhost:5000"
   : "https://calculadora-medias-universitarias.vercel.app";
 
+// Resolve o único semestre de usuários comuns em ambiente confiável.
+exports.resolveSingleSemester = onCall(
+  { region: "southamerica-east1" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Usuário não autenticado");
+    }
+
+    if (request.auth.token.multiSemester === true) {
+      throw new HttpsError(
+        "failed-precondition",
+        "Esta conta utiliza o fluxo de múltiplos semestres"
+      );
+    }
+
+    const uid = request.auth.uid;
+    const createIfMissing = request.data?.createIfMissing === true;
+    const userRef = db.collection("usuarios").doc(uid);
+    const semestresRef = userRef.collection("semestres");
+
+    return db.runTransaction(async (transaction) => {
+      const userSnap = await transaction.get(userRef);
+
+      if (!userSnap.exists) {
+        throw new HttpsError("not-found", "Perfil do usuário não encontrado");
+      }
+
+      const semestresSnap = await transaction.get(semestresRef);
+
+      if (semestresSnap.size > 1) {
+        throw new HttpsError(
+          "failed-precondition",
+          "A conta possui mais de um semestre e requer revisão"
+        );
+      }
+
+      if (semestresSnap.size === 1) {
+        const semestreId = semestresSnap.docs[0].id;
+
+        transaction.set(userRef, { semestreUnicoId: semestreId }, { merge: true });
+
+        return {
+          semesterId: semestreId,
+          created: false,
+        };
+      }
+
+      if (!createIfMissing) {
+        return {
+          semesterId: null,
+          created: false,
+        };
+      }
+
+      const semestreId = "semestre-unico";
+      const semestreRef = semestresRef.doc(semestreId);
+
+      transaction.set(semestreRef, {
+        nome: "Semestre atual",
+        createdAt: FieldValue.serverTimestamp(),
+      });
+      transaction.set(userRef, { semestreUnicoId: semestreId }, { merge: true });
+
+      return {
+        semesterId: semestreId,
+        created: true,
+      };
+    });
+  }
+);
+
 // Mapeamento de preços para planos
 function getPriceId({plan, interval, isEmulator}) {
   const key = `${plan}_${interval}`.toUpperCase();

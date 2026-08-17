@@ -31,7 +31,6 @@ Ferramentas desse tipo ajudam estudantes a entender rapidamente quanto precisam 
 - Interface simples e rápida.
 - Funciona diretamente no navegador.
 - Sem necessidade de login.
-- Versão paga com integração a banco de dados. 
 
 ⚠ Algumas funcionalidades estão disponíveis apenas na versão de produção.
 
@@ -44,7 +43,6 @@ O projeto foi desenvolvido utilizando tecnologias web fundamentais:
 - **CSS3** — Estilização da interface
 - **JavaScript** — Lógica de cálculo das médias
 - **Firebase** — Banco de dados e autenticação de usuário
-- **Stripe** — API de assinaturas
 - **Vercel** — Deploy da aplicação
 
 ---
@@ -66,19 +64,16 @@ CMU
 │   └── usuario.png
 │
 ├── js
-│   ├── anuncios.js
 │   ├── cadastro.js
+│   ├── calcularAF.js
 │   ├── index.js
 │   ├── login.js
-│   ├── premium.js
 │   ├── theme.js
-│   ├── usuario.js
-│   └── verificaPremium.js
+│   └── usuario.js
 │
 ├── styles
-│   ├── anuncio.css
+│   ├── index.css
 │   ├── login.css
-│   ├── premium.css
 │   ├── styles.css
 │   └── usuario.css
 │
@@ -86,7 +81,6 @@ CMU
 ├── cadastro.html
 ├── index.html
 ├── login.html
-├── premium.html
 ├── sobre.html
 ├── usuario.html
 │
@@ -128,9 +122,6 @@ Imagem ou ícone padrão utilizado na área do usuário.
 ## 📁 js
 Contém os scripts principais da aplicação, responsáveis pela lógica de funcionamento da interface e das funcionalidades do sistema.
 
-**anuncios.js**
-Gerencia a exibição de anúncios na versão gratuita da plataforma.
-
 **cadastro.js**
 Controla o processo de cadastro de novos usuários utilizando Firebase Authentication.
 
@@ -140,29 +131,17 @@ Script principal da página inicial, responsável pelas funcionalidades da calcu
 **login.js**
 Responsável pela autenticação e login dos usuários no sistema.
 
-**premium.js**
-Gerencia funcionalidades exclusivas para usuários Premium.
-
 **theme.js**
 Controla o tema da interface, como modo claro e modo escuro.
 
 **usuario.js**
 Gerencia as informações e interações da área do usuário.
 
-**verificaPremium.js**
-Verifica no banco de dados se o usuário possui acesso ao plano Premium.
-
 ## 📁 styles
 Arquivos responsáveis pela estilização visual da aplicação.
 
-**anuncio.css**
-Estilos utilizados nos componentes de anúncios.
-
 **login.css**
 Estilização das páginas de login e autenticação.
-
-**premium.css**
-Estilos específicos para páginas e funcionalidades Premium.
 
 **styles.css**
 Arquivo de estilos globais da aplicação.
@@ -184,9 +163,6 @@ Página para criação de novas contas.
 
 **usuario.html**
 Área do usuário com acesso às suas informações e dados salvos.
-
-**premium.html**
-Página com informações e assinatura do plano Premium.
 
 **sobre.html**
 Página institucional com informações sobre o projeto.
