@@ -1,5 +1,7 @@
 # __CMU — Calculadora de Médias Universitárias__
 
+**Versão atual:** V3
+
 Aplicação web desenvolvida para ajudar estudantes universitários a calcular suas médias acadêmicas de forma rápida e automática.
 A ferramenta permite inserir notas de avaliações e descobrir imediatamente se o aluno está aprovado ou quanto precisa tirar para alcançar a média mínima.
 
@@ -30,9 +32,8 @@ Ferramentas desse tipo ajudam estudantes a entender rapidamente quanto precisam 
 - Simulação de nota necessária para aprovação.
 - Interface simples e rápida.
 - Funciona diretamente no navegador.
-- Sem necessidade de login.
-
-⚠ Algumas funcionalidades estão disponíveis apenas na versão de produção.
+- Sem necessidade de login para o cálculo.
+- Notas salvas no Firestore para (somente com login).
 
 ---
 
@@ -66,8 +67,10 @@ CMU
 ├── js
 │   ├── cadastro.js
 │   ├── calcularAF.js
+│   ├── config.js
 │   ├── index.js
 │   ├── login.js
+│   ├── sobre.js
 │   ├── theme.js
 │   └── usuario.js
 │
@@ -125,11 +128,20 @@ Contém os scripts principais da aplicação, responsáveis pela lógica de func
 **cadastro.js**
 Controla o processo de cadastro de novos usuários utilizando Firebase Authentication.
 
+**calcularAF.js**
+Função para calcular a nota mínima necessária para atingir a média definida pelo usuário (média padrão 5).
+
+**config.js**
+Configura a versão atual do site para evitar campos de versionamento desatualizados.
+
 **index.js**
 Script principal da página inicial, responsável pelas funcionalidades da calculadora de médias.
 
 **login.js**
 Responsável pela autenticação e login dos usuários no sistema.
+
+**sobre.js**
+Responsável por aplicar a versão atual no rodapé da página.
 
 **theme.js**
 Controla o tema da interface, como modo claro e modo escuro.
@@ -139,6 +151,9 @@ Gerencia as informações e interações da área do usuário.
 
 ## 📁 styles
 Arquivos responsáveis pela estilização visual da aplicação.
+
+**index.css**
+Estilização da página principal do site.
 
 **login.css**
 Estilização das páginas de login e autenticação.
@@ -175,23 +190,24 @@ Página exibida quando uma rota não é encontrada.
 # _Melhorias Futuras_
 Algumas melhorias planejadas para o projeto:
 
-- Função para estipular a nota necessária para atingir a média;
 - Foto de perfil personalizada;
 - Sistema de suporte ao usuário;
-- Versão mobile mais otimizada;
 - Suporte para múltiplas universidades;
+- Histórico de desempenho e recursos para análise de longo prazo;
+- Melhorias de navegação e experiência geral do usuário;
+- Desenvolvimento de funcionalidades avançadas com base no uso real e no feedback dos usuários;
+- Expansão gradual do suporte para diferentes necessidades e contextos acadêmicos.
 
 ---
 # _Licença_ 
-Copyright (c) 2026 Matheus Iannaccone
+Copyright (c) 2026 Matheus Iannaccone da Rosa
 
 All Rights Reserved.
 
 Este repositório é público apenas para fins de visualização.
-Nenhuma parte deste código pode ser copiada, modificada, distribuída
-ou utilizada sem autorização explícita do autor.
+Nenhuma parte deste código pode ser copiada, modificada, distribuída ou utilizada sem autorização explícita do autor.
 
 ---
 
 # _Autor_
-Matheus Iannaccone
+Matheus Iannaccone da Rosa
