@@ -12,6 +12,12 @@ const db = admin.firestore();
 
 
 const RECAPTCHA_SECRET = defineSecret("RECAPTCHA_SECRET");
+const isFunctionsEmulator = process.env.FUNCTIONS_EMULATOR === "true";
+
+async function deleteUserAcademicData(uid) {
+  const userRef = db.collection("usuarios").doc(uid);
+  await db.recursiveDelete(userRef);
+}
 
 // Resolve o único semestre de usuários comuns em ambiente confiável.
 exports.resolveSingleSemester = onCall(
@@ -93,6 +99,13 @@ exports.verifyRecaptcha = onCall(
   async (request) => {
   const { token, action } = request.data;
 
+  if (isFunctionsEmulator) {
+    return {
+      success: true,
+      score: 1,
+    };
+  }
+
   const response = await fetch(
     "https://www.google.com/recaptcha/api/siteverify",
     {
@@ -133,6 +146,58 @@ exports.verifyRecaptcha = onCall(
   }
 });
 
+exports.syncEmail = onCall(
+  { region: "southamerica-east1" },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Usuário não autenticado");
+    }
+
+    const requestedEmail = request.data?.email;
+
+    if (typeof requestedEmail !== "string" || !requestedEmail.trim()) {
+      throw new HttpsError("invalid-argument", "Email é obrigatório");
+    }
+
+    try {
+      const uid = request.auth.uid;
+      const userRecord = await admin.auth().getUser(uid);
+      const authEmail = userRecord.email;
+
+      if (!authEmail) {
+        throw new HttpsError(
+          "internal",
+          "A conta autenticada não possui email"
+        );
+      }
+
+      if (requestedEmail.trim().toLowerCase() !== authEmail.toLowerCase()) {
+        throw new HttpsError(
+          "invalid-argument",
+          "O email informado não corresponde à conta autenticada"
+        );
+      }
+
+      await db.collection("usuarios_priv").doc(uid).set(
+        {
+          email: authEmail,
+          updatedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+
+      return { success: true };
+    } catch (error) {
+      if (error instanceof HttpsError) {
+        throw error;
+      }
+
+      console.error("Erro ao sincronizar email:", error);
+      throw new HttpsError("internal", "Erro ao sincronizar email");
+    }
+  }
+);
+
 exports.onUserCreated = functions
   .region("southamerica-east1")
   .auth.user()
@@ -169,7 +234,7 @@ exports.deleteAccount = onRequest(
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       const uid = decodedToken.uid;
 
-      await db.collection("usuarios").doc(uid).delete();
+      await deleteUserAcademicData(uid);
 
       await admin.auth().deleteUser(uid);
 
@@ -190,16 +255,18 @@ exports.deleteUserData = onDocumentDeleted(
       throw new Error("invalid-argument", "UID é obrigatório");
     }
     
-    const batch = db.batch();
+    // Também cobre exclusões do documento feitas fora de deleteAccount.
+    await deleteUserAcademicData(uid);
 
-      batch.delete(db.collection("usuarios_priv").doc(uid));
+    // Deleta dados privados e cupons históricos sem o limite de 500 do batch.
+    const cuponsSnap = await db.collection("cupons")
+      .where("ownerUid", "==", uid)
+      .get();
+    const bulkWriter = db.bulkWriter();
 
-      // Deleta cupons criados pelo usuário
-      const cuponsSnap = await db.collection("cupons")
-        .where("ownerUid", "==", uid)
-        .get();
+    bulkWriter.delete(db.collection("usuarios_priv").doc(uid));
+    cuponsSnap.forEach(doc => bulkWriter.delete(doc.ref));
 
-      cuponsSnap.forEach(doc => batch.delete(doc.ref));
-      await batch.commit();
+    await bulkWriter.close();
   }
 );

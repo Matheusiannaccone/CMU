@@ -250,7 +250,7 @@ Estilos utilizados na área do usuário.
 
 Contém as **Firebase Cloud Functions** utilizadas pelo projeto.
 
-As funções exportadas são `resolveSingleSemester`, `verifyRecaptcha`, `onUserCreated`, `deleteAccount` e `deleteUserData`. Elas mantêm o controle do semestre único, a verificação de reCAPTCHA, a criação de dados privados do cadastro e a exclusão de conta e dados, com as limitações registradas abaixo.
+As funções exportadas são `resolveSingleSemester`, `verifyRecaptcha`, `syncEmail`, `onUserCreated`, `deleteAccount` e `deleteUserData`. Elas mantêm o controle do semestre único, a verificação de reCAPTCHA, a sincronização do e-mail autenticado, a criação de dados privados do cadastro e a exclusão de conta e dados.
 
 Arquivos de ambiente e credenciais locais, como `.env`, não são versionados no repositório.
 
@@ -399,13 +399,30 @@ O desenvolvimento da V3 segue alguns princípios:
 
 ---
 
-# *Pendências conhecidas*
+# *Testes E2E locais*
 
-Estas pendências preexistentes não foram alteradas na limpeza técnica da V3:
+Os testes em `tests/e2e` usam Playwright com Firebase Auth, Firestore, Hosting e Functions Emulators. O setup recusa hosts Firebase não locais, limpa apenas os emuladores no início da suíte e cria usuários exclusivos para que os testes não dependam de ordem.
 
-* A exclusão de conta ainda não percorre semestres, matérias e médias armazenados em subcoleções.
-* A troca de e-mail chama `syncEmail`, que não está exportada no backend local.
-* A remoção de matérias na interface não exclui os documentos excedentes no próximo salvamento.
+Com os quatro emuladores já iniciados:
+
+```bash
+npm run test:e2e
+npm run test:e2e:ui
+```
+
+Para iniciar os emuladores, executar a suíte e encerrá-los automaticamente:
+
+```bash
+npm run test:e2e:emulators
+```
+
+O comando equivalente com o Firebase CLI é:
+
+```bash
+firebase emulators:exec --only auth,firestore,functions,hosting "npm run test:e2e"
+```
+
+Em falhas, screenshots e traces são gravados em `test-results/`. O relatório HTML é gerado em `playwright-report/`.
 
 ---
 
