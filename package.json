@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:emulators": "firebase emulators:exec --only auth,firestore,functions,hosting \"npm run test:e2e\""
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
   },
   "engines": {
     "node": "24"
