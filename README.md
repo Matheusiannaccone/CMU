@@ -25,7 +25,7 @@ O sistema permite inserir as notas e calcular automaticamente a média com base 
 
 Além da calculadora principal, o projeto possui autenticação de usuários, integração com Firebase e recursos para armazenamento de informações acadêmicas.
 
-A implementação atual é a **V3 — Free MVP**, com cálculos gratuitos e salvamento de um semestre por usuário comum.
+A implementação atual é a **V3.0.1 — Free MVP**, com cálculos gratuitos e salvamento de um semestre por usuário comum.
 
 ---
 
@@ -47,7 +47,7 @@ Entre as funcionalidades atualmente presentes no projeto estão:
 
 O semestre único é resolvido no backend por `resolveSingleSemester`, com o vínculo `semestreUnicoId` protegido nas regras do Firestore. Contas com a Custom Claim `multiSemester` mantêm o fluxo especial de múltiplos semestres, sem vínculo com pagamento.
 
-Cadastro e login utilizam reCAPTCHA; a configuração web também mantém App Check. O código atual não implementa cobrança nem anúncios. A exclusão de cupons históricos permanece em `deleteUserData`, e o acesso direto do cliente a esses dados continua negado nas regras.
+Cadastro e login utilizam reCAPTCHA; a configuração web também mantém App Check. O código atual não implementa cobrança nem anúncios. A exclusão de conta é feita pela Cloud Function `deleteAccount`; as regras impedem que o perfil seja excluído diretamente pelo cliente.
 
 ---
 
@@ -104,6 +104,7 @@ CMU/
 │   │   ├── calcularAF.js
 │   │   ├── index.js
 │   │   ├── login.js
+│   │   ├── materiaForm.js
 │   │   ├── sobre.js
 │   │   ├── theme.js
 │   │   └── usuario.js
@@ -201,6 +202,10 @@ Responsável pela lógica utilizada para calcular a nota necessária na AF.
 ### `index.js`
 
 Script principal da calculadora e das interações da página inicial.
+
+### `materiaForm.js`
+
+Cria os campos de matéria com APIs seguras do DOM e centraliza a validação feita antes do salvamento.
 
 ### `login.js`
 
@@ -350,7 +355,7 @@ Página apresentada quando uma rota solicitada não é encontrada.
 
 # *Roadmap Atual*
 
-A implementação atual é a **V3 — Free MVP**. As etapas posteriores abaixo são planejamento e não estão implementadas.
+A implementação atual é a **V3.0.1 — Free MVP**. As etapas posteriores abaixo são planejamento e não estão implementadas.
 
 A estratégia definida para as próximas versões é:
 

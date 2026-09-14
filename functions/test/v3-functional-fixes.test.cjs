@@ -17,8 +17,7 @@ function loadFunctions(overrides = {}) {
     recursiveDelete: [],
     authDeleted: [],
     privateWrites: [],
-    bulkDeletes: [],
-    couponQueryUid: null,
+    documentDeletes: [],
   };
 
   function createRef(refPath) {
@@ -33,19 +32,8 @@ function loadFunctions(overrides = {}) {
       async set(data, options) {
         calls.privateWrites.push({ path: refPath, data, options });
       },
-      where(field, operator, value) {
-        calls.couponQueryUid = { field, operator, value };
-        return {
-          async get() {
-            return {
-              forEach(callback) {
-                for (const ref of overrides.couponRefs || []) {
-                  callback({ ref });
-                }
-              },
-            };
-          },
-        };
+      async delete() {
+        calls.documentDeletes.push(refPath);
       },
     };
   }
@@ -54,14 +42,6 @@ function loadFunctions(overrides = {}) {
     collection: createRef,
     async recursiveDelete(ref) {
       calls.recursiveDelete.push(ref.path);
-    },
-    bulkWriter() {
-      return {
-        delete(ref) {
-          calls.bulkDeletes.push(ref.path);
-        },
-        async close() {},
-      };
     },
     async runTransaction() {
       throw new Error("not used in these tests");
@@ -110,6 +90,7 @@ function loadFunctions(overrides = {}) {
     console: { log() {}, warn() {}, error() {} },
     exports: {},
     fetch: async () => ({ json: async () => ({ success: true, action: "test", score: 1 }) }),
+    process: { env: {} },
     require(name) {
       assert.ok(modules[name], `unexpected module: ${name}`);
       return modules[name];
@@ -146,23 +127,13 @@ test("deleteAccount rejects requests without an authentication token", async () 
   assert.deepEqual(calls.authDeleted, []);
 });
 
-test("deleteUserData cleans descendants, private data and only owned coupons", async () => {
-  const couponRefs = [{ path: "cupons/a" }, { path: "cupons/b" }];
-  const { handlers, calls } = loadFunctions({ couponRefs });
+test("deleteUserData cleans descendants and private data", async () => {
+  const { handlers, calls } = loadFunctions();
 
   await handlers.deleteUserData({ params: { uid: "user-a" } });
 
   assert.deepEqual(calls.recursiveDelete, ["usuarios/user-a"]);
-  assert.deepEqual(calls.couponQueryUid, {
-    field: "ownerUid",
-    operator: "==",
-    value: "user-a",
-  });
-  assert.deepEqual(calls.bulkDeletes, [
-    "usuarios_priv/user-a",
-    "cupons/a",
-    "cupons/b",
-  ]);
+  assert.deepEqual(calls.documentDeletes, ["usuarios_priv/user-a"]);
 });
 
 test("syncEmail requires authentication and a valid email argument", async () => {

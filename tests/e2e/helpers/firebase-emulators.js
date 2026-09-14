@@ -94,11 +94,6 @@ async function cleanupUser(uid) {
   await db.recursiveDelete(db.collection("usuarios").doc(uid));
   await db.collection("usuarios_priv").doc(uid).delete();
 
-  const coupons = await db.collection("cupons").where("ownerUid", "==", uid).get();
-  const writer = db.bulkWriter();
-  coupons.forEach(doc => writer.delete(doc.ref));
-  await writer.close();
-
   try {
     await auth.deleteUser(uid);
   } catch (error) {

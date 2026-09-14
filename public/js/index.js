@@ -10,6 +10,7 @@ import {
 } from "../firestore/carregarSemestres.js";
 import { calcularAF } from "./calcularAF.js";
 import { calcularMediaGlobal } from "../firestore/mediaGlobal.js";
+import { createMateriaElement } from "./materiaForm.js";
 
 let msgTimeout = null;
 
@@ -216,25 +217,7 @@ function adicionarMateria() {
 
   const index = materias.length + 1;
 
-  const div = document.createElement("div");
-  div.className = "materia visible";
-  div.id = `materia${index}`;
-
-  div.innerHTML = `
-    <h2>Matéria ${index}</h2>
-    <div class="materia-nome-container">
-      <input type="text" name="materia${index}_nome" placeholder="Nome da matéria">
-    </div>
-    <div class="notas">
-      <input type="number" name="materia${index}_nota1" placeholder="AC1" min="0" step="0.01">
-      <input type="number" name="materia${index}_nota2" placeholder="AC2" min="0" step="0.01">
-      <input type="number" name="materia${index}_nota3" placeholder="AF" min="0" step="0.01">
-      <input type="number" name="materia${index}_nota4" placeholder="AG" min="0" step="0.01">
-      <input type="number" name="materia${index}_nota5" placeholder="AS" min="0" step="0.01">
-      <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
-      <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para atingir a média mínima da matéria ${index}">
-    </div>
-  `;
+  const div = createMateriaElement(index);
 
   materiasContainer.appendChild(div);
   mostrarMensagem(`Matéria ${index} adicionada.`);

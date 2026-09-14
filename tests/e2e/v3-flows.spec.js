@@ -1,6 +1,8 @@
 const { expect, test } = require("./fixtures");
 const {
+  FIRESTORE_EMULATOR_URL,
   FUNCTIONS_EMULATOR_URL,
+  PROJECT_ID,
   assertLocalUrl,
   auth,
   createUser,
@@ -43,6 +45,14 @@ async function clickAndAcceptAlert(page, selector, expectedMessage) {
   await page.locator(selector).click();
   const message = await handledDialog;
   expect(message).toBe(expectedMessage);
+}
+
+async function expectInvalidSave(page, user, expectedMessage) {
+  await clickAndAcceptAlert(page, "#salvarNotasBtn", expectedMessage);
+
+  const semesters = await db.collection("usuarios").doc(user.uid)
+    .collection("semestres").get();
+  expect(semesters.empty).toBe(true);
 }
 
 test("cadastra um usuário e persiste o perfil nos emuladores", async ({ page, cleanupUids }) => {
@@ -136,6 +146,70 @@ test("salva matérias e notas no Firestore Emulator", async ({ page, cleanupUids
   });
 });
 
+test("não salva nota abaixo de zero", async ({ page, cleanupUids }) => {
+  const credentials = uniqueCredentials("nota-negativa");
+  const user = await createUser(credentials);
+  cleanupUids.push(user.uid);
+
+  await login(page, credentials.email, credentials.password);
+  await fillMateria(page, 1, { ac1: "-1" });
+  await expectInvalidSave(
+    page,
+    user,
+    "A nota AC1 da Matéria 1 deve ser um número entre 0 e 10."
+  );
+});
+
+test("não salva nota acima de dez", async ({ page, cleanupUids }) => {
+  const credentials = uniqueCredentials("nota-acima-dez");
+  const user = await createUser(credentials);
+  cleanupUids.push(user.uid);
+
+  await login(page, credentials.email, credentials.password);
+  await fillMateria(page, 1, { ac1: "10.01" });
+  await expectInvalidSave(
+    page,
+    user,
+    "A nota AC1 da Matéria 1 deve ser um número entre 0 e 10."
+  );
+});
+
+test("não salva matéria sem nome", async ({ page, cleanupUids }) => {
+  const credentials = uniqueCredentials("materia-sem-nome");
+  const user = await createUser(credentials);
+  cleanupUids.push(user.uid);
+
+  await login(page, credentials.email, credentials.password);
+  await fillMateria(page, 1, { nome: "" });
+  await expectInvalidSave(page, user, "Informe o nome da Matéria 1.");
+});
+
+test("salva e recarrega literalmente nome semelhante a HTML", async ({ page, cleanupUids }) => {
+  const credentials = uniqueCredentials("nome-html");
+  const user = await createUser(credentials);
+  const nome = `\"><script>window.x=1</script>&'`;
+  cleanupUids.push(user.uid);
+
+  await login(page, credentials.email, credentials.password);
+  await fillMateria(page, 1, { nome });
+  await clickAndAcceptAlert(
+    page,
+    "#salvarNotasBtn",
+    "Notas e média geral salvas com sucesso."
+  );
+
+  const materiaRef = db.collection("usuarios").doc(user.uid)
+    .collection("semestres").doc("semestre-unico")
+    .collection("materias").doc("materia1");
+  expect((await materiaRef.get()).data()?.nome).toBe(nome);
+
+  await page.reload();
+  await expect(page.locator('[name="materia1_nome"]')).toHaveValue(nome);
+  await expect(page.locator("#materiasContainer script")).toHaveCount(0);
+  await expect(page.locator("#materiasContainer img")).toHaveCount(0);
+  expect(await page.evaluate(() => window.x)).toBeUndefined();
+});
+
 test("persiste a remoção de matéria após salvar e recarregar", async ({ page, cleanupUids }) => {
   const credentials = uniqueCredentials("remover-materia");
   const user = await createUser(credentials);
@@ -190,7 +264,26 @@ test("altera o email e sincroniza usuarios_priv", async ({ page, cleanupUids }) 
     .toBe(true);
 });
 
-test("exclui a conta, dados acadêmicos, dados privados e cupons", async ({ cleanupUids }) => {
+test("bloqueia a exclusão direta do perfil pelo usuário", async ({ cleanupUids }) => {
+  const credentials = uniqueCredentials("delete-direto");
+  const user = await createUser(credentials);
+  cleanupUids.push(user.uid);
+
+  const session = await signInWithPassword(credentials.email, credentials.password);
+  const deleteUrl = `${FIRESTORE_EMULATOR_URL}/v1/projects/${PROJECT_ID}/` +
+    `databases/(default)/documents/usuarios/${user.uid}`;
+  assertLocalUrl(deleteUrl);
+
+  const response = await fetch(deleteUrl, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${session.idToken}` },
+  });
+
+  expect(response.status).toBe(403);
+  expect((await db.collection("usuarios").doc(user.uid).get()).exists).toBe(true);
+});
+
+test("exclui a conta e os dados esperados pela Function", async ({ cleanupUids }) => {
   const credentials = uniqueCredentials("exclusao");
   const user = await createUser(credentials);
   cleanupUids.push(user.uid);
@@ -201,8 +294,6 @@ test("exclui a conta, dados acadêmicos, dados privados e cupons", async ({ clea
     .collection("materias").doc("materia1").set({ nome: "Teste" });
   await userRef.collection("medias").doc("semestre-unico").set({ mediaGeral: 7 });
   await db.collection("usuarios_priv").doc(user.uid).set({ email: credentials.email });
-  const couponRef = db.collection("cupons").doc(`e2e-${user.uid}`);
-  await couponRef.set({ ownerUid: user.uid });
 
   const session = await signInWithPassword(credentials.email, credentials.password);
   const deleteUrl = `${FUNCTIONS_EMULATOR_URL}/deleteAccount`;
@@ -230,7 +321,6 @@ test("exclui a conta, dados acadêmicos, dados privados e cupons", async ({ clea
         .collection("materias").doc("materia1").get(),
       userRef.collection("medias").doc("semestre-unico").get(),
       db.collection("usuarios_priv").doc(user.uid).get(),
-      couponRef.get(),
     ]);
     return snapshots.every(snapshot => !snapshot.exists);
   });

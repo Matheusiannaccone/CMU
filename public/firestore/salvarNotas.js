@@ -8,6 +8,10 @@ import {
   writeBatch
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getSemesterIdForSave } from "./carregarSemestres.js";
+import {
+  MateriaValidationError,
+  validateMateriaElement
+} from "../js/materiaForm.js";
 
 // ---------------- ELEMENTOS ----------------
 const materiasContainer = document.getElementById("materiasContainer");
@@ -50,11 +54,17 @@ async function salvarNotas() {
     return;
   }
 
-  salvarBtn.disabled = true;
-
   try {
-    const semestreId = await getSemesterIdForSave();
     const materias = materiasContainer.querySelectorAll(".materia");
+    const materiasValidadas = Array.from(materias, (materia, position) => ({
+      materia,
+      index: position + 1,
+      data: validateMateriaElement(materia, position + 1),
+    }));
+
+    salvarBtn.disabled = true;
+
+    const semestreId = await getSemesterIdForSave();
     const materiasRef = collection(
       db,
       "usuarios",
@@ -66,22 +76,10 @@ async function salvarNotas() {
     const currentMateriaIds = [];
 
     // ---------- SALVAR MATÉRIAS ----------
-    for (let i = 0; i < materias.length; i++) {
-      const index = i + 1;
-      const materia = materias[i];
+    for (const { index, data } of materiasValidadas) {
       const materiaId = `materia${index}`;
 
       currentMateriaIds.push(materiaId);
-
-      const nome =
-        materia.querySelector(`input[name="materia${index}_nome"]`)?.value || "";
-
-      const getNota = (n) => {
-        const v = materia.querySelector(
-          `input[name="materia${index}_nota${n}"]`
-        )?.value;
-        return v === "" ? null : Number(v);
-      };
 
       const materiaRef = doc(
         db,
@@ -93,14 +91,7 @@ async function salvarNotas() {
         materiaId
       );
 
-      await setDoc(materiaRef, {
-        nome,
-        ac1: getNota(1),
-        ac2: getNota(2),
-        af: getNota(3),
-        ag: getNota(4),
-        as: getNota(5),
-      });
+      await setDoc(materiaRef, data);
     }
 
     await deleteStaleMaterias(materiasRef, currentMateriaIds);
@@ -127,7 +118,9 @@ async function salvarNotas() {
   } catch (err) {
     console.error("Erro ao salvar notas:", err);
 
-    if (err.code === "functions/failed-precondition") {
+    if (err instanceof MateriaValidationError) {
+      alert(err.message);
+    } else if (err.code === "functions/failed-precondition") {
       alert("Esta conta possui mais de um semestre e requer revisão antes de salvar.");
     } else {
       alert(err.message || "Não foi possível salvar as notas.");

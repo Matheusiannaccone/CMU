@@ -258,15 +258,6 @@ exports.deleteUserData = onDocumentDeleted(
     // Também cobre exclusões do documento feitas fora de deleteAccount.
     await deleteUserAcademicData(uid);
 
-    // Deleta dados privados e cupons históricos sem o limite de 500 do batch.
-    const cuponsSnap = await db.collection("cupons")
-      .where("ownerUid", "==", uid)
-      .get();
-    const bulkWriter = db.bulkWriter();
-
-    bulkWriter.delete(db.collection("usuarios_priv").doc(uid));
-    cuponsSnap.forEach(doc => bulkWriter.delete(doc.ref));
-
-    await bulkWriter.close();
+    await db.collection("usuarios_priv").doc(uid).delete();
   }
 );
