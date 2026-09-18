@@ -3,20 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Política de Privacidade — CMU</title>
-  <meta name="description" content="Saiba quais dados o CMU utiliza, como funcionam o cadastro e o semestre salvo e quais serviços de autenticação e segurança são usados.">
-  <link rel="canonical" href="https://calculadora-medias-universitarias.vercel.app/privacidade.html">
+
+  <meta
+    name="description"
+    content="Saiba quais dados o CMU utiliza, como funcionam o cadastro e o semestre salvo e quais serviços de autenticação, segurança e publicidade são usados."
+  >
+
+  <link
+    rel="canonical"
+    href="https://calculadora-medias-universitarias.vercel.app/privacidade.html"
+  >
+
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:site_name" content="CMU — Calculadora de Médias Universitárias">
-  <meta property="og:title" content="Política de Privacidade — CMU">
-  <meta property="og:description" content="Saiba quais dados o CMU utiliza, como funcionam o cadastro e o semestre salvo e quais serviços de autenticação e segurança são usados.">
-  <meta property="og:url" content="https://calculadora-medias-universitarias.vercel.app/privacidade.html">
-  <meta property="og:image" content="https://calculadora-medias-universitarias.vercel.app/images/logo.png">
+  <meta
+    property="og:site_name"
+    content="CMU — Calculadora de Médias Universitárias"
+  >
+  <meta
+    property="og:title"
+    content="Política de Privacidade — CMU"
+  >
+  <meta
+    property="og:description"
+    content="Saiba quais dados o CMU utiliza, como funcionam o cadastro e o semestre salvo e quais serviços de autenticação, segurança e publicidade são usados."
+  >
+  <meta
+    property="og:url"
+    content="https://calculadora-medias-universitarias.vercel.app/privacidade.html"
+  >
+  <meta
+    property="og:image"
+    content="https://calculadora-medias-universitarias.vercel.app/images/logo.png"
+  >
   <meta property="og:image:alt" content="Logo do CMU">
+
   <meta name="twitter:card" content="summary">
+
   <link rel="stylesheet" href="styles/styles.css">
 </head>
+
 <body>
 
   <div class="barra-superior">
@@ -29,11 +57,36 @@
     </div>
 
     <div class="barra-direita">
-      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
-      <button id="logoutBtn" type="button" hidden>Logout</button>
-      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <a
+        id="loginBtn"
+        class="header-action"
+        href="login.html"
+      >
+        Fazer login
+      </a>
 
-      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+      <button
+        id="logoutBtn"
+        type="button"
+        hidden
+      >
+        Logout
+      </button>
+
+      <a
+        id="signupBtn"
+        class="header-action"
+        href="cadastro.html"
+      >
+        Cadastrar
+      </a>
+
+      <button
+        type="button"
+        class="theme-toggle"
+        aria-label="Alternar modo claro ou escuro"
+        onclick="toggleTheme()"
+      >
         <span class="sun-icon" aria-hidden="true">☀️</span>
         <span class="moon-icon" aria-hidden="true">🌙</span>
       </button>
@@ -43,17 +96,24 @@
   <div class="espaco"></div>
 
   <div class="container">
+
     <nav class="site-nav" aria-label="Navegação principal">
       <a href="index.html">Início</a>
       <a href="sobre.html">Sobre</a>
       <a href="contato.html">Contato</a>
-      <a href="privacidade.html" aria-current="page">Política de Privacidade</a>
+      <a href="privacidade.html" aria-current="page">
+        Política de Privacidade
+      </a>
     </nav>
 
     <main class="institutional-content">
+
       <header>
         <h1>Política de Privacidade</h1>
-        <p><strong>Última atualização:</strong> 18 de setembro de 2026.</p>
+        <p>
+          <strong>Última atualização:</strong>
+          18 de setembro de 2026.
+        </p>
       </header>
 
       <p>
@@ -167,7 +227,11 @@
         <li>salvar e recuperar dados acadêmicos;</li>
         <li>executar os cálculos disponibilizados pela plataforma;</li>
         <li>proteger o serviço contra abuso e solicitações suspeitas;</li>
-        <li>manter o funcionamento técnico e a segurança da aplicação.</li>
+        <li>manter o funcionamento técnico e a segurança da aplicação;</li>
+        <li>
+          viabilizar publicidade quando esse recurso estiver disponível e
+          habilitado.
+        </li>
       </ul>
 
       <h2>Serviços de terceiros utilizados</h2>
@@ -178,32 +242,34 @@
       </p>
 
       <p>
-        <strong>Firebase Authentication:</strong> utilizado para criação de contas,
-        autenticação, gerenciamento de sessão e operações relacionadas ao acesso do
-        usuário.
+        <strong>Firebase Authentication:</strong>
+        utilizado para criação de contas, autenticação, gerenciamento de sessão e
+        operações relacionadas ao acesso do usuário.
       </p>
 
       <p>
-        <strong>Cloud Firestore:</strong> utilizado para armazenamento dos dados de
-        perfil e das informações acadêmicas salvas pelo usuário.
+        <strong>Cloud Firestore:</strong>
+        utilizado para armazenamento dos dados de perfil e das informações
+        acadêmicas salvas pelo usuário.
       </p>
 
       <p>
-        <strong>Cloud Functions for Firebase:</strong> utilizado para executar
-        operações de servidor relacionadas à segurança, validação, controle de
-        semestre, sincronização de informações da conta e rotinas de exclusão.
+        <strong>Cloud Functions for Firebase:</strong>
+        utilizado para executar operações de servidor relacionadas à segurança,
+        validação, controle de semestre, sincronização de informações da conta e
+        rotinas de exclusão.
       </p>
 
       <p>
-        <strong>Firebase App Check:</strong> utilizado para ajudar a verificar se
-        solicitações ao backend são originadas da aplicação esperada e reduzir
-        tentativas de abuso.
+        <strong>Firebase App Check:</strong>
+        utilizado para ajudar a verificar se solicitações ao backend são
+        originadas da aplicação esperada e reduzir tentativas de abuso.
       </p>
 
       <p>
-        <strong>Google reCAPTCHA:</strong> utilizado em fluxos como login e cadastro
-        para auxiliar na identificação de comportamentos automatizados ou
-        potencialmente abusivos.
+        <strong>Google reCAPTCHA:</strong>
+        utilizado em fluxos como login e cadastro para auxiliar na identificação
+        de comportamentos automatizados ou potencialmente abusivos.
       </p>
 
       <p>
@@ -213,28 +279,57 @@
       </p>
 
       <p>
-        <strong>Vercel:</strong> utilizada para disponibilizar publicamente as
-        páginas do site.
+        <strong>Google AdSense:</strong>
+        o CMU possui integração com o serviço Google AdSense na página principal.
+        O serviço poderá ser utilizado para exibir anúncios quando a conta, o site
+        e as configurações correspondentes estiverem habilitados para veiculação.
+        A presença do código do AdSense no site não significa que um anúncio será
+        exibido em todas as visitas.
       </p>
 
       <p>
-        Durante a prestação desses serviços, os respectivos provedores podem tratar
-        informações técnicas de conexão e do navegador, como endereço IP, tipo de
-        dispositivo, características do navegador e outros identificadores
-        técnicos necessários ao funcionamento e à segurança dos serviços.
+        <strong>Vercel:</strong>
+        utilizada para disponibilizar publicamente as páginas do site.
+      </p>
+
+      <p>
+        Durante a prestação desses serviços, os respectivos provedores podem
+        tratar informações técnicas de conexão e do navegador, como endereço IP,
+        tipo de dispositivo, características do navegador e outros identificadores
+        técnicos necessários ao funcionamento, à segurança ou à prestação dos
+        serviços.
       </p>
 
       <p>
         Mais informações sobre as práticas desses serviços podem ser consultadas
         nas páginas oficiais de
-        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://firebase.google.com/support/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           privacidade do Firebase
         </a>,
-        <a href="https://developers.google.com/recaptcha/docs/faq?hl=pt-br" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://developers.google.com/recaptcha/docs/faq?hl=pt-br"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Google reCAPTCHA
+        </a>,
+        <a
+          href="https://policies.google.com/technologies/partner-sites?hl=pt-BR"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          uso de informações pelo Google em sites parceiros
         </a>
         e
-        <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://vercel.com/legal/privacy-notice"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Vercel
         </a>.
       </p>
@@ -242,30 +337,101 @@
       <h2>Cookies e armazenamento no navegador</h2>
 
       <p>
-        O CMU e os serviços utilizados pela aplicação podem utilizar mecanismos de
-        armazenamento no navegador para manter determinadas funcionalidades.
+        O CMU e os serviços utilizados pela aplicação podem utilizar cookies,
+        armazenamento local e tecnologias semelhantes para manter funcionalidades,
+        reforçar a segurança e, quando aplicável, oferecer publicidade.
       </p>
 
       <p>
-        <strong>Sessão:</strong> o Firebase Authentication utiliza mecanismos de
-        armazenamento no navegador para manter e gerenciar a sessão autenticada.
+        <strong>Sessão:</strong>
+        o Firebase Authentication utiliza mecanismos de armazenamento no navegador
+        para manter e gerenciar a sessão autenticada.
       </p>
 
       <p>
-        <strong>Segurança:</strong> Google reCAPTCHA e Firebase App Check podem
-        utilizar cookies, armazenamento local e outras tecnologias necessárias
-        para análise de risco, prevenção contra abuso e validação de solicitações.
+        <strong>Segurança:</strong>
+        Google reCAPTCHA e Firebase App Check podem utilizar cookies,
+        armazenamento local e outras tecnologias necessárias para análise de
+        risco, prevenção contra abuso e validação de solicitações.
       </p>
 
       <p>
-        <strong>Preferências:</strong> o CMU pode armazenar localmente preferências
-        de interface, como tema e modo claro ou escuro, para reaplicá-las em visitas
-        futuras.
+        <strong>Preferências:</strong>
+        o CMU pode armazenar localmente preferências de interface, como tema e
+        modo claro ou escuro, para reaplicá-las em visitas futuras.
       </p>
 
       <p>
-        Na versão atual, o CMU não utiliza Google AdSense e não implementa cookies
-        publicitários próprios relacionados à exibição de anúncios.
+        <strong>Publicidade:</strong>
+        fornecedores terceiros, incluindo o Google, podem utilizar cookies e
+        outras tecnologias para veicular anúncios quando a publicidade estiver
+        disponível no CMU.
+      </p>
+
+      <p>
+        Cookies de publicidade podem permitir que o Google e seus parceiros
+        exibam anúncios com base em visitas anteriores do usuário ao CMU ou a
+        outros sites na internet.
+      </p>
+
+      <h2>Publicidade e Google AdSense</h2>
+
+      <p>
+        A página principal do CMU possui integração técnica com o
+        <strong>Google AdSense</strong>. A disponibilidade e a exibição efetiva de
+        anúncios dependem da aprovação, das configurações e das decisões de
+        veiculação do Google.
+      </p>
+
+      <p>
+        Quando anúncios são exibidos, terceiros, incluindo o Google, podem
+        utilizar cookies, endereços IP e outros identificadores ou tecnologias
+        semelhantes como parte da prestação do serviço de publicidade.
+      </p>
+
+      <p>
+        O Google e seus parceiros podem utilizar cookies de publicidade para
+        apresentar anúncios com base em visitas realizadas pelo usuário ao CMU
+        e/ou a outros sites na internet.
+      </p>
+
+      <p>
+        O usuário pode consultar ou alterar as configurações relacionadas à
+        publicidade personalizada por meio das
+        <a
+          href="https://adssettings.google.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Configurações de anúncios do Google
+        </a>.
+      </p>
+
+      <p>
+        Informações adicionais sobre como o Google utiliza dados em sites e
+        aplicativos que usam seus serviços estão disponíveis em
+        <a
+          href="https://policies.google.com/technologies/partner-sites?hl=pt-BR"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Como o Google usa informações de sites ou apps que utilizam nossos
+          serviços
+        </a>.
+      </p>
+
+      <h3>Consentimento para publicidade</h3>
+
+      <p>
+        Dependendo da localização do usuário e das regras aplicáveis, a utilização
+        de cookies, armazenamento local e dados para personalização de anúncios
+        pode exigir consentimento prévio.
+      </p>
+
+      <p>
+        Para regiões em que o Google exige uma plataforma de gerenciamento de
+        consentimento compatível, esse mecanismo deverá ser configurado antes da
+        utilização de publicidade personalizada sujeita a essas exigências.
       </p>
 
       <h2>Segurança</h2>
@@ -312,31 +478,23 @@
       </p>
 
       <p>
-        Usuários no Brasil também podem consultar informações disponibilizadas pela
-        <a href="https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados" target="_blank" rel="noopener noreferrer">
+        Usuários no Brasil também podem consultar informações disponibilizadas
+        pela
+        <a
+          href="https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Autoridade Nacional de Proteção de Dados
         </a>.
       </p>
 
-      <h2>Publicidade futura</h2>
-
-      <p>
-        O CMU poderá utilizar serviços de publicidade em versões futuras.
-      </p>
-
-      <p>
-        Antes da ativação de qualquer solução de publicidade, incluindo Google
-        AdSense, esta Política de Privacidade será revisada para refletir os dados,
-        cookies, identificadores, fornecedores e mecanismos de consentimento
-        aplicáveis.
-      </p>
-
       <!--
         TODO antes da publicação definitiva da V3.1:
-        - definir o e-mail oficial de contato do projeto;
         - revisar critérios de retenção;
         - revisar juridicamente as bases legais aplicáveis;
-        - revisar esta política antes de ativar Google AdSense ou CMP.
+        - confirmar configuração de consentimento/CMP necessária antes da
+          veiculação de publicidade personalizada nas regiões abrangidas.
       -->
 
     </main>
@@ -348,11 +506,14 @@
         <a href="privacidade.html">Política de Privacidade</a>
       </nav>
 
-      &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
+      &copy; 2026 CMU — Calculadora de Médias Universitárias.
+      Todos os direitos reservados.
     </footer>
+
   </div>
 
   <script type="module" src="js/theme.js"></script>
   <script type="module" src="js/script.js"></script>
+
 </body>
 </html>
