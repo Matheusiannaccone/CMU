@@ -95,8 +95,7 @@ CMU/
 │   │   └── salvarNotas.js
 │   │
 │   ├── images/
-│   │   ├── logo.png
-│   │   └── usuario.png
+│   │   └── logo.png
 │   │
 │   ├── js/
 │   │   ├── cadastro.js
@@ -180,10 +179,6 @@ Contém recursos visuais utilizados pela interface.
 ### `logo.png`
 
 Logotipo utilizado pela aplicação.
-
-### `usuario.png`
-
-Imagem utilizada na área do usuário.
 
 ---
 

@@ -322,6 +322,7 @@ body.dark-mode .header-action {
 
 .logo-barra {
     height: 70px;
+    width: auto;
 }
 
 .barra-centro .marca,
@@ -356,6 +357,8 @@ body.dark-mode .container h1 {
 img {
     float: left;
     margin-right: 10px;
+    width: 1080px;
+    height: 662px;
 }
 
 footer {
@@ -661,5 +664,11 @@ input[type=number]::-webkit-outer-spin-button {
     button {
         padding: 8px 12px;
         font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 329px) {
+    .barra-direita {
+        min-height: 96px;
     }
 }

@@ -61,8 +61,7 @@ CMU
 │   └── salvarNotas.js
 │
 ├── images
-│   ├── logo.png
-│   └── usuario.png
+│   └── logo.png
 │
 ├── js
 │   ├── cadastro.js
@@ -119,9 +118,6 @@ Armazena os recursos visuais utilizados na interface da aplicação.
 
 **logo.png**
 Logotipo da aplicação exibido no site.
-
-**usuario.png**
-Imagem ou ícone padrão utilizado na área do usuário.
 
 ## 📁 js
 Contém os scripts principais da aplicação, responsáveis pela lógica de funcionamento da interface e das funcionalidades do sistema.
