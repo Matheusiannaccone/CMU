@@ -1,7 +1,7 @@
 // js/index.js
 // ---------------- FIREBASE (CDN) ----------------
 import { auth } from "../firebase/config.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {
   getSemesters,
   addSemester,
@@ -9,14 +9,11 @@ import {
   initializeSingleSemester
 } from "../firestore/carregarSemestres.js";
 import { calcularAF } from "./calcularAF.js";
-import { calcularMediaGlobal } from "../firestore/mediaGlobal.js";
 import { createMateriaElement } from "./materiaForm.js";
 
 let msgTimeout = null;
 
 // ---------------- ELEMENTOS ----------------
-const loginBtn = document.getElementById("loginBtn");
-const signupBtn = document.getElementById("signupBtn")
 const mediaGeralEl = document.getElementById("mediaGeral");
 const materiasContainer = document.getElementById("materiasContainer");
 const adicionarMateriaBtn = document.getElementById("adicionarMateriaBtn");
@@ -39,12 +36,9 @@ if (calcularAFBtn) {
 // ---------------- AUTH STATE ----------------
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    setupGuestUI();
     hideSemesterUI();
     return;
   }
-
-  setupLoggedUI();
 
   try {
     if (await hasMultiSemesterAccess(user, true)) {
@@ -68,33 +62,6 @@ onAuthStateChanged(auth, async (user) => {
     }
   }
 });
-
-// ---------------- UI STATES ----------------
-function setupLoggedUI() {
-  // 🔄 LOGIN -> LOGOUT
-  loginBtn.textContent = "Logout";
-  loginBtn.parentElement.removeAttribute("href");
-  loginBtn.onclick = async () => {
-    await signOut(auth);
-  };
-
-  // 🔄 CADASTRO -> USUARIO
-  signupBtn.textContent = "Usuario";
-  signupBtn.parentElement.removeAttribute("href");
-  signupBtn.onclick = () => {
-    window.location.href = "usuario.html";
-  };
-}
-
-function setupGuestUI() {
-  loginBtn.textContent = "Fazer login";
-  loginBtn.onclick = null;
-  loginBtn.parentElement.setAttribute("href", "login.html");
-
-  signupBtn.textContent = "Cadastrar";
-  signupBtn.onclick = null;
-  signupBtn.parentElement.setAttribute("href", "cadastro.html");
-}
 
 function hideSemesterUI() {
   if (!semestreSelect) return;

@@ -18,7 +18,6 @@ const nomeUsuario = document.getElementById("nomeUsuario");
 const sobrenomeUsuario = document.getElementById("sobrenomeUsuario");
 const cursoUsuario = document.getElementById("cursoUsuario");
 const mediaMinima = document.getElementById("mediaMinima");
-const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
 
 const alterarEmailBtn = document.getElementById("alterarEmailBtn");
@@ -94,12 +93,6 @@ auth.onAuthStateChanged(async (user) => {
   }
 
   await carregarDadosUsuario(user);
-});
-
-logoutBtn.addEventListener("click", () => {
-  auth.signOut().then(() => {
-    window.location.href = "login.html";
-  });
 });
 
 userForm.addEventListener("submit", async (event) => {
