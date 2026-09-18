@@ -30,11 +30,12 @@
     </div>
     
     <div class="barra-direita">
-      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
-      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
-      <button class="theme-toggle" onclick="toggleTheme()">
-        <span class="sun-icon">☀️</span>
-        <span class="moon-icon">🌙</span>
+      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
+      <button id="logoutBtn" type="button" hidden>Logout</button>
+      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+        <span class="sun-icon" aria-hidden="true">☀️</span>
+        <span class="moon-icon" aria-hidden="true">🌙</span>
       </button>
     </div>
   </div>

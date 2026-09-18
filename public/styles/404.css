@@ -22,8 +22,12 @@ body {
 }
 
 .codigo-404 {
-  color: var(--cor-primaria-clara);
+  color: var(--cor-texto);
   font-weight: 700;
+}
+
+body.dark-mode .codigo-404 {
+  color: var(--cor-texto-escuro);
 }
 
 .pagina-404 h1 {
@@ -41,22 +45,23 @@ body {
   padding: 10px 16px;
   border-radius: 4px;
   background: var(--cor-primaria);
-  color: #fff;
+  color: var(--cor-acao-texto);
   text-decoration: none;
 }
 
 .voltar-inicio:hover,
 .voltar-inicio:focus-visible {
-  background: var(--cor-primaria-clara);
+  box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode .voltar-inicio {
   background: var(--cor-primaria-clara);
+  color: var(--cor-acao-texto-escuro);
 }
 
 body.dark-mode .voltar-inicio:hover,
 body.dark-mode .voltar-inicio:focus-visible {
-  background: var(--cor-primaria);
+  box-shadow: 0 2px 8px var(--cor-shadow-dark);
 }
 
 body > footer {

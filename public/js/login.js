@@ -6,17 +6,19 @@ import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
+const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
 const SITE_KEY = "6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8";
 
-loginBtn.addEventListener("click", async () => {
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
   if (!email || !password) {
     message.textContent = "Preencha todos os campos.";
-    message.style.color = "red";
+    message.dataset.state = "error";
     return;
   }
 
@@ -33,7 +35,7 @@ loginBtn.addEventListener("click", async () => {
 
     await signInWithEmailAndPassword(auth, email, password);
     message.textContent = "Login realizado com sucesso!";
-    message.style.color = "green";
+    message.dataset.state = "success";
 
     setTimeout(() => {
       window.location.href = "index.html";
@@ -41,7 +43,7 @@ loginBtn.addEventListener("click", async () => {
 
   } catch (error) {
     message.textContent = error.message;
-    message.style.color = "red";
+    message.dataset.state = "error";
   } finally {
     loginBtn.disabled = false;
   }

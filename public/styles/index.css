@@ -64,7 +64,7 @@ body.dark-mode .materia {
 
 .materia h2 {
     font-size: 1.3rem;
-    color: var(--cor-primaria-clara);
+    color: var(--cor-link);
     margin-bottom: 12px;
     font-weight: 600;
 }
@@ -211,7 +211,7 @@ body.dark-mode .media-box {
 .media-box h2 {
     font-size: 1.4rem;
     margin-bottom: 8px;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode .media-box h2 {
@@ -238,6 +238,18 @@ body.dark-mode .feedback {
 
 .feedback.visible {
     opacity: 1;
+}
+
+.feedback[data-state="success"] {
+    color: var(--cor-link);
+}
+
+.feedback[data-state="error"] {
+    color: #a61b1b;
+}
+
+body.dark-mode .feedback[data-state="error"] {
+    color: #ffd0d0;
 }
 
 /* ========== RESPONSIVIDADE ========== */

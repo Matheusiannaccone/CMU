@@ -40,7 +40,7 @@ body.dark-mode .auth-container {
 .auth-container h1 {
     text-align: center;
     font-size: 1.8rem;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     margin-bottom: 20px;
 }
 
@@ -49,6 +49,12 @@ body.dark-mode .auth-container h1 {
 }
 
 /* ========== INPUTS ========== */
+.auth-container label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
 .auth-container input,
 .auth-container select {
     width: 100%;
@@ -87,7 +93,7 @@ body.dark-mode .auth-container select:focus {
     padding: 13px;
     background: var(--cor-primaria);
     border: none;
-    color: white;
+    color: var(--cor-acao-texto);
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -97,15 +103,32 @@ body.dark-mode .auth-container select:focus {
 
 body.dark-mode .auth-container button {
     background: var(--cor-primaria-clara);
+    color: var(--cor-acao-texto-escuro);
 }
 
 .auth-container button:hover {
-    background: var(--cor-primaria-clara);
     transform: translateY(-2px);
 }
 
-body.dark-mode .auth-container button:hover {
-    background: var(--cor-primaria);
+.auth-container [role="status"] {
+    margin-top: 10px;
+    min-height: 1.5em;
+}
+
+.auth-container [role="status"][data-state="error"] {
+    color: #a61b1b;
+}
+
+body.dark-mode .auth-container [role="status"][data-state="error"] {
+    color: #ffd0d0;
+}
+
+.auth-container [role="status"][data-state="success"] {
+    color: #086a3c;
+}
+
+body.dark-mode .auth-container [role="status"][data-state="success"] {
+    color: #a7f3d0;
 }
 
 /* ========== LINKS ========== */
@@ -113,7 +136,7 @@ body.dark-mode .auth-container button:hover {
     display: block;
     width: fit-content;
     margin: 0 auto 18px;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     font-weight: 600;
     text-decoration: none;
 }
@@ -138,7 +161,7 @@ body.dark-mode .auth-container .link {
 }
 
 .auth-container .link a {
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -150,11 +173,11 @@ body.dark-mode .auth-container .link a {
 
 .auth-container .link a:hover {
     text-decoration: underline;
-    color: var(--cor-primaria-clara);
+    color: var(--cor-link);
 }
 
 body.dark-mode .auth-container .link a:hover {
-    color: var(--cor-primaria-clara);
+    color: var(--cor-texto-escuro);
 }
 
 .auth-container footer {

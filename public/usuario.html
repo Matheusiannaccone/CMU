@@ -22,13 +22,11 @@
   <div class="barra-direita">
     <button id="logoutBtn" type="button">Logout</button>
 
-    <button type="button" onclick="location.href='index.html'">
-      Início
-    </button>
+    <a class="header-action" href="index.html">Início</a>
 
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">
-      <span class="sun-icon">☀️</span>
-      <span class="moon-icon">🌙</span>
+    <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+      <span class="sun-icon" aria-hidden="true">☀️</span>
+      <span class="moon-icon" aria-hidden="true">🌙</span>
     </button>
   </div>
 </div>
@@ -97,15 +95,15 @@
 
       <form id="userForm" class="card">
         <h2>Dados do perfil</h2>
-        <ul class="user-info">
+        <div class="user-info">
               <label for="nomeUsuario">Nome:</label>
-              <input type="text" id="nomeUsuario" required>
+              <input type="text" id="nomeUsuario" autocomplete="given-name" required>
 
               <label for="sobrenomeUsuario">Sobrenome:</label>
-              <input type="text" id="sobrenomeUsuario" required>
+              <input type="text" id="sobrenomeUsuario" autocomplete="family-name" required>
 
               <label for="cursoUsuario">Curso:</label>
-              <input type="text" id="cursoUsuario" readonly>
+              <input type="text" id="cursoUsuario" autocomplete="off" readonly>
 
               <div id="mediaMinimaContainer">
                 <label for="mediaMinima">Média Mínima:</label>
@@ -115,15 +113,16 @@
               <div>
                 <button type="submit">Salvar alterações</button>
               </div>
-        </ul>
+        </div>
+        <p id="profileMessage" role="status" aria-live="polite" aria-atomic="true"></p>
         <div>Alterações podem levar alguns segundos</div>
       </form>
       
       <section class="seguranca card">
         <h2>Segurança</h2>
 
-        <button id="alterarEmailBtn">Alterar Email</button>
-        <button id="alterarSenhaBtn">Alterar Senha</button>
+        <button id="alterarEmailBtn" type="button">Alterar Email</button>
+        <button id="alterarSenhaBtn" type="button">Alterar Senha</button>
       </section>
     </main>
 
@@ -139,18 +138,19 @@
   </footer>
 </div>
 
-<div class="modal" id="reauthModal">
+<dialog class="modal" id="reauthModal" aria-labelledby="reauthTitle">
   <div class="modal-content">
-    <h3>Confirme sua senha</h3>
+    <h2 id="reauthTitle">Confirme sua senha</h2>
 
+    <label for="senhaAtual">Senha atual</label>
     <input type="password" id="senhaAtual" placeholder="Senha atual" autocomplete="current-password"/>
 
     <div class="modal-actions">
-      <button id="cancelarReauthBtn">Cancelar</button>
-      <button id="confirmarReauthBtn">Confirmar</button>
+      <button id="cancelarReauthBtn" type="button">Cancelar</button>
+      <button id="confirmarReauthBtn" type="button">Confirmar</button>
     </div>
   </div>
-</div>
+</dialog>
 
 <script type="module" src="js/usuario.js"></script>
 <script type="module" src="js/theme.js"></script>

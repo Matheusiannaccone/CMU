@@ -31,9 +31,15 @@
 
     --cor-hover: rgba(75,0,130,.20);
     --cor-hover-dark: rgba(244,240,248,.20);
+    --cor-acao-texto: #fff;
+    --cor-acao-texto-escuro: #fff;
+    --cor-link: var(--cor-primaria);
 }
 
 [data-theme="gold"] {
+    --cor-acao-texto: #2d2107;
+    --cor-acao-texto-escuro: #3f2a00;
+    --cor-link: #6b4e00;
     --cor-primaria: #b8860b;
     --cor-primaria-clara: #facc15;
     --cor-fundo: #fffbea;
@@ -58,6 +64,7 @@
 }
 
 [data-theme="blue-tech"] {
+    --cor-acao-texto-escuro: #08152b;
     --cor-primaria: #0057d9;
     --cor-primaria-clara: #3b82f6;
     --cor-fundo: #eef5ff;
@@ -82,6 +89,9 @@
 }
 
 [data-theme="green"] {
+    --cor-acao-texto: #001c10;
+    --cor-acao-texto-escuro: #052e20;
+    --cor-link: #086a3c;
     --cor-primaria: #0f9d58;
     --cor-primaria-clara: #34d399;
     --cor-fundo: #edfdf5;
@@ -106,6 +116,7 @@
 }
 
 [data-theme="rose"] {
+    --cor-acao-texto-escuro: #21000d;
     --cor-primaria: #c2185b;
     --cor-primaria-clara: #ec4899;
     --cor-fundo: #fff1f6;
@@ -130,6 +141,7 @@
 }
 
 [data-theme="crimson"] {
+    --cor-acao-texto-escuro: #2b0000;
     --cor-primaria: #b91c1c;
     --cor-primaria-clara: #ef4444;
     --cor-fundo: #fff1f2;
@@ -154,6 +166,7 @@
 }
 
 [data-theme="midnight"] {
+    --cor-acao-texto-escuro: #020617;
     --cor-primaria: #1e3a8a;
     --cor-primaria-clara: #60a5fa;
     --cor-fundo: #eef2ff;
@@ -178,6 +191,9 @@
 }
 
 [data-theme="cyber"] {
+    --cor-acao-texto: #001f29;
+    --cor-acao-texto-escuro: #001219;
+    --cor-link: #005466;
     --cor-primaria: #00e5ff;
     --cor-primaria-clara: #00ffff;
     --cor-fundo: #e0fcff;
@@ -212,6 +228,10 @@ body {
 body.dark-mode {
     background: var(--cor-fundo-escuro);
     color: var(--cor-texto-escuro);
+}
+
+[hidden] {
+    display: none !important;
 }
 
 /* ========== CONTAINER PADRÃO ========== */
@@ -274,6 +294,32 @@ body.dark-mode .barra-superior {
     gap: 12px;
 }
 
+.barra-direita button {
+    margin: 0;
+}
+
+.header-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background: var(--cor-primaria);
+    color: var(--cor-acao-texto);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+body.dark-mode .header-action {
+    background: var(--cor-primaria-clara);
+    color: var(--cor-acao-texto-escuro);
+}
+
+.header-action:hover {
+    box-shadow: 0 2px 8px var(--cor-shadow);
+}
+
 .logo-barra {
     height: 70px;
 }
@@ -298,7 +344,7 @@ header {
 
 .container h1 {
     font-weight: 700;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     font-size: 2.4rem;
     letter-spacing: 1.2px;
 }
@@ -315,7 +361,7 @@ img {
 footer {
     text-align: center;
     margin-top: 40px;
-    color: var(--cor-primaria-clara);
+    color: var(--cor-link);
 }
 
 body.dark-mode footer {
@@ -344,7 +390,7 @@ body.dark-mode footer {
 .site-nav a,
 .site-footer-links a,
 .institutional-content a {
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     text-decoration: underline;
     text-underline-offset: 3px;
 }
@@ -385,7 +431,7 @@ body.dark-mode .site-nav a[aria-current="page"] {
 
 .institutional-content h2 {
     margin: 24px 0 8px;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode .institutional-content h2 {
@@ -396,6 +442,18 @@ body.dark-mode .institutional-content h2 {
     margin-bottom: 14px;
 }
 
+.institutional-content ul,
+.sobre-descricao ul {
+    padding-inline-start: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.institutional-content,
+.sobre-descricao {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
 .email-pendente {
     font-weight: 600;
     overflow-wrap: anywhere;
@@ -404,7 +462,7 @@ body.dark-mode .institutional-content h2 {
 /* ========== TEMA TOGGLE ========== */
 .theme-toggle {
     background: var(--cor-primaria);
-    color: white;
+    color: var(--cor-acao-texto);
     border: none;
     padding: 10px 16px;
     border-radius: 4px;
@@ -414,7 +472,7 @@ body.dark-mode .institutional-content h2 {
 }
 
 body.dark-mode .theme-toggle {
-    color: var(--cor-texto-escuro);
+    color: var(--cor-acao-texto-escuro);
 }
 
 .theme-toggle .sun-icon {
@@ -436,9 +494,10 @@ body.dark-mode .theme-toggle .moon-icon {
 /* ========== BOTÕES GLOBAIS ========== */
 button {
     background: var(--cor-primaria);
-    color: white;
+    color: var(--cor-acao-texto);
     border: none;
     padding: 10px 16px;
+    min-height: 44px;
     border-radius: 4px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -448,14 +507,30 @@ button {
 
 body.dark-mode button {
     background: var(--cor-primaria-clara);
+    color: var(--cor-acao-texto-escuro);
 }
 
 button:hover {
-    background: var(--cor-primaria-clara);
+    box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode button:hover {
-    background: var(--cor-primaria);
+    box-shadow: 0 2px 8px var(--cor-shadow-dark);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--cor-texto) !important;
+    outline-offset: 3px;
+}
+
+body.dark-mode a:focus-visible,
+body.dark-mode button:focus-visible,
+body.dark-mode input:focus-visible,
+body.dark-mode select:focus-visible {
+    outline-color: var(--cor-texto-escuro) !important;
 }
 
 /* ========== INPUTS E SELECTS GLOBAIS ========== */

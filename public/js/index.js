@@ -213,7 +213,7 @@ function mostrarMensagem(texto, erro = false) {
   }
 
   msgEl.textContent = texto;
-  msgEl.style.color = erro ? "crimson" : "var(--cor-primaria)";
+  msgEl.dataset.state = erro ? "error" : "success";
   msgEl.classList.add("visible");
 
   msgTimeout = setTimeout(() => {

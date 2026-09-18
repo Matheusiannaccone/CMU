@@ -31,11 +31,12 @@
     </div>
     
     <div class="barra-direita">
-      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
-      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
-      <button class="theme-toggle" onclick="toggleTheme()">
-        <span class="sun-icon">☀️</span>
-        <span class="moon-icon">🌙</span>
+      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
+      <button id="logoutBtn" type="button" hidden>Logout</button>
+      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+        <span class="sun-icon" aria-hidden="true">☀️</span>
+        <span class="moon-icon" aria-hidden="true">🌙</span>
       </button>
     </div>
   </div>
@@ -106,13 +107,13 @@
           <button type="button" id="removerMateriaBtn">Remover matéria</button>
           <button type="button" id="salvarNotasBtn">Salvar notas</button>
           <button type="button" id="calcularAFBtn">Calcular AF</button>
-          <p id="msg" class="feedback"></p>
+          <p id="msg" class="feedback" role="status" aria-live="polite" aria-atomic="true"></p>
         </form>
 
         <div class="medias-container">
           <div class="media-box">
             <h2>Média Geral</h2>
-            <p id="mediaGeral">-</p>
+            <p id="mediaGeral" role="status" aria-live="polite" aria-atomic="true">-</p>
           </div>
 
           <div id="media-global" class="media-box" hidden>
