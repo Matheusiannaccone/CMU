@@ -25,7 +25,7 @@ O sistema permite inserir as notas e calcular automaticamente a média com base 
 
 Além da calculadora principal, o projeto possui autenticação de usuários, integração com Firebase e recursos para armazenamento de informações acadêmicas.
 
-O projeto está atualmente em processo de evolução para a **V3**, que reorganiza a experiência gratuita da plataforma e simplifica sua lógica de negócio.
+A implementação atual é a **V3.0.1 — Free MVP**, com cálculos gratuitos e salvamento de um semestre por usuário comum.
 
 ---
 
@@ -45,7 +45,9 @@ Entre as funcionalidades atualmente presentes no projeto estão:
 * Interface responsiva para diferentes dispositivos.
 * Integrações de backend por meio de Firebase Cloud Functions.
 
-Algumas funcionalidades da versão anterior relacionadas ao Premium, Stripe, cupons e assinaturas permanecem no código durante o processo de migração para a V3, podendo ser modificadas ou removidas conforme o roadmap do projeto.
+O semestre único é resolvido no backend por `resolveSingleSemester`, com o vínculo `semestreUnicoId` protegido nas regras do Firestore. Contas com a Custom Claim `multiSemester` mantêm o fluxo especial de múltiplos semestres, sem vínculo com pagamento.
+
+Cadastro e login utilizam reCAPTCHA; a configuração web também mantém App Check. O código atual não implementa cobrança nem anúncios. A exclusão de conta é feita pela Cloud Function `deleteAccount`; as regras impedem que o perfil seja excluído diretamente pelo cliente.
 
 ---
 
@@ -60,7 +62,6 @@ O projeto utiliza:
 * **Cloud Firestore** — armazenamento de dados.
 * **Firebase Cloud Functions** — execução de lógica no backend.
 * **Firebase Hosting / configuração Firebase** — infraestrutura e configuração da aplicação.
-* **Stripe** — integração de pagamentos presente na versão anterior do modelo Premium.
 * **Node.js** — ambiente utilizado pelas Cloud Functions.
 * **Vercel** — deploy utilizado pela versão pública atual.
 
@@ -98,32 +99,26 @@ CMU/
 │   │   └── usuario.png
 │   │
 │   ├── js/
-│   │   ├── anuncios.js
 │   │   ├── cadastro.js
+│   │   ├── config.js
 │   │   ├── calcularAF.js
-│   │   ├── coupon-validator.js
 │   │   ├── index.js
 │   │   ├── login.js
-│   │   ├── premium.js
+│   │   ├── materiaForm.js
+│   │   ├── sobre.js
 │   │   ├── theme.js
-│   │   ├── usuario.js
-│   │   └── verificaPremium.js
+│   │   └── usuario.js
 │   │
 │   ├── styles/
-│   │   ├── anuncios.css
-│   │   ├── coupon.css
 │   │   ├── index.css
 │   │   ├── login.css
-│   │   ├── premium.css
 │   │   ├── styles.css
 │   │   └── usuario.css
 │   │
 │   ├── 404.html
 │   ├── cadastro.html
-│   ├── coupon.html
 │   ├── index.html
 │   ├── login.html
-│   ├── premium.html
 │   ├── sobre.html
 │   └── usuario.html
 │
@@ -166,11 +161,11 @@ Contém scripts responsáveis pela interação entre o frontend e o Cloud Firest
 
 ### `carregarSemestres.js`
 
-Responsável pelo carregamento dos semestres e informações acadêmicas armazenadas para o usuário.
+Resolve e carrega o semestre único do usuário comum e mantém o fluxo de seleção e criação de semestres para contas com a claim `multiSemester`.
 
 ### `mediaGlobal.js`
 
-Responsável pela lógica relacionada ao cálculo da média global considerando os dados acadêmicos armazenados.
+Calcula a média global a partir das médias salvas. O módulo permanece carregado, mas seu painel está oculto na interface atual.
 
 ### `salvarNotas.js`
 
@@ -196,10 +191,6 @@ Imagem utilizada na área do usuário.
 
 Contém os scripts responsáveis pela lógica do frontend.
 
-### `anuncios.js`
-
-Contém lógica relacionada à exibição de anúncios presente na implementação anterior do projeto.
-
 ### `cadastro.js`
 
 Controla o processo de criação de contas e integração do cadastro com o Firebase Authentication.
@@ -208,21 +199,25 @@ Controla o processo de criação de contas e integração do cadastro com o Fire
 
 Responsável pela lógica utilizada para calcular a nota necessária na AF.
 
-### `coupon-validator.js`
-
-Contém a lógica de validação de cupons implementada na versão anterior do modelo comercial.
-
 ### `index.js`
 
 Script principal da calculadora e das interações da página inicial.
+
+### `materiaForm.js`
+
+Cria os campos de matéria com APIs seguras do DOM e centraliza a validação feita antes do salvamento.
 
 ### `login.js`
 
 Controla o processo de autenticação dos usuários.
 
-### `premium.js`
+### `config.js`
 
-Contém lógica relacionada ao sistema Premium da versão anterior.
+Define a versão atual da aplicação.
+
+### `sobre.js`
+
+Aplica a versão no rodapé da página institucional.
 
 ### `theme.js`
 
@@ -232,23 +227,11 @@ Controla as preferências de aparência da interface, incluindo modo claro e esc
 
 Gerencia interações e funcionalidades da área do usuário.
 
-### `verificaPremium.js`
-
-Contém verificações de acesso relacionadas à implementação Premium anterior.
-
 ---
 
 ## 📁 `public/styles`
 
 Contém os estilos da interface.
-
-### `anuncios.css`
-
-Estilos relacionados aos componentes de anúncios.
-
-### `coupon.css`
-
-Estilos utilizados pela interface de cupons.
 
 ### `index.css`
 
@@ -257,10 +240,6 @@ Estilos específicos da página principal.
 ### `login.css`
 
 Estilos utilizados nas páginas de autenticação.
-
-### `premium.css`
-
-Estilos relacionados à interface Premium existente na versão anterior.
 
 ### `styles.css`
 
@@ -276,7 +255,7 @@ Estilos utilizados na área do usuário.
 
 Contém as **Firebase Cloud Functions** utilizadas pelo projeto.
 
-Essa camada concentra lógica executada no backend e integrações que não devem depender exclusivamente do navegador.
+As funções exportadas são `resolveSingleSemester`, `verifyRecaptcha`, `syncEmail`, `onUserCreated`, `deleteAccount` e `deleteUserData`. Elas mantêm o controle do semestre único, a verificação de reCAPTCHA, a sincronização do e-mail autenticado, a criação de dados privados do cadastro e a exclusão de conta e dados.
 
 Arquivos de ambiente e credenciais locais, como `.env`, não são versionados no repositório.
 
@@ -364,14 +343,6 @@ Página para criação de novas contas.
 
 Área destinada aos usuários autenticados e às informações acadêmicas armazenadas.
 
-## `premium.html`
-
-Página relacionada ao modelo Premium da versão anterior, atualmente sujeita a revisão durante o desenvolvimento da V3.
-
-## `coupon.html`
-
-Página associada ao sistema de cupons implementado na versão anterior.
-
 ## `sobre.html`
 
 Página institucional com informações sobre o projeto.
@@ -384,7 +355,7 @@ Página apresentada quando uma rota solicitada não é encontrada.
 
 # *Roadmap Atual*
 
-O CMU está entrando em uma nova etapa de desenvolvimento com a **V3**.
+A implementação atual é a **V3.0.1 — Free MVP**. As etapas posteriores abaixo são planejamento e não estão implementadas.
 
 A estratégia definida para as próximas versões é:
 
@@ -433,6 +404,33 @@ O desenvolvimento da V3 segue alguns princípios:
 
 ---
 
+# *Testes E2E locais*
+
+Os testes em `tests/e2e` usam Playwright com Firebase Auth, Firestore, Hosting e Functions Emulators. O setup recusa hosts Firebase não locais, limpa apenas os emuladores no início da suíte e cria usuários exclusivos para que os testes não dependam de ordem.
+
+Com os quatro emuladores já iniciados:
+
+```bash
+npm run test:e2e
+npm run test:e2e:ui
+```
+
+Para iniciar os emuladores, executar a suíte e encerrá-los automaticamente:
+
+```bash
+npm run test:e2e:emulators
+```
+
+O comando equivalente com o Firebase CLI é:
+
+```bash
+firebase emulators:exec --only auth,firestore,functions,hosting "npm run test:e2e"
+```
+
+Em falhas, screenshots e traces são gravados em `test-results/`. O relatório HTML é gerado em `playwright-report/`.
+
+---
+
 # *Segurança*
 
 Informações sensíveis não devem ser armazenadas no repositório.
@@ -443,8 +441,7 @@ Arquivos e credenciais privadas, como:
 .env
 functions/.env
 service account keys
-Stripe Secret Keys
-webhook secrets
+segredos de serviços
 tokens privados
 ```
 

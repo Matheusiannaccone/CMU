@@ -24,7 +24,7 @@ service cloud.firestore {
       allow update: if isOwner(userId)
                     && !request.resource.data.diff(resource.data).affectedKeys()
                       .hasAny(['semestreUnicoId']);
-      allow delete: if isOwner(userId);
+      allow delete: if false;
 
       // -------------------- SEMESTRES --------------------
       match /semestres/{semestreId} {
@@ -45,13 +45,6 @@ service cloud.firestore {
         allow write: if isOwner(userId)
                      && (canUseMultipleSemesters() || isSingleSemester(userId, semestreId));
       }
-    }
-
-    // -------------------- CUPONS --------------------
-    match /cupons/{cupomID} {
-      // Não há acesso direto a cupons no frontend da V3.
-      // Cloud Functions com Admin SDK não dependem desta permissão.
-      allow read, write: if false;
     }
   }
 }

@@ -1,6 +1,6 @@
 # __CMU — Calculadora de Médias Universitárias__
 
-**Versão atual:** V3
+**Versão atual:** V3.0.1
 
 Aplicação web desenvolvida para ajudar estudantes universitários a calcular suas médias acadêmicas de forma rápida e automática.
 A ferramenta permite inserir notas de avaliações e descobrir imediatamente se o aluno está aprovado ou quanto precisa tirar para alcançar a média mínima.
@@ -33,7 +33,7 @@ Ferramentas desse tipo ajudam estudantes a entender rapidamente quanto precisam 
 - Interface simples e rápida.
 - Funciona diretamente no navegador.
 - Sem necessidade de login para o cálculo.
-- Notas salvas no Firestore para (somente com login).
+- Usuários autenticados podem salvar e editar um semestre no Firestore.
 
 ---
 
@@ -70,6 +70,7 @@ CMU
 │   ├── config.js
 │   ├── index.js
 │   ├── login.js
+│   ├── materiaForm.js
 │   ├── sobre.js
 │   ├── theme.js
 │   └── usuario.js
@@ -107,7 +108,7 @@ Scripts responsáveis pela interação com o banco de dados Firestore, incluindo
 Carrega do Firestore os semestres e matérias salvos pelo usuário.
 
 **mediaGlobal.js**
-Calcula a média geral do usuário considerando todas as disciplinas registradas.
+Calcula a média global com base nas médias registradas. O painel permanece oculto na V3.0.1.
 
 **salvarNotas.js**
 Salva as notas inseridas pelo usuário organizadas na estrutura:
@@ -139,6 +140,9 @@ Script principal da página inicial, responsável pelas funcionalidades da calcu
 
 **login.js**
 Responsável pela autenticação e login dos usuários no sistema.
+
+**materiaForm.js**
+Cria os campos de matéria com APIs seguras do DOM e valida seus valores antes do salvamento.
 
 **sobre.js**
 Responsável por aplicar a versão atual no rodapé da página.
@@ -188,12 +192,12 @@ Página exibida quando uma rota não é encontrada.
 ---
 
 # _Melhorias Futuras_
-Algumas melhorias planejadas para o projeto:
+Algumas melhorias planejadas para versões futuras do projeto:
 
 - Foto de perfil personalizada;
 - Sistema de suporte ao usuário;
 - Suporte para múltiplas universidades;
-- Histórico de desempenho e recursos para análise de longo prazo;
+- Histórico de desempenho e recursos para análise de longo prazo, conforme o roadmap;
 - Melhorias de navegação e experiência geral do usuário;
 - Desenvolvimento de funcionalidades avançadas com base no uso real e no feedback dos usuários;
 - Expansão gradual do suporte para diferentes necessidades e contextos acadêmicos.

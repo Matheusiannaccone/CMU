@@ -9,6 +9,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getIdTokenResult } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+import { createMateriaElement } from "../js/materiaForm.js";
 
 
 // ---------------- ELEMENTOS ----------------
@@ -145,37 +146,14 @@ export async function carregarMaterias(semestreId) {
     }
 
     // limpa matérias atuais
-    materiasContainer.innerHTML = "";
+    materiasContainer.replaceChildren();
 
     let index = 1;
 
     snap.forEach(doc => {
       const m = doc.data();
 
-      const div = document.createElement("div");
-      div.classList.add("materia", "visible");
-      div.id = `materia${index}`;
-
-      div.innerHTML = `
-        <h2>Matéria ${index}</h2>
-
-        <div class="materia-nome-container">
-          <input type="text"
-            name="materia${index}_nome"
-            value="${m.nome ?? ""}"
-            placeholder="Nome da matéria">
-        </div>
-
-        <div class="notas">
-          <input type="number" name="materia${index}_nota1" placeholder="AC1" value="${m.ac1 ?? ""}">
-          <input type="number" name="materia${index}_nota2" placeholder="AC2" value="${m.ac2 ?? ""}">
-          <input type="number" name="materia${index}_nota3" placeholder="AF"  value="${m.af ?? ""}">
-          <input type="number" name="materia${index}_nota4" placeholder="AG"  value="${m.ag ?? ""}">
-          <input type="number" name="materia${index}_nota5" placeholder="AS"  value="${m.as ?? ""}">
-          <input type="text" name="materia${index}_media" class="media" placeholder="Média" readonly>
-          <input type="text" name="materia${index}_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para atingir a média mínima da matéria ${index}">
-        </div>
-      `;
+      const div = createMateriaElement(index, m);
 
       materiasContainer.appendChild(div);
       index++;
@@ -193,31 +171,9 @@ export async function carregarMaterias(semestreId) {
 }
 
 function criarMateriaVazia() {
-  materiasContainer.innerHTML = "";
+  materiasContainer.replaceChildren();
 
-  const div = document.createElement("div");
-  div.classList.add("materia", "visible");
-  div.id = "materia1";
-
-  div.innerHTML = `
-    <h2>Matéria 1</h2>
-
-    <div class="materia-nome-container">
-      <input type="text"
-        name="materia1_nome"
-        placeholder="Nome da matéria">
-    </div>
-
-    <div class="notas">
-      <input type="number" name="materia1_nota1" placeholder="AC1" min="0" step="0.01">
-      <input type="number" name="materia1_nota2" placeholder="AC2" min="0" step="0.01">
-      <input type="number" name="materia1_nota3" placeholder="AF"  min="0" step="0.01">
-      <input type="number" name="materia1_nota4" placeholder="AG"  min="0" step="0.01">
-      <input type="number" name="materia1_nota5" placeholder="AS"  min="0" step="0.01">
-      <input type="text" name="materia1_media" class="media" placeholder="Média" readonly>
-      <input type="text" name="materia1_afNecessaria" class="afNecessaria" placeholder="AF Necessária" readonly aria-label="AF necessária para atingir a média mínima da matéria 1">
-    </div>
-  `;
+  const div = createMateriaElement(1);
 
   materiasContainer.appendChild(div);
 

@@ -1,15 +1,45 @@
 // firestore/salvarNotas.js
 import { auth, db } from "../firebase/config.js";
 import {
+  collection,
   doc,
-  setDoc
+  getDocs,
+  setDoc,
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getSemesterIdForSave } from "./carregarSemestres.js";
+import {
+  MateriaValidationError,
+  validateMateriaElement
+} from "../js/materiaForm.js";
 
 // ---------------- ELEMENTOS ----------------
 const materiasContainer = document.getElementById("materiasContainer");
 const mediaGeralEl = document.getElementById("mediaGeral");
 const salvarBtn = document.getElementById("salvarNotasBtn");
+const DELETE_BATCH_SIZE = 450;
+
+export function getStaleMateriaIds(existingIds, currentIds) {
+  const currentIdSet = new Set(currentIds);
+  return existingIds.filter(id => !currentIdSet.has(id));
+}
+
+async function deleteStaleMaterias(materiasRef, currentIds) {
+  const existingSnap = await getDocs(materiasRef);
+  const staleIds = new Set(getStaleMateriaIds(
+    existingSnap.docs.map(docSnap => docSnap.id),
+    currentIds
+  ));
+  const staleDocs = existingSnap.docs.filter(docSnap => staleIds.has(docSnap.id));
+
+  for (let start = 0; start < staleDocs.length; start += DELETE_BATCH_SIZE) {
+    const batch = writeBatch(db);
+    const chunk = staleDocs.slice(start, start + DELETE_BATCH_SIZE);
+
+    chunk.forEach(docSnap => batch.delete(docSnap.ref));
+    await batch.commit();
+  }
+}
 
 // ---------------- EVENTO ----------------
 if (salvarBtn) {
@@ -24,26 +54,32 @@ async function salvarNotas() {
     return;
   }
 
-  salvarBtn.disabled = true;
-
   try {
-    const semestreId = await getSemesterIdForSave();
     const materias = materiasContainer.querySelectorAll(".materia");
+    const materiasValidadas = Array.from(materias, (materia, position) => ({
+      materia,
+      index: position + 1,
+      data: validateMateriaElement(materia, position + 1),
+    }));
+
+    salvarBtn.disabled = true;
+
+    const semestreId = await getSemesterIdForSave();
+    const materiasRef = collection(
+      db,
+      "usuarios",
+      user.uid,
+      "semestres",
+      semestreId,
+      "materias"
+    );
+    const currentMateriaIds = [];
 
     // ---------- SALVAR MATÉRIAS ----------
-    for (let i = 0; i < materias.length; i++) {
-      const index = i + 1;
-      const materia = materias[i];
+    for (const { index, data } of materiasValidadas) {
+      const materiaId = `materia${index}`;
 
-      const nome =
-        materia.querySelector(`input[name="materia${index}_nome"]`)?.value || "";
-
-      const getNota = (n) => {
-        const v = materia.querySelector(
-          `input[name="materia${index}_nota${n}"]`
-        )?.value;
-        return v === "" ? null : Number(v);
-      };
+      currentMateriaIds.push(materiaId);
 
       const materiaRef = doc(
         db,
@@ -52,18 +88,13 @@ async function salvarNotas() {
         "semestres",
         semestreId,
         "materias",
-        `materia${index}`
+        materiaId
       );
 
-      await setDoc(materiaRef, {
-        nome,
-        ac1: getNota(1),
-        ac2: getNota(2),
-        af: getNota(3),
-        ag: getNota(4),
-        as: getNota(5),
-      });
+      await setDoc(materiaRef, data);
     }
+
+    await deleteStaleMaterias(materiasRef, currentMateriaIds);
 
     // ---------- SALVAR MÉDIA GERAL ----------
     const mediaGeral = mediaGeralEl.textContent;
@@ -87,7 +118,9 @@ async function salvarNotas() {
   } catch (err) {
     console.error("Erro ao salvar notas:", err);
 
-    if (err.code === "functions/failed-precondition") {
+    if (err instanceof MateriaValidationError) {
+      alert(err.message);
+    } else if (err.code === "functions/failed-precondition") {
       alert("Esta conta possui mais de um semestre e requer revisão antes de salvar.");
     } else {
       alert(err.message || "Não foi possível salvar as notas.");
