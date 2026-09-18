@@ -13,14 +13,14 @@
       <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
     </div>
 
-
     <div class="barra-centro">
       <span class="marca">CMU</span>
     </div>
-    
+
     <div class="barra-direita">
       <a href="login.html"><button id="loginBtn">Fazer login</button></a>
       <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
+
       <button class="theme-toggle" onclick="toggleTheme()">
         <span class="sun-icon">☀️</span>
         <span class="moon-icon">🌙</span>
@@ -39,20 +39,294 @@
     </nav>
 
     <main class="institutional-content">
-      <header><h1>Política de Privacidade</h1></header>
-      <p>Esta página descreve os dados usados nas funcionalidades atuais do CMU.</p>
+      <header>
+        <h1>Política de Privacidade</h1>
+        <p><strong>Última atualização:</strong> 18 de setembro de 2026.</p>
+      </header>
 
-      <h2>Cadastro e dados acadêmicos</h2>
-      <p>Para criar uma conta, o CMU solicita nome, sobrenome, data de nascimento, curso, e-mail e senha. O e-mail e a senha são usados na autenticação. O perfil e as informações do semestre salvo, como matérias, notas e médias, são armazenados para que você possa consultá-los e editá-los ao entrar na conta.</p>
+      <p>
+        Esta Política de Privacidade explica quais dados são tratados pelo
+        <strong>CMU — Calculadora de Médias Universitárias</strong>, para quais
+        finalidades eles são utilizados e quais serviços de terceiros participam
+        do funcionamento da plataforma.
+      </p>
 
-      <h2>Serviços utilizados</h2>
-      <p>O CMU usa serviços do Firebase para autenticação e armazenamento dos dados da conta e do semestre. O cadastro e o login usam reCAPTCHA para verificar as solicitações.</p>
+      <p>
+        O CMU é um projeto independente desenvolvido e mantido por
+        <strong>Matheus Iannaccone da Rosa</strong>.
+      </p>
 
-      <h2>Preferências no navegador</h2>
-      <p>As preferências de tema claro, escuro e de cor são guardadas no armazenamento local do navegador para serem reaplicadas nas próximas visitas.</p>
+      <h2>Uso da calculadora sem conta</h2>
 
-      <h2>Dúvidas sobre privacidade</h2>
-      <p>Para dúvidas sobre os dados usados pelo CMU, consulte a <a href="contato.html">página de Contato</a>.</p>
+      <p>
+        A calculadora pode ser utilizada sem autenticação. Nesse caso, matérias,
+        notas e demais valores informados são processados diretamente na interface
+        para produzir os resultados exibidos ao usuário.
+      </p>
+
+      <p>
+        Quando o usuário utiliza a calculadora sem estar autenticado, esses dados
+        não são salvos pelo CMU no Cloud Firestore.
+      </p>
+
+      <h2>Dados da conta e do perfil</h2>
+
+      <p>
+        Durante o cadastro, o CMU solicita informações necessárias para criar e
+        manter a conta e o perfil do usuário. Atualmente, essas informações podem
+        incluir:
+      </p>
+
+      <ul>
+        <li>nome;</li>
+        <li>sobrenome;</li>
+        <li>data de nascimento;</li>
+        <li>curso;</li>
+        <li>endereço de e-mail;</li>
+        <li>senha de acesso.</li>
+      </ul>
+
+      <p>
+        A data de nascimento é utilizada para verificar a faixa etária permitida
+        pelo fluxo atual de cadastro. A área acadêmica selecionada durante o
+        cadastro é utilizada para apresentar os cursos disponíveis e não é
+        armazenada como informação do perfil pelo código atual.
+      </p>
+
+      <p>
+        A autenticação por e-mail e senha é gerenciada pelo
+        <strong>Firebase Authentication</strong>. O código do CMU não grava a
+        senha do usuário nos documentos armazenados no Cloud Firestore.
+      </p>
+
+      <p>
+        O perfil atualmente pode armazenar nome, sobrenome, data de nascimento,
+        curso e a média mínima configurada pelo usuário.
+      </p>
+
+      <p>
+        O CMU também mantém uma cópia do endereço de e-mail vinculada ao
+        identificador interno da conta em uma área de dados com acesso restrito,
+        utilizada para funções internas do serviço.
+      </p>
+
+      <h2>Dados acadêmicos salvos</h2>
+
+      <p>
+        Quando um usuário autenticado utiliza a função de salvamento, o CMU pode
+        armazenar informações acadêmicas associadas à sua conta, incluindo:
+      </p>
+
+      <ul>
+        <li>identificação e nome do semestre;</li>
+        <li>nomes das matérias;</li>
+        <li>notas AC1;</li>
+        <li>notas AC2;</li>
+        <li>notas AF;</li>
+        <li>notas AG;</li>
+        <li>notas AS;</li>
+        <li>média geral do semestre, quando aplicável.</li>
+      </ul>
+
+      <p>
+        Esses dados são utilizados para permitir que o usuário recupere e edite
+        as informações salvas do semestre.
+      </p>
+
+      <p>
+        A média mínima definida no perfil também é utilizada no cálculo da AF
+        necessária.
+      </p>
+
+      <p>
+        Alguns resultados, como a média por matéria e a AF necessária, podem ser
+        calculados diretamente na interface sem necessariamente serem armazenados
+        como campos separados no banco de dados.
+      </p>
+
+      <h2>Finalidades do tratamento de dados</h2>
+
+      <p>Os dados tratados pelo CMU podem ser utilizados para:</p>
+
+      <ul>
+        <li>criar e gerenciar contas;</li>
+        <li>autenticar usuários;</li>
+        <li>manter e editar informações de perfil;</li>
+        <li>salvar e recuperar dados acadêmicos;</li>
+        <li>executar os cálculos disponibilizados pela plataforma;</li>
+        <li>proteger o serviço contra abuso e solicitações suspeitas;</li>
+        <li>manter o funcionamento técnico e a segurança da aplicação.</li>
+      </ul>
+
+      <h2>Serviços de terceiros utilizados</h2>
+
+      <p>
+        O CMU utiliza serviços de terceiros para fornecer determinadas
+        funcionalidades.
+      </p>
+
+      <p>
+        <strong>Firebase Authentication:</strong> utilizado para criação de contas,
+        autenticação, gerenciamento de sessão e operações relacionadas ao acesso do
+        usuário.
+      </p>
+
+      <p>
+        <strong>Cloud Firestore:</strong> utilizado para armazenamento dos dados de
+        perfil e das informações acadêmicas salvas pelo usuário.
+      </p>
+
+      <p>
+        <strong>Cloud Functions for Firebase:</strong> utilizado para executar
+        operações de servidor relacionadas à segurança, validação, controle de
+        semestre, sincronização de informações da conta e rotinas de exclusão.
+      </p>
+
+      <p>
+        <strong>Firebase App Check:</strong> utilizado para ajudar a verificar se
+        solicitações ao backend são originadas da aplicação esperada e reduzir
+        tentativas de abuso.
+      </p>
+
+      <p>
+        <strong>Google reCAPTCHA:</strong> utilizado em fluxos como login e cadastro
+        para auxiliar na identificação de comportamentos automatizados ou
+        potencialmente abusivos.
+      </p>
+
+      <p>
+        O token gerado pelo reCAPTCHA é enviado para verificação pelo Google, que
+        retorna informações utilizadas pelo CMU para avaliar a validade da
+        solicitação e possíveis sinais de abuso.
+      </p>
+
+      <p>
+        <strong>Vercel:</strong> utilizada para disponibilizar publicamente as
+        páginas do site.
+      </p>
+
+      <p>
+        Durante a prestação desses serviços, os respectivos provedores podem tratar
+        informações técnicas de conexão e do navegador, como endereço IP, tipo de
+        dispositivo, características do navegador e outros identificadores
+        técnicos necessários ao funcionamento e à segurança dos serviços.
+      </p>
+
+      <p>
+        Mais informações sobre as práticas desses serviços podem ser consultadas
+        nas páginas oficiais de
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">
+          privacidade do Firebase
+        </a>,
+        <a href="https://developers.google.com/recaptcha/docs/faq?hl=pt-br" target="_blank" rel="noopener noreferrer">
+          Google reCAPTCHA
+        </a>
+        e
+        <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noopener noreferrer">
+          Vercel
+        </a>.
+      </p>
+
+      <h2>Cookies e armazenamento no navegador</h2>
+
+      <p>
+        O CMU e os serviços utilizados pela aplicação podem utilizar mecanismos de
+        armazenamento no navegador para manter determinadas funcionalidades.
+      </p>
+
+      <p>
+        <strong>Sessão:</strong> o Firebase Authentication utiliza mecanismos de
+        armazenamento no navegador para manter e gerenciar a sessão autenticada.
+      </p>
+
+      <p>
+        <strong>Segurança:</strong> Google reCAPTCHA e Firebase App Check podem
+        utilizar cookies, armazenamento local e outras tecnologias necessárias
+        para análise de risco, prevenção contra abuso e validação de solicitações.
+      </p>
+
+      <p>
+        <strong>Preferências:</strong> o CMU pode armazenar localmente preferências
+        de interface, como tema e modo claro ou escuro, para reaplicá-las em visitas
+        futuras.
+      </p>
+
+      <p>
+        Na versão atual, o CMU não utiliza Google AdSense e não implementa cookies
+        publicitários próprios relacionados à exibição de anúncios.
+      </p>
+
+      <h2>Segurança</h2>
+
+      <p>
+        O CMU utiliza mecanismos de autenticação, regras de acesso ao banco de
+        dados e verificações contra abuso para reduzir riscos relacionados ao uso
+        da plataforma.
+      </p>
+
+      <p>
+        Apesar dessas medidas, nenhum sistema online pode garantir segurança
+        absoluta contra falhas, acessos indevidos ou incidentes.
+      </p>
+
+      <h2>Retenção e exclusão de dados</h2>
+
+      <p>
+        O código atual possui rotinas de servidor capazes de excluir uma conta e
+        remover dados associados a ela.
+      </p>
+
+      <p>
+        A interface atual ainda não disponibiliza ao usuário um botão específico
+        para iniciar diretamente esse processo de exclusão.
+      </p>
+
+      <p>
+        O projeto também não possui, no momento, um prazo automático geral de
+        retenção ou eliminação dos dados da conta e do semestre definido no código.
+      </p>
+
+      <h2>Direitos e contato</h2>
+
+      <p>
+        Para solicitar informações sobre seus dados, correção, atualização ou
+        exclusão, utilize a
+        <a href="contato.html">página de Contato</a>.
+      </p>
+
+      <p>
+        As solicitações serão analisadas conforme a legislação aplicável e as
+        características do serviço.
+      </p>
+
+      <p>
+        Usuários no Brasil também podem consultar informações disponibilizadas pela
+        <a href="https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados" target="_blank" rel="noopener noreferrer">
+          Autoridade Nacional de Proteção de Dados
+        </a>.
+      </p>
+
+      <h2>Publicidade futura</h2>
+
+      <p>
+        O CMU poderá utilizar serviços de publicidade em versões futuras.
+      </p>
+
+      <p>
+        Antes da ativação de qualquer solução de publicidade, incluindo Google
+        AdSense, esta Política de Privacidade será revisada para refletir os dados,
+        cookies, identificadores, fornecedores e mecanismos de consentimento
+        aplicáveis.
+      </p>
+
+      <!--
+        TODO antes da publicação definitiva da V3.1:
+        - definir o e-mail oficial de contato do projeto;
+        - revisar critérios de retenção;
+        - revisar juridicamente as bases legais aplicáveis;
+        - revisar esta política antes de ativar Google AdSense ou CMP.
+      -->
+
     </main>
 
     <footer>
@@ -61,6 +335,7 @@
         <a href="contato.html">Contato</a>
         <a href="privacidade.html">Política de Privacidade</a>
       </nav>
+
       &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
     </footer>
   </div>
