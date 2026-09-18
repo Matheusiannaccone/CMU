@@ -163,6 +163,17 @@ body.dark-mode .auth-container .link a:hover {
     line-height: 1.4;
 }
 
+.auth-container .site-nav {
+    gap: 4px 8px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+
+.auth-container .site-footer-links {
+    gap: 4px 10px;
+    font-size: 0.85rem;
+}
+
 /* ========== ANIMAÇÕES ========== */
 @keyframes fadeIn {
     from {

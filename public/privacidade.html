@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de Privacidade — CMU</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+  <div class="barra-superior">
+    <div class="barra-esquerda">
+      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+    </div>
+
+
+    <div class="barra-centro">
+      <span class="marca">CMU</span>
+    </div>
+    
+    <div class="barra-direita">
+      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
+      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="sun-icon">☀️</span>
+        <span class="moon-icon">🌙</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="espaco"></div>
+
+  <div class="container">
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html" aria-current="page">Política de Privacidade</a>
+    </nav>
+
+    <main class="institutional-content">
+      <header><h1>Política de Privacidade</h1></header>
+      <p>Esta página descreve os dados usados nas funcionalidades atuais do CMU.</p>
+
+      <h2>Cadastro e dados acadêmicos</h2>
+      <p>Para criar uma conta, o CMU solicita nome, sobrenome, data de nascimento, curso, e-mail e senha. O e-mail e a senha são usados na autenticação. O perfil e as informações do semestre salvo, como matérias, notas e médias, são armazenados para que você possa consultá-los e editá-los ao entrar na conta.</p>
+
+      <h2>Serviços utilizados</h2>
+      <p>O CMU usa serviços do Firebase para autenticação e armazenamento dos dados da conta e do semestre. O cadastro e o login usam reCAPTCHA para verificar as solicitações.</p>
+
+      <h2>Preferências no navegador</h2>
+      <p>As preferências de tema claro, escuro e de cor são guardadas no armazenamento local do navegador para serem reaplicadas nas próximas visitas.</p>
+
+      <h2>Dúvidas sobre privacidade</h2>
+      <p>Para dúvidas sobre os dados usados pelo CMU, consulte a <a href="contato.html">página de Contato</a>.</p>
+    </main>
+
+    <footer>
+      <nav class="site-footer-links" aria-label="Links institucionais">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
+    </footer>
+  </div>
+
+  <script type="module" src="js/theme.js"></script>
+</body>
+</html>

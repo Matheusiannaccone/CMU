@@ -322,28 +322,83 @@ body.dark-mode footer {
     color: var(--cor-texto-escuro);
 }
 
-.sobre-link {
-    text-align: center;
-    margin-top: 10px;
+/* ========== NAVEGAÇÃO E LINKS INSTITUCIONAIS ========== */
+.site-nav,
+.site-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 16px;
+}
+
+.site-nav {
+    margin-bottom: 28px;
+}
+
+.site-footer-links {
+    margin-bottom: 12px;
     font-size: 0.95rem;
 }
 
-.sobre-link a {
+.site-nav a,
+.site-footer-links a,
+.institutional-content a {
     color: var(--cor-primaria);
     text-decoration: underline;
-    transition: color 0.3s ease;
+    text-underline-offset: 3px;
 }
 
-.sobre-link a:hover {
-    color: var(--cor-primaria-clara);
+.site-nav a {
+    padding: 6px 8px;
+    border-radius: 4px;
+    text-decoration: none;
 }
 
-body.dark-mode .sobre-link a {
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+    background: var(--cor-hover);
+}
+
+.site-nav a:focus-visible,
+.site-footer-links a:focus-visible,
+.institutional-content a:focus-visible {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 2px;
+}
+
+body.dark-mode .site-nav a,
+body.dark-mode .site-footer-links a,
+body.dark-mode .institutional-content a {
     color: var(--cor-texto-escuro);
 }
 
-body.dark-mode .sobre-link a:hover {
-    color: var(--cor-primaria-clara);
+body.dark-mode .site-nav a:hover,
+body.dark-mode .site-nav a[aria-current="page"] {
+    background: var(--cor-hover-dark);
+}
+
+.institutional-content {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.institutional-content h2 {
+    margin: 24px 0 8px;
+    color: var(--cor-primaria);
+}
+
+body.dark-mode .institutional-content h2 {
+    color: var(--cor-texto-escuro);
+}
+
+.institutional-content p {
+    margin-bottom: 14px;
+}
+
+.email-pendente {
+    font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
 /* ========== TEMA TOGGLE ========== */

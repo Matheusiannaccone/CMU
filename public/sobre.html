@@ -8,32 +8,40 @@
 </head>
 <body>
 
-<div class="barra-superior">
-  <div class="barra-esquerda">
-    <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+  <div class="barra-superior">
+    <div class="barra-esquerda">
+      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+    </div>
+
+
+    <div class="barra-centro">
+      <span class="marca">CMU</span>
+    </div>
+    
+    <div class="barra-direita">
+      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
+      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="sun-icon">☀️</span>
+        <span class="moon-icon">🌙</span>
+      </button>
+    </div>
   </div>
-
-  <div class="barra-centro">
-    <h1>Sobre o CMU</h1>
-  </div>
-
-  <div class="barra-direita">
-    <button id="logoutBtn" type="button">Logout</button>
-
-    <button type="button" onclick="location.href='index.html'">
-      Início
-    </button>
-
-    <button type="button" class="theme-toggle" onclick="toggleTheme()">
-      <span class="sun-icon">☀️</span>
-      <span class="moon-icon">🌙</span>
-    </button>
-  </div>
-</div>
 
 <div class="espaco"></div>
 
 <div class="container">
+  <nav class="site-nav" aria-label="Navegação principal">
+    <a href="index.html">Início</a>
+    <a href="sobre.html" aria-current="page">Sobre</a>
+    <a href="contato.html">Contato</a>
+    <a href="privacidade.html">Política de Privacidade</a>
+  </nav>
+
+  <header>
+    <h1>Sobre o CMU</h1>
+  </header>
+
   <section class="sobre-descricao">
     <p>
       A <strong>CMU — Calculadora de Médias Universitárias</strong> foi desenvolvida para auxiliar
@@ -57,15 +65,23 @@
       para salvar as informações do seu semestre e acessá-las depois.
     </p>
 
+    <p>
+      O CMU é um projeto independente. Ele não é um sistema oficial da Facens
+      nem representa outras instituições de ensino.
+    </p>
+
   </section>
 
   <footer>
-    <p>Versão <span id="app-version"></span></p>
-    &copy; 2026 CMU - Todos os direitos reservados
+    <nav class="site-footer-links" aria-label="Links institucionais">
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+    </nav>
+    &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
   </footer>
 </div>
 
 <script src="js/theme.js" type="module"></script>
-<script src="js/sobre.js" type="module"></script>
 </body>
 </html>
