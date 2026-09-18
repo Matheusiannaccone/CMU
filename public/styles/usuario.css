@@ -2,23 +2,6 @@
    ESTILOS ESPECÍFICOS - usuario.html
    ======================================== */
 
-/* ========== BARRA DE CABEÇALHO ========== */
-.barra-login-usuario {
-    max-width: 900px;
-    margin: 0 auto;
-    background: var(--cor-surface);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px var(--cor-shadow);
-    padding: 10px 20px 20px 40px;
-    transition: background 0.3s ease;
-    position: relative;
-    text-align: right;
-}
-
-body.dark-mode .barra-login-usuario {
-    background: var(--cor-surface-dark);
-}
-
 /* ========== HEADER ========== */
 header h1 {
     font-weight: 700;
@@ -200,32 +183,6 @@ body.dark-mode .semestre-selector select {
     color: var(--cor-texto-escuro);
 }
 
-/* ========== BOTÃO UNI (ESPECÍFICO) ========== */
-.btn-uni {
-    width: 200px;
-    background: var(--cor-primaria);
-    color: white;
-    font-size: large;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-body.dark-mode .btn-uni {
-    background: var(--cor-primaria-clara);
-}
-
-.btn-uni:hover {
-    background: var(--cor-primaria-clara);
-}
-
-body.dark-mode .btn-uni:hover {
-    background: var(--cor-primaria);
-}
-
 /* ========== MODAL DE SEGURANÇA ========== */
 .modal {
     display: none;
@@ -359,9 +316,5 @@ body.dark-mode .modal-content button:hover {
     .user-info input {
         font-size: 0.95rem;
         padding: 8px;
-    }
-
-    .barra-login-usuario {
-        padding: 10px 15px;
     }
 }

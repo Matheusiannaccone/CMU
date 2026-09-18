@@ -3,24 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre - Calculadora de Média Universitária</title>
+  <title>Sobre o CMU — Calculadora de Médias Universitárias</title>
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
 
-<div class="barra-login">
-  <a href="index.html"><button class="btn-uni">Página Inicial</button></a>
-  <a href="login.html"><button class="btn-uni">Login</button></a>
+<div class="barra-superior">
+  <div class="barra-esquerda">
+    <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+  </div>
+
+  <div class="barra-centro">
+    <h1>Sobre o CMU</h1>
+  </div>
+
+  <div class="barra-direita">
+    <button id="logoutBtn" type="button">Logout</button>
+
+    <button type="button" onclick="location.href='index.html'">
+      Início
+    </button>
+
+    <button type="button" class="theme-toggle" onclick="toggleTheme()">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </button>
+  </div>
 </div>
 
-<div class="container">
-  <header>
-    <h1>Sobre a Calculadora de Média Universitária</h1>
-  </header>
+<div class="espaco"></div>
 
+<div class="container">
   <section class="sobre-descricao">
     <p>
-      A <strong>Calculadora de Média Universitária</strong> foi desenvolvida para auxiliar
+      A <strong>CMU — Calculadora de Médias Universitárias</strong> foi desenvolvida para auxiliar
       estudantes a organizarem suas matérias, lançarem notas e acompanharem seu
       desempenho acadêmico durante o semestre.
     </p>
@@ -33,12 +49,12 @@
       <li>Inserir notas de avaliações como ACs, AF, AG e AS;</li>
       <li>Calcular automaticamente as médias individuais das matérias;</li>
       <li>Obter a média geral do semestre em tempo real;</li>
-      <li>Ao entrar na conta, salvar um semestre e acessá-lo novamente.</li>
+      <li>Ao entrar na conta, salvar, consultar e editar um semestre.</li>
     </ul>
 
     <p>
-      O site foi projetado para ser simples, intuitivo e seguro, garantindo
-      que suas informações fiquem protegidas.
+      Você pode fazer os cálculos sem criar uma conta. O cadastro é necessário
+      para salvar as informações do seu semestre e acessá-las depois.
     </p>
 
   </section>

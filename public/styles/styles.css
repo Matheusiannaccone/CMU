@@ -278,9 +278,11 @@ body.dark-mode .barra-superior {
     height: 70px;
 }
 
+.barra-centro .marca,
 .barra-centro h1 {
     margin: 0;
     font-size: 1.8rem;
+    font-weight: 700;
 }
 
 /* ========== ELEMENTOS COMUNS ========== */
@@ -516,6 +518,7 @@ input[type=number]::-webkit-outer-spin-button {
         gap: 8px;
     }
 
+    .barra-centro .marca,
     .barra-centro h1 {
         font-size: 1.8rem;
         text-align: center;
