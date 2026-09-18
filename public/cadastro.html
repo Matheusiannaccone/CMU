@@ -3,39 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Criar conta</title>
+    <title>Criar conta — CMU</title>
+    <meta name="robots" content="noindex, follow">
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8"></script>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
 
-<div class="auth-container">
-    <h2>Criar conta</h2>
+<main class="auth-container">
+    <a class="auth-home" href="index.html">CMU — Página inicial</a>
+    <h1>Criar conta</h1>
 
-    <input type="text" id="nome" placeholder="Nome">
-    <input type="text" id="sobrenome" placeholder="Sobrenome">
-    <input type="date" id="nascimento">
+    <form id="cadastroForm" method="post" novalidate>
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" placeholder="Nome" autocomplete="given-name">
+    <label for="sobrenome">Sobrenome</label>
+    <input type="text" id="sobrenome" placeholder="Sobrenome" autocomplete="family-name">
+    <label for="nascimento">Data de nascimento</label>
+    <input type="date" id="nascimento" autocomplete="bday">
+    <label for="area">Área acadêmica</label>
     <select id="area">
         <option value="">Selecione a área</option>
         <option value="engenharias">Engenharias</option>
         <option value="tecnologos">Tecnólogos</option>
         <option value="saude">Saúde</option>
     </select>
+    <label for="curso">Curso</label>
     <select id="curso" disabled>
         <option value="">Selecione o curso</option>
     </select>
-    <input type="email" id="email" placeholder="E-mail">
-    <input type="password" id="senha" placeholder="Senha">
+    <label for="email">E-mail</label>
+    <input type="email" id="email" placeholder="E-mail" autocomplete="email">
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" placeholder="Senha" autocomplete="new-password">
 
-    <button id="registerBtn">Cadastrar</button>
+    <button id="registerBtn" type="submit">Cadastrar</button>
 
-    <p id="cadastroMessage"></p>
+    <p id="cadastroMessage" role="status" aria-live="polite" aria-atomic="true"></p>
+    </form>
 
     <p class="link">
-        Já possui conta? <a href="login.html">Login</a>
+        Já possui conta? <a href="login.html">Entrar</a>
     </p>
-</div>
+    <footer>
+        <nav class="site-footer-links" aria-label="Links institucionais">
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+            <a href="privacidade.html">Política de Privacidade</a>
+        </nav>
+        &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
+    </footer>
+</main>
 
 <script type="module" src="js/cadastro.js"></script>
 </body>

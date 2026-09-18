@@ -3,9 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora de Média - Facens</title>
+  <title>CMU — Calculadora de Médias Universitárias</title>
+  <meta name="google-site-verification" content="WgMXKs1bxlYCAPw8fI30aEy0Y6r-pzKtGSJIIiULYc0" />
+  <meta name="description" content="Calcule médias de matérias e a AF necessária no CMU. Com uma conta, você também pode salvar e editar um semestre.">
+  <link rel="canonical" href="https://calculadora-medias-universitarias.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="CMU — Calculadora de Médias Universitárias">
+  <meta property="og:title" content="CMU — Calculadora de Médias Universitárias">
+  <meta property="og:description" content="Calcule médias de matérias e a AF necessária no CMU. Com uma conta, você também pode salvar e editar um semestre.">
+  <meta property="og:url" content="https://calculadora-medias-universitarias.vercel.app/">
+  <meta property="og:image" content="https://calculadora-medias-universitarias.vercel.app/images/logo.png">
+  <meta property="og:image:alt" content="Logo do CMU">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles/styles.css"/>
   <link rel="stylesheet" href="styles/index.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5609209374063879" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -16,15 +29,16 @@
 
 
     <div class="barra-centro">
-      <h1>Facens</h1>
+      <span class="marca">CMU</span>
     </div>
     
     <div class="barra-direita">
-      <a href="login.html"><button id="loginBtn">Fazer login</button></a>
-      <a href="cadastro.html"><button id="signupBtn">Cadastrar</button></a>
-      <button class="theme-toggle" onclick="toggleTheme()">
-        <span class="sun-icon">☀️</span>
-        <span class="moon-icon">🌙</span>
+      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
+      <button id="logoutBtn" type="button" hidden>Logout</button>
+      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+        <span class="sun-icon" aria-hidden="true">☀️</span>
+        <span class="moon-icon" aria-hidden="true">🌙</span>
       </button>
     </div>
   </div>
@@ -33,26 +47,22 @@
 
   <div class="container">
 
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="index.html" aria-current="page">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+    </nav>
+
     <header>
-      <h1>Calculadora de Média Universitária</h1>
+      <h1>Calculadora de Médias Universitárias</h1>
     </header>
 
     <section class="site-descricao">
     <p>
-      Este site foi criado para ajudar estudantes universitários a organizarem
-      suas matérias, lançarem notas e calcularem automaticamente suas médias
-      durante o semestre atual.
-    </p>
-
-    <p>
-      Basta adicionar suas matérias e inserir as notas de avaliação. O sistema
-      calcula as médias individuais e a média geral do semestre de forma simples
-      e rápida.
-    </p>
-
-    <p>
-      Ao entrar na sua conta, você pode salvar um semestre e acessar esses
-      dados novamente para acompanhar seu desempenho acadêmico.
+      Organize suas matérias, informe as notas que você já conhece e acompanhe
+      as médias do semestre. Você pode calcular sem conta; faça login para salvar
+      e editar um semestre.
     </p>
     </section>
 
@@ -88,13 +98,13 @@
           <button type="button" id="removerMateriaBtn">Remover matéria</button>
           <button type="button" id="salvarNotasBtn">Salvar notas</button>
           <button type="button" id="calcularAFBtn">Calcular AF</button>
-          <p id="msg" class="feedback"></p>
+          <p id="msg" class="feedback" role="status" aria-live="polite" aria-atomic="true"></p>
         </form>
 
         <div class="medias-container">
           <div class="media-box">
             <h2>Média Geral</h2>
-            <p id="mediaGeral">-</p>
+            <p id="mediaGeral" role="status" aria-live="polite" aria-atomic="true">-</p>
           </div>
 
           <div id="media-global" class="media-box" hidden>
@@ -102,19 +112,83 @@
             <p id="mediaGlobal">-</p>
           </div>
         </div>
+
+        <section class="calculator-guide" aria-labelledby="guide-title">
+          <section aria-labelledby="guide-uso">
+            <h3 id="guide-uso">Como usar o CMU</h3>
+            <ol>
+              <li>Informe o nome da matéria e as notas que você já conhece.</li>
+              <li>Acompanhe a média individual e a média geral; adicione outras matérias quando precisar.</li>
+              <li>Use “Calcular AF” para estimar a nota necessária, se AC1 e AC2 estiverem preenchidas.</li>
+              <li>Faça login se quiser salvar e editar seu semestre depois.</li>
+            </ol>
+          </section>
+          
+          <h2 id="guide-title">Entenda seus resultados</h2>
+          <p>O CMU usa a lógica de cálculo descrita abaixo para ajudar você a acompanhar as notas do semestre.</p>
+
+          <section aria-labelledby="guide-calculo">
+            <h3 id="guide-calculo">Como o cálculo funciona</h3>
+            <p>Na lógica atualmente implementada pelo CMU, a média de cada matéria parte desta soma:</p>
+            <p class="guide-formula">Média = (AC1 × 0,15) + (AC2 × 0,30) + (AF × 0,45) + (AG × 0,10)</p>
+            <ul>
+              <li><strong>AC1:</strong> contribui com 15% da média.</li>
+              <li><strong>AC2:</strong> contribui com 30% da média.</li>
+              <li><strong>AF:</strong> contribui com 45% da média.</li>
+              <li><strong>AG:</strong> contribui com 10% da média.</li>
+              <li><strong>AS:</strong> não tem peso próprio; pode substituir uma nota preenchida, conforme explicado a seguir.</li>
+            </ul>
+            <p>Uma nota em branco não contribui para a soma, e seu peso não é redistribuído. A média só aparece quando há pelo menos uma nota preenchida entre AC1, AC2, AF e AG.</p>
+            <div class="guide-example">
+              <h4>Exemplo de média da matéria</h4>
+              <p>Com AC1 = 8, AC2 = 7, AF = 6 e AG = 9:</p>
+              <p class="guide-formula">(8 × 0,15) + (7 × 0,30) + (6 × 0,45) + (9 × 0,10) = 1,20 + 2,10 + 2,70 + 0,90 = 6,90.</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="guide-as">
+            <h3 id="guide-as">Como a AS é considerada?</h3>
+            <p>Quando você informa a AS e já existe alguma nota entre AC1, AC2, AF e AG, o CMU testa a troca da AS por <strong>uma nota preenchida de cada vez</strong>. Ele compara esses resultados com a média original e mostra o maior. Uma troca que diminuiria a média é ignorada; uma nota em branco não é substituída.</p>
+            <p>No exemplo acima, se a AS for 10, trocar a AF de 6 por 10 produz o maior ganho: 1,20 + 2,10 + (10 × 0,45) + 0,90 = <strong>8,70</strong>. Essa é a lógica da ferramenta, sem atribuir à sigla uma definição acadêmica oficial.</p>
+          </section>
+
+          <section aria-labelledby="guide-af">
+            <h3 id="guide-af">Como funciona a AF necessária?</h3>
+            <p>O botão “Calcular AF” estima qual nota de AF levaria a matéria até a média mínima configurada no perfil. Para quem não está autenticado, o CMU usa a meta padrão de 5. É preciso informar AC1 e AC2; AG pode ficar em branco e, nesse caso, contribui com zero.</p>
+            <p class="guide-formula">AF necessária = [meta − (AC1 × 0,15 + AC2 × 0,30 + AG × 0,10)] ÷ 0,45</p>
+            <p>Esse cálculo não considera uma AS informada nem altera a nota de AF já digitada. Se a meta já foi atingida sem AF, o campo mostra 0; se a nota calculada ultrapassa 10, mostra “Impossível”. O resultado numérico é exibido com duas casas decimais.</p>
+            <div class="guide-example">
+              <h4>Exemplo de AF necessária</h4>
+              <p>Com AC1 = 8, AC2 = 7, AG = 9 e meta = 5:</p>
+              <p class="guide-formula">[5 − (8 × 0,15 + 7 × 0,30 + 9 × 0,10)] ÷ 0,45 = (5 − 4,20) ÷ 0,45 = 1,78 (arredondado).</p>
+            </div>
+          </section>
+
+          <section aria-labelledby="guide-medias">
+            <h3 id="guide-medias">Média da matéria e média geral</h3>
+            <p>A <strong>média da matéria</strong> é o resultado individual de uma disciplina, com a eventual substituição pela AS. A <strong>média geral</strong> é a média aritmética das matérias que têm pelo menos uma nota preenchida no semestre mostrado. Por exemplo, matérias com médias exatas de 6,90 e 8,00 produzem média geral de (6,90 + 8,00) ÷ 2 = <strong>7,45</strong>. O cálculo usa os valores das matérias antes do arredondamento exibido.</p>
+          </section>
+
+          <p class="guide-note">O CMU é uma ferramenta auxiliar baseada na lógica implementada neste projeto. Regras acadêmicas podem variar; em caso de dúvida, consulte as orientações oficiais da sua instituição.</p>
+        </section>
       </main>
     </div>
 
+    <!-- Ponto candidato a unidade manual futura, após a calculadora e os resultados.
+    <div id="ad-after-calculator" data-cmu-ad-candidate hidden></div> -->
+
     <footer>
-      <!-- Link para a página Sobre -->
-      <p class="sobre-link">
-        <a href="sobre.html">Saiba mais sobre este site</a>
-      </p>
-      &copy; 2025 Calculadora de Média - Todos os direitos reservados
+      <nav class="site-footer-links" aria-label="Links institucionais">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
     </footer>
   </div>
 
 <script type="module" src="js/theme.js"></script>
+<script type="module" src="js/script.js"></script>
 <script type="module" src="js/index.js"></script>
 <script type="module" src="firestore/salvarNotas.js"></script>
 <script type="module" src="firestore/mediaGlobal.js"></script>

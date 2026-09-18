@@ -18,8 +18,8 @@ const nomeUsuario = document.getElementById("nomeUsuario");
 const sobrenomeUsuario = document.getElementById("sobrenomeUsuario");
 const cursoUsuario = document.getElementById("cursoUsuario");
 const mediaMinima = document.getElementById("mediaMinima");
-const logoutBtn = document.getElementById("logoutBtn");
 const userForm = document.getElementById("userForm");
+const profileMessage = document.getElementById("profileMessage");
 
 const alterarEmailBtn = document.getElementById("alterarEmailBtn");
 const alterarSenhaBtn = document.getElementById("alterarSenhaBtn");
@@ -29,6 +29,7 @@ const confirmarReauthBtn = document.getElementById("confirmarReauthBtn");
 const cancelarReauthBtn = document.getElementById("cancelarReauthBtn");
 
 let acaoSeguranca = null;
+let modalOpener = null;
 
 const CURSOS = {
   eng_civil: "Engenharia Civil",
@@ -53,13 +54,26 @@ const CURSOS = {
 
 function abrirModalSeguranca(acao) {
   acaoSeguranca = acao;
+  modalOpener = document.activeElement;
   senhaAtualInput.value = "";
-  reauthModal.style.display = "block";
+  reauthModal.showModal();
+  senhaAtualInput.focus();
 }
 
 function fecharModalSeguranca() {
-  reauthModal.style.display = "none";
+  if (reauthModal.open) reauthModal.close();
   acaoSeguranca = null;
+}
+
+reauthModal.addEventListener("close", () => {
+  acaoSeguranca = null;
+  modalOpener?.focus();
+  modalOpener = null;
+});
+
+function mostrarStatusPerfil(texto, erro = false) {
+  profileMessage.textContent = texto;
+  profileMessage.dataset.state = erro ? "error" : "success";
 }
 
 async function reautenticarUsuario(senha) {
@@ -96,12 +110,6 @@ auth.onAuthStateChanged(async (user) => {
   await carregarDadosUsuario(user);
 });
 
-logoutBtn.addEventListener("click", () => {
-  auth.signOut().then(() => {
-    window.location.href = "login.html";
-  });
-});
-
 userForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -109,18 +117,21 @@ userForm.addEventListener("submit", async (event) => {
   if (!user) return;
 
   if (!nomeUsuario.value.trim() || !sobrenomeUsuario.value.trim() || !cursoUsuario.value.trim()) {
-    alert("Nome, sobrenome e curso são obrigatórios!");
+    mostrarStatusPerfil("Nome, sobrenome e curso são obrigatórios!", true);
+    (nomeUsuario.value.trim() ? sobrenomeUsuario : nomeUsuario).focus();
     return;
   }
 
   if (!mediaMinima.value.trim()) {
-    alert("Informe a média mínima");
+    mostrarStatusPerfil("Informe a média mínima", true);
+    mediaMinima.focus();
     return;
   }
 
   const novaMediaMinima = parseFloat(mediaMinima.value);
   if (novaMediaMinima < 4.76 || novaMediaMinima > 10) {
-    alert("A média mínima deve estar entre 4.76 e 10");
+    mostrarStatusPerfil("A média mínima deve estar entre 4.76 e 10", true);
+    mediaMinima.focus();
     return;
   }
 
@@ -134,10 +145,10 @@ userForm.addEventListener("submit", async (event) => {
 
     await setDoc(userRef, payload, { merge: true });
     usuarioNomeInfo.textContent = payload.nome;
-    alert("Informações atualizadas com sucesso!");
+    mostrarStatusPerfil("Informações atualizadas com sucesso!");
   } catch (err) {
     console.error("Erro ao atualizar dados:", err);
-    alert("Não foi possível atualizar os dados.");
+    mostrarStatusPerfil("Não foi possível atualizar os dados.", true);
   }
 });
 

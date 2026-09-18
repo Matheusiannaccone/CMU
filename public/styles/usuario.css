@@ -2,27 +2,10 @@
    ESTILOS ESPECÍFICOS - usuario.html
    ======================================== */
 
-/* ========== BARRA DE CABEÇALHO ========== */
-.barra-login-usuario {
-    max-width: 900px;
-    margin: 0 auto;
-    background: var(--cor-surface);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px var(--cor-shadow);
-    padding: 10px 20px 20px 40px;
-    transition: background 0.3s ease;
-    position: relative;
-    text-align: right;
-}
-
-body.dark-mode .barra-login-usuario {
-    background: var(--cor-surface-dark);
-}
-
 /* ========== HEADER ========== */
 header h1 {
     font-weight: 700;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     font-size: 2.4rem;
     letter-spacing: 1.2px;
     text-align: center;
@@ -47,7 +30,7 @@ body.dark-mode h2 {
 #usuarioNome,
 #usuarioNomeInfo {
     font-weight: 600;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode #usuarioNome,
@@ -84,7 +67,7 @@ body.dark-mode .card {
     display: block;
     font-weight: 600;
     margin-bottom: 5px;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode .user-info label {
@@ -113,7 +96,7 @@ body.dark-mode .user-info input {
 .user-info button,
 #userForm button {
     background: var(--cor-primaria);
-    color: white;
+    color: var(--cor-acao-texto);
     border: none;
     padding: 10px 16px;
     border-radius: 4px;
@@ -125,16 +108,30 @@ body.dark-mode .user-info input {
 body.dark-mode .user-info button,
 body.dark-mode #userForm button {
     background: var(--cor-primaria-clara);
+    color: var(--cor-acao-texto-escuro);
 }
 
 .user-info button:hover,
 #userForm button:hover {
-    background: var(--cor-primaria-clara);
+    box-shadow: 0 2px 8px var(--cor-shadow);
 }
 
 body.dark-mode .user-info button:hover,
 body.dark-mode #userForm button:hover {
-    background: var(--cor-primaria);
+    box-shadow: 0 2px 8px var(--cor-shadow-dark);
+}
+
+#profileMessage {
+    min-height: 1.5em;
+    margin-top: 10px;
+}
+
+#profileMessage[data-state="error"] {
+    color: #a61b1b;
+}
+
+body.dark-mode #profileMessage[data-state="error"] {
+    color: #ffd0d0;
 }
 
 /* ========== INPUTS DO FORMULÁRIO ========== */
@@ -177,7 +174,7 @@ body.dark-mode .semestre-selector {
 
 .semestre-selector label {
     font-weight: bold;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode .semestre-selector label {
@@ -200,53 +197,31 @@ body.dark-mode .semestre-selector select {
     color: var(--cor-texto-escuro);
 }
 
-/* ========== BOTÃO UNI (ESPECÍFICO) ========== */
-.btn-uni {
-    width: 200px;
-    background: var(--cor-primaria);
-    color: white;
-    font-size: large;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-body.dark-mode .btn-uni {
-    background: var(--cor-primaria-clara);
-}
-
-.btn-uni:hover {
-    background: var(--cor-primaria-clara);
-}
-
-body.dark-mode .btn-uni:hover {
-    background: var(--cor-primaria);
-}
-
 /* ========== MODAL DE SEGURANÇA ========== */
 .modal {
-    display: none;
     position: fixed;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: min(360px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow-y: auto;
     animation: fadeIn 0.3s ease;
+}
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
     background: var(--cor-surface);
     color: var(--cor-texto);
-    margin: 8% auto;
+    margin: 0;
     padding: 20px 25px;
     border-radius: 8px;
-    width: 320px;
-    max-width: 90%;
+    width: 100%;
     box-shadow: 0 4px 12px var(--cor-shadow);
     border: 1px solid var(--cor-borda);
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -260,15 +235,21 @@ body.dark-mode .modal-content {
     border: 1px solid var(--cor-borda-escura);
 }
 
-.modal-content h3 {
+.modal-content h2 {
     font-size: 1.4rem;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
     margin-bottom: 15px;
     text-align: center;
 }
 
-body.dark-mode .modal-content h3 {
+body.dark-mode .modal-content h2 {
     color: var(--cor-texto-escuro);
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
 }
 
 .modal-content input {
@@ -310,7 +291,7 @@ body.dark-mode .modal-content input:focus {
     padding: 10px;
     border-radius: 6px;
     background: var(--cor-primaria);
-    color: white;
+    color: var(--cor-acao-texto);
     font-weight: bold;
     cursor: pointer;
     border: none;
@@ -319,36 +300,13 @@ body.dark-mode .modal-content input:focus {
 
 body.dark-mode .modal-content button {
     background: var(--cor-primaria-clara);
+    color: var(--cor-acao-texto-escuro);
 }
 
 .modal-content button:hover {
-    background: var(--cor-primaria-clara);
     transform: translateY(-2px);
 }
 
-body.dark-mode .modal-content button:hover {
-    background: var(--cor-primaria);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideDown {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 
 /* ========== RESPONSIVIDADE ========== */
 @media (max-width: 768px) {
@@ -359,9 +317,5 @@ body.dark-mode .modal-content button:hover {
     .user-info input {
         font-size: 0.95rem;
         padding: 8px;
-    }
-
-    .barra-login-usuario {
-        padding: 10px 15px;
     }
 }

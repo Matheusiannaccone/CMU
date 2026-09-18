@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contato — CMU</title>
+  <meta name="description" content="Encontre o canal de contato do CMU para dúvidas, problemas, sugestões e questões relacionadas ao site.">
+  <link rel="canonical" href="https://calculadora-medias-universitarias.vercel.app/contato.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="CMU — Calculadora de Médias Universitárias">
+  <meta property="og:title" content="Contato — CMU">
+  <meta property="og:description" content="Encontre o canal de contato do CMU para dúvidas, problemas, sugestões e questões relacionadas ao site.">
+  <meta property="og:url" content="https://calculadora-medias-universitarias.vercel.app/contato.html">
+  <meta property="og:image" content="https://calculadora-medias-universitarias.vercel.app/images/logo.png">
+  <meta property="og:image:alt" content="Logo do CMU">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+  <div class="barra-superior">
+    <div class="barra-esquerda">
+      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+    </div>
+
+
+    <div class="barra-centro">
+      <span class="marca">CMU</span>
+    </div>
+    
+    <div class="barra-direita">
+      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
+      <button id="logoutBtn" type="button" hidden>Logout</button>
+      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+        <span class="sun-icon" aria-hidden="true">☀️</span>
+        <span class="moon-icon" aria-hidden="true">🌙</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="espaco"></div>
+
+  <div class="container">
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html" aria-current="page">Contato</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+    </nav>
+
+    <main class="institutional-content">
+      <header><h1>Contato</h1></header>
+      <p>Use este canal para dúvidas, problemas, sugestões ou questões relacionadas ao CMU.</p>
+      <p><strong>E-mail de contato do projeto:</strong> <span class="email-pendente">cmu.neuronbox@gmail.com</span></p>
+    </main>
+
+    <footer>
+      <nav class="site-footer-links" aria-label="Links institucionais">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </nav>
+      &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
+    </footer>
+  </div>
+
+  <script type="module" src="js/theme.js"></script>
+  <script type="module" src="js/script.js"></script>
+</body>
+</html>

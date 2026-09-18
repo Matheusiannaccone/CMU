@@ -5,6 +5,7 @@ import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const registerBtn = document.getElementById("registerBtn");
+const cadastroForm = document.getElementById("cadastroForm");
 const msg = document.getElementById("cadastroMessage");
 
 const SITE_KEY = "6Lc0Vz8sAAAAAOUH3njQ74YzthLcezzX1K_y4gi8";
@@ -66,7 +67,8 @@ const DataMin = dataLimite(60);
 nasc.max = dataMax.toISOString().split("T")[0];
 nasc.min = DataMin.toISOString().split("T")[0];
 
-registerBtn.addEventListener("click", async () => {
+cadastroForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
   
   const nome = document.getElementById("nome").value.trim();
   const sobrenome = document.getElementById("sobrenome").value.trim();
@@ -77,7 +79,7 @@ registerBtn.addEventListener("click", async () => {
 
   if (!nome || !sobrenome || !nasc || !curso || !email || !senha) {
     msg.textContent = "Preencha todos os campos.";
-    msg.style.color = "red";
+    msg.dataset.state = "error";
     return;
   }
 
@@ -99,7 +101,7 @@ registerBtn.addEventListener("click", async () => {
 
   if (idade < 18 || idade > 60) {
     msg.textContent = "Você deve ter entre 18 e 60 anos para se cadastrar.";
-    msg.style.color = "red";
+    msg.dataset.state = "error";
     return;
   }
 
@@ -125,7 +127,7 @@ registerBtn.addEventListener("click", async () => {
     });
 
     msg.textContent = "Cadastro realizado com sucesso!";
-    msg.style.color = "green";
+    msg.dataset.state = "success";
 
     setTimeout(() => {
       window.location.href = "index.html";
@@ -133,7 +135,7 @@ registerBtn.addEventListener("click", async () => {
 
   } catch (error) {
     msg.textContent = error.message;
-    msg.style.color = "red";
+    msg.dataset.state = "error";
   } finally {
     registerBtn.disabled = false;
   }

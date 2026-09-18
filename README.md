@@ -1,75 +1,181 @@
 # **CMU — Calculadora de Médias Universitárias**
 
-Aplicação web desenvolvida para ajudar estudantes universitários a calcular suas médias acadêmicas de forma rápida e automática.
+Aplicação web desenvolvida para ajudar estudantes universitários a calcular, acompanhar e entender suas médias acadêmicas ao longo do semestre.
 
-A ferramenta permite inserir notas de avaliações, calcular a média da disciplina e simular a nota necessária para alcançar a média mínima de aprovação.
-
-**Acesse o projeto:**
-https://calculadora-medias-universitarias.vercel.app/
+**Versão atual:** V3.1  
+**Site:** https://calculadora-medias-universitarias.vercel.app/
 
 ---
 
-# *Sobre o Projeto*
+## Sobre o projeto
 
-A **Calculadora de Médias Universitárias (CMU)** foi criada para simplificar o cálculo de notas durante a graduação.
+O CMU permite organizar matérias, inserir notas e calcular automaticamente:
 
-Muitos estudantes precisam calcular manualmente médias ponderadas entre avaliações como:
+- média de cada matéria;
+- média geral do semestre;
+- nota necessária na AF;
+- impacto da AS sobre a média.
 
-* AC1
-* AC2
-* AF
-* AG
-* AS
+A calculadora pode ser utilizada sem cadastro.
 
-O sistema permite inserir as notas e calcular automaticamente a média com base nos pesos definidos pela aplicação.
+Usuários autenticados também podem salvar e editar um semestre para acompanhar suas notas posteriormente.
 
-Além da calculadora principal, o projeto possui autenticação de usuários, integração com Firebase e recursos para armazenamento de informações acadêmicas.
-
-A implementação atual é a **V3.0.1 — Free MVP**, com cálculos gratuitos e salvamento de um semestre por usuário comum.
+O CMU é um projeto independente desenvolvido por **Matheus Iannaccone** e não representa oficialmente a Facens ou outras instituições de ensino.
 
 ---
 
-# *Funcionalidades*
+## Funcionalidades
 
-Entre as funcionalidades atualmente presentes no projeto estão:
+### Calculadora
 
-* Inserção de notas das avaliações.
-* Cálculo automático da média.
-* Cálculo da nota necessária na AF.
-* Simulação de desempenho acadêmico.
-* Cadastro de usuários.
-* Login com Firebase Authentication.
-* Armazenamento de dados acadêmicos no Firestore.
-* Área do usuário.
-* Suporte a tema claro e escuro.
-* Interface responsiva para diferentes dispositivos.
-* Integrações de backend por meio de Firebase Cloud Functions.
+- Inserção de até 8 matérias.
+- Notas entre 0 e 10.
+- Cálculo automático da média.
+- Cálculo da AF necessária.
+- Aplicação automática da AS quando ela melhora o resultado.
+- Média geral das matérias do semestre.
+- Funcionamento sem necessidade de login.
 
-O semestre único é resolvido no backend por `resolveSingleSemester`, com o vínculo `semestreUnicoId` protegido nas regras do Firestore. Contas com a Custom Claim `multiSemester` mantêm o fluxo especial de múltiplos semestres, sem vínculo com pagamento.
+### Conta do usuário
 
-Cadastro e login utilizam reCAPTCHA; a configuração web também mantém App Check. O código atual não implementa cobrança nem anúncios. A exclusão de conta é feita pela Cloud Function `deleteAccount`; as regras impedem que o perfil seja excluído diretamente pelo cliente.
+- Cadastro.
+- Login e logout.
+- Edição de nome e sobrenome.
+- Configuração da média mínima.
+- Alteração de e-mail.
+- Alteração de senha.
+- Salvamento e edição de um semestre.
 
----
+Usuários comuns possuem acesso a um único semestre.
 
-# *Tecnologias Utilizadas*
-
-O projeto utiliza:
-
-* **HTML5** — estrutura das páginas.
-* **CSS3** — estilização e responsividade.
-* **JavaScript** — lógica da aplicação e interação com a interface.
-* **Firebase Authentication** — autenticação de usuários.
-* **Cloud Firestore** — armazenamento de dados.
-* **Firebase Cloud Functions** — execução de lógica no backend.
-* **Firebase Hosting / configuração Firebase** — infraestrutura e configuração da aplicação.
-* **Node.js** — ambiente utilizado pelas Cloud Functions.
-* **Vercel** — deploy utilizado pela versão pública atual.
+Contas autorizadas pela Custom Claim `multiSemester` podem utilizar o fluxo especial de múltiplos semestres.
 
 ---
 
-# *Estrutura do Projeto*
+## Regras de cálculo
 
-A estrutura do repositório foi reorganizada para separar claramente frontend, backend, documentação e configurações do Firebase.
+A média utilizada atualmente pelo CMU segue:
+
+```text
+Média =
+(AC1 × 0,15) +
+(AC2 × 0,30) +
+(AF  × 0,45) +
+(AG  × 0,10)
+```
+
+Pesos:
+
+| Avaliação | Peso |
+| --- | ---: |
+| AC1 | 15% |
+| AC2 | 30% |
+| AF | 45% |
+| AG | 10% |
+
+A AS não possui peso próprio.
+
+Quando preenchida, o CMU testa sua substituição em cada uma das notas já existentes e mantém apenas a alternativa que produzir a maior média.
+
+Notas não preenchidas não redistribuem seus pesos.
+
+### AF necessária
+
+O cálculo da AF necessária utiliza:
+
+```text
+AF necessária =
+[meta − (AC1 × 0,15 + AC2 × 0,30 + AG × 0,10)] ÷ 0,45
+```
+
+AC1 e AC2 precisam estar preenchidas.
+
+Se AG estiver vazia, sua contribuição é considerada zero.
+
+---
+
+## V3.1
+
+A V3.1 concentra a reformulação da experiência pública do CMU e a preparação para Google AdSense.
+
+Entre as principais alterações estão:
+
+- nova navegação pública;
+- página de Contato;
+- Política de Privacidade;
+- revisão da página Sobre;
+- página 404 própria;
+- conteúdo explicativo sobre os cálculos;
+- melhorias de acessibilidade;
+- melhorias de responsividade;
+- SEO técnico;
+- `robots.txt`;
+- `sitemap.xml`;
+- metadados Open Graph;
+- integração com Google Search Console;
+- integração inicial com Google AdSense;
+- `ads.txt`;
+- preparação para gerenciamento de consentimento.
+
+A presença da integração do AdSense não significa que anúncios serão necessariamente exibidos em todas as visitas. A veiculação depende das configurações e da aprovação do Google.
+
+---
+
+## Páginas
+
+### Públicas e indexáveis
+
+- `index.html` — calculadora e conteúdo explicativo;
+- `sobre.html` — informações sobre o projeto;
+- `contato.html` — canal oficial de contato;
+- `privacidade.html` — Política de Privacidade.
+
+### Operacionais
+
+- `login.html`;
+- `cadastro.html`;
+- `usuario.html`;
+- `404.html`.
+
+As páginas operacionais não fazem parte do conteúdo principal destinado à indexação.
+
+---
+
+## Tecnologias
+
+### Front-end
+
+- HTML5
+- CSS3
+- JavaScript ES Modules
+
+### Backend e dados
+
+- Firebase Authentication
+- Cloud Firestore
+- Firebase Cloud Functions
+- Firebase App Check
+- Google reCAPTCHA
+
+### Infraestrutura
+
+- Vercel
+- Firebase CLI
+- Firebase Emulator Suite
+
+### Testes
+
+- Playwright
+- Node.js
+
+### Serviços externos
+
+- Google Search Console
+- Google AdSense
+
+---
+
+## Estrutura do projeto
 
 ```text
 CMU/
@@ -81,377 +187,135 @@ CMU/
 ├── functions/
 │   ├── index.js
 │   ├── package.json
-│   ├── package-lock.json
 │   └── ...
 │
 ├── public/
 │   │
 │   ├── firebase/
-│   │   └── config.js
-│   │
 │   ├── firestore/
-│   │   ├── carregarSemestres.js
-│   │   ├── mediaGlobal.js
-│   │   └── salvarNotas.js
-│   │
 │   ├── images/
-│   │   ├── logo.png
-│   │   └── usuario.png
-│   │
 │   ├── js/
-│   │   ├── cadastro.js
-│   │   ├── config.js
-│   │   ├── calcularAF.js
-│   │   ├── index.js
-│   │   ├── login.js
-│   │   ├── materiaForm.js
-│   │   ├── sobre.js
-│   │   ├── theme.js
-│   │   └── usuario.js
-│   │
 │   ├── styles/
-│   │   ├── index.css
-│   │   ├── login.css
-│   │   ├── styles.css
-│   │   └── usuario.css
-│   │
 │   ├── 404.html
+│   ├── ads.txt
 │   ├── cadastro.html
+│   ├── contato.html
 │   ├── index.html
 │   ├── login.html
+│   ├── privacidade.html
+│   ├── robots.txt
+│   ├── sitemap.xml
 │   ├── sobre.html
 │   └── usuario.html
 │
-├── .firebaserc
-├── .gitignore
-├── AGENTS.md
+├── tests/
+│   └── e2e/
+│
 ├── firebase.json
 ├── firestore.indexes.json
 ├── firestore.rules
-├── package-lock.json
 ├── package.json
+├── playwright.config.js
 └── README.md
 ```
 
 ---
 
-# *Descrição das Principais Partes*
+## Backend
 
-## 📁 `public`
+As Firebase Cloud Functions mantêm operações que não devem depender apenas do cliente, incluindo:
 
-Contém o frontend da aplicação e representa a principal fonte dos arquivos servidos ao usuário.
+- resolução do semestre único;
+- validação do reCAPTCHA;
+- sincronização segura do e-mail;
+- criação de dados privados da conta;
+- exclusão de conta;
+- exclusão dos dados associados.
 
-A configuração do Firebase Hosting utiliza essa pasta como diretório público da aplicação.
-
----
-
-## 📁 `public/firebase`
-
-Contém a configuração utilizada pelo frontend para conexão com os serviços Firebase.
-
-### `config.js`
-
-Responsável pela inicialização do Firebase no navegador e disponibilização dos serviços utilizados pela aplicação, como autenticação e Firestore.
+As regras do Firestore controlam o acesso aos dados e preservam o fluxo especial das contas com `multiSemester`.
 
 ---
 
-## 📁 `public/firestore`
+## Testes E2E
 
-Contém scripts responsáveis pela interação entre o frontend e o Cloud Firestore.
+Os testes E2E utilizam os emuladores de:
 
-### `carregarSemestres.js`
-
-Resolve e carrega o semestre único do usuário comum e mantém o fluxo de seleção e criação de semestres para contas com a claim `multiSemester`.
-
-### `mediaGlobal.js`
-
-Calcula a média global a partir das médias salvas. O módulo permanece carregado, mas seu painel está oculto na interface atual.
-
-### `salvarNotas.js`
-
-Responsável pelo armazenamento das notas e informações acadêmicas do usuário no Firestore.
+- Authentication;
+- Firestore;
+- Functions;
+- Hosting.
 
 ---
 
-## 📁 `public/images`
+## Segurança
 
-Contém recursos visuais utilizados pela interface.
+Credenciais privadas não devem ser armazenadas no repositório.
 
-### `logo.png`
-
-Logotipo utilizado pela aplicação.
-
-### `usuario.png`
-
-Imagem utilizada na área do usuário.
-
----
-
-## 📁 `public/js`
-
-Contém os scripts responsáveis pela lógica do frontend.
-
-### `cadastro.js`
-
-Controla o processo de criação de contas e integração do cadastro com o Firebase Authentication.
-
-### `calcularAF.js`
-
-Responsável pela lógica utilizada para calcular a nota necessária na AF.
-
-### `index.js`
-
-Script principal da calculadora e das interações da página inicial.
-
-### `materiaForm.js`
-
-Cria os campos de matéria com APIs seguras do DOM e centraliza a validação feita antes do salvamento.
-
-### `login.js`
-
-Controla o processo de autenticação dos usuários.
-
-### `config.js`
-
-Define a versão atual da aplicação.
-
-### `sobre.js`
-
-Aplica a versão no rodapé da página institucional.
-
-### `theme.js`
-
-Controla as preferências de aparência da interface, incluindo modo claro e escuro.
-
-### `usuario.js`
-
-Gerencia interações e funcionalidades da área do usuário.
-
----
-
-## 📁 `public/styles`
-
-Contém os estilos da interface.
-
-### `index.css`
-
-Estilos específicos da página principal.
-
-### `login.css`
-
-Estilos utilizados nas páginas de autenticação.
-
-### `styles.css`
-
-Contém estilos compartilhados e globais da aplicação.
-
-### `usuario.css`
-
-Estilos utilizados na área do usuário.
-
----
-
-## 📁 `functions`
-
-Contém as **Firebase Cloud Functions** utilizadas pelo projeto.
-
-As funções exportadas são `resolveSingleSemester`, `verifyRecaptcha`, `syncEmail`, `onUserCreated`, `deleteAccount` e `deleteUserData`. Elas mantêm o controle do semestre único, a verificação de reCAPTCHA, a sincronização do e-mail autenticado, a criação de dados privados do cadastro e a exclusão de conta e dados.
-
-Arquivos de ambiente e credenciais locais, como `.env`, não são versionados no repositório.
-
----
-
-## 📁 `Docs`
-
-Contém a documentação técnica e de produto relacionada à evolução do CMU.
-
-Atualmente inclui os documentos que definem a estratégia da V3:
-
-### `CMU_V3_Logica_de_Negocio_e_Versionamento.txt`
-
-Define a nova lógica de negócio, a experiência gratuita, a futura estratégia Premium e o modelo de versionamento da V3.
-
-### `CMU_V3_Roadmap_de_Alteracoes.txt`
-
-Define a ordem de execução das versões e fases planejadas para evolução do projeto.
-
----
-
-# *Arquivos de Configuração*
-
-## `.firebaserc`
-
-Define os projetos Firebase associados ao ambiente de desenvolvimento e deploy.
-
----
-
-## `.gitignore`
-
-Define arquivos e diretórios que não devem ser adicionados ao Git, incluindo dependências, logs e arquivos de ambiente com informações sensíveis.
-
----
-
-## `AGENTS.md`
-
-Contém instruções específicas para agentes de desenvolvimento assistido por IA que trabalham no repositório.
-
-O documento define o escopo atual da V3, arquivos relevantes, restrições e regras para alterações no código.
-
----
-
-## `firebase.json`
-
-Contém as configurações utilizadas pelo Firebase CLI, incluindo configuração de Hosting, Functions e outros serviços utilizados pelo projeto.
-
----
-
-## `firestore.rules`
-
-Contém as regras de segurança do Cloud Firestore.
-
-Essas regras controlam quais dados podem ser lidos ou modificados por cada usuário e fazem parte da camada de segurança da aplicação.
-
----
-
-## `firestore.indexes.json`
-
-Contém a configuração dos índices utilizados pelo Firestore.
-
----
-
-## `package.json`
-
-Define dependências, scripts e configurações Node.js utilizadas pelo projeto.
-
----
-
-# *Páginas HTML*
-
-## `index.html`
-
-Página principal da aplicação e da calculadora de médias.
-
-## `login.html`
-
-Página utilizada para autenticação de usuários.
-
-## `cadastro.html`
-
-Página para criação de novas contas.
-
-## `usuario.html`
-
-Área destinada aos usuários autenticados e às informações acadêmicas armazenadas.
-
-## `sobre.html`
-
-Página institucional com informações sobre o projeto.
-
-## `404.html`
-
-Página apresentada quando uma rota solicitada não é encontrada.
-
----
-
-# *Roadmap Atual*
-
-A implementação atual é a **V3.0.1 — Free MVP**. As etapas posteriores abaixo são planejamento e não estão implementadas.
-
-A estratégia definida para as próximas versões é:
-
-### **V3 — MVP Gratuito**
-
-Reformular a experiência gratuita do CMU, removendo a lógica comercial anterior e disponibilizando as principais funcionalidades acadêmicas.
-
-Entre os objetivos estão:
-
-* manter a calculadora gratuita;
-* disponibilizar o cálculo da AF;
-* permitir cadastro e login;
-* permitir que usuários cadastrados salvem até um semestre;
-* revisar e remover dependências desnecessárias do antigo sistema Premium.
-
-### **V3.1 — AdSense**
-
-Revisar o site para adequação às diretrizes do Google AdSense e implementar a monetização por anúncios.
-
-### **V3.1.X — Revisões do AdSense**
-
-Realizar as alterações necessárias até a aprovação do site pela plataforma.
-
-### **V3.2 — Premium Simplificado**
-
-Reintroduzir uma assinatura Premium somente após estabilização da experiência gratuita e aprovação do AdSense.
-
-A nova proposta deverá utilizar apenas um plano mensal e preservar a utilidade do produto gratuito.
-
-### **V3.3 — Premium Orientado por Dados**
-
-Evoluir o Premium utilizando dados reais de utilização e pesquisas com usuários cadastrados para identificar necessidades pelas quais exista disposição real para pagar.
-
----
-
-# *Desenvolvimento*
-
-O desenvolvimento da V3 segue alguns princípios:
-
-* preservar uma experiência gratuita realmente útil;
-* evitar complexidade técnica e comercial sem necessidade;
-* utilizar dados reais antes de expandir a oferta Premium;
-* manter regras de segurança também no backend e no Firestore;
-* documentar alterações relevantes de arquitetura e produto;
-* separar claramente funcionalidades atuais de funcionalidades planejadas.
-
----
-
-# *Testes E2E locais*
-
-Os testes em `tests/e2e` usam Playwright com Firebase Auth, Firestore, Hosting e Functions Emulators. O setup recusa hosts Firebase não locais, limpa apenas os emuladores no início da suíte e cria usuários exclusivos para que os testes não dependam de ordem.
-
-Com os quatro emuladores já iniciados:
-
-```bash
-npm run test:e2e
-npm run test:e2e:ui
-```
-
-Para iniciar os emuladores, executar a suíte e encerrá-los automaticamente:
-
-```bash
-npm run test:e2e:emulators
-```
-
-O comando equivalente com o Firebase CLI é:
-
-```bash
-firebase emulators:exec --only auth,firestore,functions,hosting "npm run test:e2e"
-```
-
-Em falhas, screenshots e traces são gravados em `test-results/`. O relatório HTML é gerado em `playwright-report/`.
-
----
-
-# *Segurança*
-
-Informações sensíveis não devem ser armazenadas no repositório.
-
-Arquivos e credenciais privadas, como:
+Exemplos:
 
 ```text
 .env
 functions/.env
 service account keys
-segredos de serviços
 tokens privados
+segredos de serviços
 ```
 
-devem permanecer apenas nos ambientes apropriados.
+As configurações públicas do Firebase Web SDK não são utilizadas como mecanismo de segurança.
 
-As configurações públicas utilizadas pelo SDK web do Firebase não devem ser consideradas a camada de segurança da aplicação. O controle de acesso deve ser implementado por autenticação, regras do Firestore e validações no backend quando necessário.
+O controle de acesso depende de:
+
+- Firebase Authentication;
+- Firestore Security Rules;
+- validações no backend;
+- App Check;
+- reCAPTCHA.
 
 ---
 
-# *Licença*
+## Privacidade e publicidade
+
+O CMU possui uma Política de Privacidade pública descrevendo os dados tratados pela aplicação e os serviços externos utilizados.
+
+A homepage possui integração técnica com Google AdSense.
+
+O projeto também possui:
+
+```text
+public/ads.txt
+```
+
+com a identificação oficial da conta utilizada para publicidade.
+
+Configurações relacionadas a consentimento e mensagens regulatórias são gerenciadas separadamente pelo Google AdSense.
+
+---
+
+## Documentação
+
+A pasta `Docs/` contém os documentos principais de produto e evolução:
+
+### `CMU_V3_Logica_de_Negocio_e_Versionamento.txt`
+
+Define:
+
+- lógica de negócio da V3;
+- experiência gratuita;
+- estratégia futura de monetização;
+- estratégia de versionamento.
+
+### `CMU_V3_Roadmap_de_Alteracoes.txt`
+
+Define:
+
+- ordem das versões;
+- dependências entre etapas;
+- objetivos de cada fase;
+- critérios gerais de evolução do projeto.
+
+---
+
+## Licença
 
 Copyright (c) 2026 Matheus Iannaccone
 
@@ -463,6 +327,6 @@ Nenhuma parte deste código pode ser copiada, modificada, distribuída ou utiliz
 
 ---
 
-# *Autor*
+## Autor
 
 **Matheus Iannaccone**

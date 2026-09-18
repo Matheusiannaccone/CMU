@@ -64,7 +64,7 @@ body.dark-mode .materia {
 
 .materia h2 {
     font-size: 1.3rem;
-    color: var(--cor-primaria-clara);
+    color: var(--cor-link);
     margin-bottom: 12px;
     font-weight: 600;
 }
@@ -211,7 +211,7 @@ body.dark-mode .media-box {
 .media-box h2 {
     font-size: 1.4rem;
     margin-bottom: 8px;
-    color: var(--cor-primaria);
+    color: var(--cor-link);
 }
 
 body.dark-mode .media-box h2 {
@@ -238,6 +238,91 @@ body.dark-mode .feedback {
 
 .feedback.visible {
     opacity: 1;
+}
+
+/* ========== GUIA DE USO ABAIXO DA CALCULADORA ========== */
+.calculator-guide {
+    max-width: 760px;
+    margin: 40px auto 0;
+    overflow-wrap: anywhere;
+}
+
+.calculator-guide h2 {
+    color: var(--cor-link);
+    margin-bottom: 12px;
+}
+
+.calculator-guide h3 {
+    color: var(--cor-link);
+    margin-bottom: 10px;
+}
+
+.calculator-guide h4 {
+    margin-bottom: 8px;
+}
+
+body.dark-mode .calculator-guide h2,
+body.dark-mode .calculator-guide h3 {
+    color: var(--cor-texto-escuro);
+}
+
+.calculator-guide section + section {
+    margin-top: 28px;
+}
+
+.calculator-guide p,
+.calculator-guide ul,
+.calculator-guide ol {
+    margin-bottom: 12px;
+}
+
+.calculator-guide ul,
+.calculator-guide ol {
+    padding-inline-start: 1.5rem;
+}
+
+.guide-formula {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.guide-example {
+    border-inline-start: 4px solid var(--cor-primaria);
+    background: var(--cor-input);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 16px 0;
+}
+
+body.dark-mode .guide-example {
+    border-inline-start-color: var(--cor-primaria-clara);
+    background: var(--cor-input-escuro);
+}
+
+.guide-example p:last-child {
+    margin-bottom: 0;
+}
+
+.guide-note {
+    border-top: 1px solid var(--cor-borda);
+    padding-top: 18px;
+    margin-top: 28px;
+}
+
+body.dark-mode .guide-note {
+    border-top-color: var(--cor-borda-escura);
+}
+
+.feedback[data-state="success"] {
+    color: var(--cor-link);
+}
+
+.feedback[data-state="error"] {
+    color: #a61b1b;
+}
+
+body.dark-mode .feedback[data-state="error"] {
+    color: #ffd0d0;
 }
 
 /* ========== RESPONSIVIDADE ========== */

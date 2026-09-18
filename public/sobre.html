@@ -3,53 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre - Calculadora de Média Universitária</title>
+  <title>Sobre o CMU — Calculadora de Médias Universitárias</title>
+  <meta name="description" content="Conheça o CMU, projeto independente para organizar matérias, calcular médias universitárias e acompanhar um semestre.">
+  <link rel="canonical" href="https://calculadora-medias-universitarias.vercel.app/sobre.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="CMU — Calculadora de Médias Universitárias">
+  <meta property="og:title" content="Sobre o CMU — Calculadora de Médias Universitárias">
+  <meta property="og:description" content="Conheça o CMU, projeto independente para organizar matérias, calcular médias universitárias e acompanhar um semestre.">
+  <meta property="og:url" content="https://calculadora-medias-universitarias.vercel.app/sobre.html">
+  <meta property="og:image" content="https://calculadora-medias-universitarias.vercel.app/images/logo.png">
+  <meta property="og:image:alt" content="Logo do CMU">
+  <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
 
-<div class="barra-login">
-  <a href="index.html"><button class="btn-uni">Página Inicial</button></a>
-  <a href="login.html"><button class="btn-uni">Login</button></a>
-</div>
+  <div class="barra-superior">
+    <div class="barra-esquerda">
+      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+    </div>
+
+
+    <div class="barra-centro">
+      <span class="marca">CMU</span>
+    </div>
+    
+    <div class="barra-direita">
+      <a id="loginBtn" class="header-action" href="login.html">Fazer login</a>
+      <button id="logoutBtn" type="button" hidden>Logout</button>
+      <a id="signupBtn" class="header-action" href="cadastro.html">Cadastrar</a>
+      <button type="button" class="theme-toggle" aria-label="Alternar modo claro ou escuro" onclick="toggleTheme()">
+        <span class="sun-icon" aria-hidden="true">☀️</span>
+        <span class="moon-icon" aria-hidden="true">🌙</span>
+      </button>
+    </div>
+  </div>
+
+<div class="espaco"></div>
 
 <div class="container">
+  <nav class="site-nav" aria-label="Navegação principal">
+    <a href="index.html">Início</a>
+    <a href="sobre.html" aria-current="page">Sobre</a>
+    <a href="contato.html">Contato</a>
+    <a href="privacidade.html">Política de Privacidade</a>
+  </nav>
+
+  <main>
   <header>
-    <h1>Sobre a Calculadora de Média Universitária</h1>
+    <h1>Sobre o CMU</h1>
   </header>
 
   <section class="sobre-descricao">
     <p>
-      A <strong>Calculadora de Média Universitária</strong> foi desenvolvida para auxiliar
-      estudantes a organizarem suas matérias, lançarem notas e acompanharem seu
-      desempenho acadêmico durante o semestre.
+      O <strong>CMU — Calculadora de Médias Universitárias</strong> nasceu para tornar mais simples
+      acompanhar as notas de cada matéria e entender o resultado do semestre em um só lugar.
+      Ele oferece uma calculadora que pode ser usada sem cadastro; com uma conta, também é
+      possível salvar, consultar e editar um semestre.
     </p>
 
-    <p>
-      Com esta ferramenta, você pode:
-    </p>
-    <ul>
-      <li>Adicionar e organizar matérias do semestre;</li>
-      <li>Inserir notas de avaliações como ACs, AF, AG e AS;</li>
-      <li>Calcular automaticamente as médias individuais das matérias;</li>
-      <li>Obter a média geral do semestre em tempo real;</li>
-      <li>Ao entrar na conta, salvar um semestre e acessá-lo novamente.</li>
-    </ul>
+    <h2>Por que o projeto existe</h2>
+    <p>Ao reunir matérias, notas e resultados na mesma interface, o CMU busca reduzir o trabalho de repetir contas e ajudar o estudante a perceber o que já sabe e o que ainda precisa acompanhar. A explicação dos cálculos está junto da calculadora, para que você possa comparar cada exemplo com seus próprios resultados.</p>
 
-    <p>
-      O site foi projetado para ser simples, intuitivo e seguro, garantindo
-      que suas informações fiquem protegidas.
-    </p>
+    <h2>Projeto independente</h2>
+    <p>O CMU é desenvolvido por Matheus Iannaccone de forma independente. Não é uma ferramenta oficial da Facens, não possui vínculo institucional com ela e não representa outras instituições de ensino. Para dúvidas sobre as regras da sua instituição, consulte os canais oficiais dela.</p>
 
   </section>
+  </main>
 
   <footer>
-    <p>Versão <span id="app-version"></span></p>
-    &copy; 2026 CMU - Todos os direitos reservados
+    <nav class="site-footer-links" aria-label="Links institucionais">
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="privacidade.html">Política de Privacidade</a>
+    </nav>
+    &copy; 2026 CMU — Calculadora de Médias Universitárias. Todos os direitos reservados.
   </footer>
 </div>
 
 <script src="js/theme.js" type="module"></script>
-<script src="js/sobre.js" type="module"></script>
+<script src="js/script.js" type="module"></script>
 </body>
 </html>
