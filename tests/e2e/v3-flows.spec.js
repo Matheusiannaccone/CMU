@@ -88,8 +88,10 @@ test("faz login com usuário criado no Auth Emulator", async ({ page, cleanupUid
 
   await login(page, credentials.email, credentials.password);
 
-  await expect(page.locator("#loginBtn")).toHaveText("Logout");
-  await expect(page.locator("#signupBtn")).toHaveText("Usuario");
+  await expect(page.locator("#loginBtn")).toBeHidden();
+  await expect(page.locator("#logoutBtn")).toBeVisible();
+  await expect(page.locator("#signupBtn")).toHaveText("Usuário");
+  await expect(page.locator("#signupBtn")).toHaveAttribute("href", "usuario.html");
 });
 
 test("cria e reutiliza o semestre único", async ({ page, cleanupUids }) => {
