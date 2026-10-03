@@ -1,6 +1,8 @@
 // firestore/carregarSemestres.js
 // ---------------- FIRESTORE (CDN) ----------------
-import { auth, db, functions } from "../firebase/config.js";
+import { auth } from "../firebase/auth.js";
+import { db } from "../firebase/firestore.js";
+import { functions } from "../firebase/functions.js";
 import {
   collection,
   addDoc,

@@ -1,5 +1,6 @@
 // js/usuario.js
-import { auth, db, functions } from "../firebase/config.js";
+import { auth } from "../firebase/auth.js";
+import { db } from "../firebase/firestore.js";
 import {
   updateEmail,
   updatePassword,
@@ -11,7 +12,6 @@ import {
   getDoc,
   setDoc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
 
 const usuarioNomeInfo = document.getElementById("usuarioNomeInfo");
 const nomeUsuario = document.getElementById("nomeUsuario");
@@ -190,6 +190,10 @@ confirmarReauthBtn?.addEventListener("click", async () => {
 
       await updateEmail(user, novoEmail);
 
+      const [{ functions }, { httpsCallable }] = await Promise.all([
+        import("../firebase/functions.js"),
+        import("https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js")
+      ]);
       const syncEmail = httpsCallable(functions, "syncEmail");
       await syncEmail({ email: novoEmail });
 

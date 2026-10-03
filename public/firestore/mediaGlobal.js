@@ -1,5 +1,6 @@
 // firestore/mediaGlobal.js
-import { auth, db } from "../firebase/config.js";
+import { auth } from "../firebase/auth.js";
+import { db } from "../firebase/firestore.js";
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 const mediaGlobalEl = document.getElementById("mediaGlobal");

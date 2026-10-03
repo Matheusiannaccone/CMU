@@ -1,5 +1,7 @@
 // js/cadastro.js
-import { auth, db, functions } from "../firebase/config.js";
+import { auth } from "../firebase/auth.js";
+import { db } from "../firebase/firestore.js";
+import { functions } from "../firebase/functions.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
