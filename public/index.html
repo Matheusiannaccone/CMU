@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CMU — Calculadora de Médias Universitárias</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
   <meta name="google-site-verification" content="WgMXKs1bxlYCAPw8fI30aEy0Y6r-pzKtGSJIIiULYc0" />
   <meta name="description" content="Calcule médias de matérias e a AF necessária no CMU. Com uma conta, você também pode salvar e editar um semestre.">
   <link rel="canonical" href="https://calculadora-medias-universitarias.vercel.app/">
@@ -22,14 +23,16 @@
 </head>
 <body>
 
+  <script src="/js/themeBootstrap.js"></script>
+
   <div class="barra-superior">
     <div class="barra-esquerda">
-      <img src="images/logo.png" alt="Logo CMU" class="logo-barra">
+      <img src="images/logo-ui.webp" alt="Logo CMU" class="logo-barra">
     </div>
 
 
     <div class="barra-centro">
-      <span class="marca">CMU</span>
+      <span class="marca">Início</span>
     </div>
     
     <div class="barra-direita">
@@ -113,9 +116,9 @@
           </div>
         </div>
 
-        <section class="calculator-guide" aria-labelledby="guide-title">
+        <div class="calculator-guide">
           <section aria-labelledby="guide-uso">
-            <h3 id="guide-uso">Como usar o CMU</h3>
+            <h2 id="guide-uso" class="guide-usage-title">Como usar o CMU</h2>
             <ol>
               <li>Informe o nome da matéria e as notas que você já conhece.</li>
               <li>Acompanhe a média individual e a média geral; adicione outras matérias quando precisar.</li>
@@ -123,28 +126,29 @@
               <li>Faça login se quiser salvar e editar seu semestre depois.</li>
             </ol>
           </section>
-          
-          <h2 id="guide-title">Entenda seus resultados</h2>
-          <p>O CMU usa a lógica de cálculo descrita abaixo para ajudar você a acompanhar as notas do semestre.</p>
 
-          <section aria-labelledby="guide-calculo">
-            <h3 id="guide-calculo">Como o cálculo funciona</h3>
-            <p>Na lógica atualmente implementada pelo CMU, a média de cada matéria parte desta soma:</p>
-            <p class="guide-formula">Média = (AC1 × 0,15) + (AC2 × 0,30) + (AF × 0,45) + (AG × 0,10)</p>
-            <ul>
-              <li><strong>AC1:</strong> contribui com 15% da média.</li>
-              <li><strong>AC2:</strong> contribui com 30% da média.</li>
-              <li><strong>AF:</strong> contribui com 45% da média.</li>
-              <li><strong>AG:</strong> contribui com 10% da média.</li>
-              <li><strong>AS:</strong> não tem peso próprio; pode substituir uma nota preenchida, conforme explicado a seguir.</li>
-            </ul>
-            <p>Uma nota em branco não contribui para a soma, e seu peso não é redistribuído. A média só aparece quando há pelo menos uma nota preenchida entre AC1, AC2, AF e AG.</p>
-            <div class="guide-example">
-              <h4>Exemplo de média da matéria</h4>
-              <p>Com AC1 = 8, AC2 = 7, AF = 6 e AG = 9:</p>
-              <p class="guide-formula">(8 × 0,15) + (7 × 0,30) + (6 × 0,45) + (9 × 0,10) = 1,20 + 2,10 + 2,70 + 0,90 = 6,90.</p>
-            </div>
-          </section>
+          <section aria-labelledby="guide-title">
+            <h2 id="guide-title">Entenda seus resultados</h2>
+            <p>O CMU usa a lógica de cálculo descrita abaixo para ajudar você a acompanhar as notas do semestre.</p>
+
+            <section aria-labelledby="guide-calculo">
+              <h3 id="guide-calculo">Como o cálculo funciona</h3>
+              <p>Na lógica atualmente implementada pelo CMU, a média de cada matéria parte desta soma:</p>
+              <p class="guide-formula">Média = (AC1 × 0,15) + (AC2 × 0,30) + (AF × 0,45) + (AG × 0,10)</p>
+              <ul>
+                <li><strong>AC1:</strong> contribui com 15% da média.</li>
+                <li><strong>AC2:</strong> contribui com 30% da média.</li>
+                <li><strong>AF:</strong> contribui com 45% da média.</li>
+                <li><strong>AG:</strong> contribui com 10% da média.</li>
+                <li><strong>AS:</strong> não tem peso próprio; pode substituir uma nota preenchida, conforme explicado a seguir.</li>
+              </ul>
+              <p>Uma nota em branco não contribui para a soma, e seu peso não é redistribuído. A média só aparece quando há pelo menos uma nota preenchida entre AC1, AC2, AF e AG.</p>
+              <div class="guide-example">
+                <h4>Exemplo de média da matéria</h4>
+                <p>Com AC1 = 8, AC2 = 7, AF = 6 e AG = 9:</p>
+                <p class="guide-formula">(8 × 0,15) + (7 × 0,30) + (6 × 0,45) + (9 × 0,10) = 1,20 + 2,10 + 2,70 + 0,90 = 6,90.</p>
+              </div>
+            </section>
 
           <section aria-labelledby="guide-as">
             <h3 id="guide-as">Como a AS é considerada?</h3>
@@ -169,8 +173,9 @@
             <p>A <strong>média da matéria</strong> é o resultado individual de uma disciplina, com a eventual substituição pela AS. A <strong>média geral</strong> é a média aritmética das matérias que têm pelo menos uma nota preenchida no semestre mostrado. Por exemplo, matérias com médias exatas de 6,90 e 8,00 produzem média geral de (6,90 + 8,00) ÷ 2 = <strong>7,45</strong>. O cálculo usa os valores das matérias antes do arredondamento exibido.</p>
           </section>
 
-          <p class="guide-note">O CMU é uma ferramenta auxiliar baseada na lógica implementada neste projeto. Regras acadêmicas podem variar; em caso de dúvida, consulte as orientações oficiais da sua instituição.</p>
-        </section>
+            <p class="guide-note">O CMU é uma ferramenta auxiliar baseada na lógica implementada neste projeto. Regras acadêmicas podem variar; em caso de dúvida, consulte as orientações oficiais da sua instituição.</p>
+          </section>
+        </div>
       </main>
     </div>
 

@@ -9,7 +9,7 @@ async function initializeGlobalUI() {
   if (!loginLink && !signupLink && !logoutBtn) return;
 
   const [{ auth }, { onAuthStateChanged, signOut }] = await Promise.all([
-    import("../firebase/config.js"),
+    import("../firebase/auth.js"),
     import("https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js")
   ]);
 

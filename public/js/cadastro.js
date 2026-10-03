@@ -1,8 +1,11 @@
 // js/cadastro.js
-import { auth, db, functions } from "../firebase/config.js";
+import { auth } from "../firebase/auth.js";
+import { db } from "../firebase/firestore.js";
+import { functions } from "../firebase/functions.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+import { executeRecaptcha } from "./recaptcha.js";
 
 const registerBtn = document.getElementById("registerBtn");
 const cadastroForm = document.getElementById("cadastroForm");
@@ -108,9 +111,7 @@ cadastroForm.addEventListener("submit", async (event) => {
   registerBtn.disabled = true;
 
   try {
-    const token = await grecaptcha.execute(SITE_KEY, { 
-      action: 'signup'
-    }); 
+    const token = await executeRecaptcha(SITE_KEY, "signup");
 
     const verifyRecaptcha = httpsCallable(functions, 'verifyRecaptcha');
 
