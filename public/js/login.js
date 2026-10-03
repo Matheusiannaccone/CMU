@@ -3,6 +3,7 @@ import { auth } from "../firebase/auth.js";
 import { functions } from "../firebase/functions.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import { httpsCallable } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js";
+import { executeRecaptcha } from "./recaptcha.js";
 
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
@@ -26,9 +27,7 @@ loginForm.addEventListener("submit", async (event) => {
   loginBtn.disabled = true;
 
   try {
-    const token = await grecaptcha.execute(SITE_KEY, { 
-      action: 'login'
-    });
+    const token = await executeRecaptcha(SITE_KEY, "login");
 
     const verifyRecaptcha = httpsCallable(functions, 'verifyRecaptcha');
 
