@@ -252,6 +252,11 @@ body.dark-mode .feedback {
     margin-bottom: 12px;
 }
 
+.calculator-guide .guide-usage-title {
+    font-size: 1.17em;
+    margin-bottom: 10px;
+}
+
 .calculator-guide h3 {
     color: var(--cor-link);
     margin-bottom: 10px;
@@ -268,6 +273,10 @@ body.dark-mode .calculator-guide h3 {
 
 .calculator-guide section + section {
     margin-top: 28px;
+}
+
+.calculator-guide > section + section {
+    margin-top: 0;
 }
 
 .calculator-guide p,

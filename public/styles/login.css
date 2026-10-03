@@ -231,7 +231,7 @@ body.dark-mode .auth-container .link a:hover {
 
     .auth-container input,
     .auth-container select {
-        font-size: 14px;
+        font-size: 16px;
         padding: 10px;
     }
 }
