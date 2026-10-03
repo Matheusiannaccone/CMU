@@ -32,20 +32,3 @@ window.toggleTheme = function () {
       : "light"
   );
 };
-
-// carrega ao abrir
-document.addEventListener("DOMContentLoaded", () => {
-  const temaSalvo =
-    localStorage.getItem("temaBase") || "default";
-
-  const modoSalvo =
-    localStorage.getItem("modoTema") || "light";
-
-  if (temaSalvo !== "default") {
-    document.body.setAttribute("data-theme", temaSalvo);
-  }
-
-  if (modoSalvo === "dark") {
-    document.body.classList.add("dark-mode");
-  }
-});
